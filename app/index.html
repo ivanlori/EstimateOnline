@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="A free online estimate of cost">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Estimate</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" media="print" href="styles/print.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div id="app">
+      <div class="box">
+        <div class="action-container">
+          <button type="button" id="js-create-btn">Create PDF</button>
+          <button type="button" id="js-print-btn">Print</button>
+          <button type="button" id="js-change-language-btn">Change language</button>
+        </div>
+        <header class="box__header">
+          <form>
+            <div class="box__header__first">
+              <div class="box__header__first__left">
+                <h3>From</h3>
+                <input type="text" id="js-name-input" name="senderName" placeholder="Your name">
+                <textarea id="js-sender-adress-input" name="senderAdress" placeholder="Your address"></textarea>
+              </div>
+              <div class="box__header__first__right">
+                <div>
+                  <h3>Company name</h3>
+                  <input type="text" id="js-sender-logo-input" name="senderLogo" placeholder="Company name">
+                  <input type="file" id="js-sender-logo-image" class="hidden">
+                  <button type="button" id="js-upload-btn">Or upload image</button>
+                </div>
+              </div>
+            </div>
+            <div class="box__header__second">
+              <div class="box__header__second__left">
+                <h3>To</h3>
+                <input type="text" name="customerName" placeholder="Customer name">
+                <textarea id="js-customer-address-input" name="customerAdress" placeholder="Customer address"></textarea>
+              </div>
+              <div class="box__header__second__right">
+                <div>
+                  <h3>Estimate #</h3>
+                  <input id="js-estimate-input" type="text" name="estimateNumber" placeholder="Customer name">
+                </div>
+                <div>
+                  <h3>Estimate date</h3>
+                  <input id="js-date-input" type="text" name="estimateDate" placeholder="--/--/----">
+                </div>
+              </div>
+            </div>
+          </form>
+        </header>
+        <main class="box__main">
+          <div class="box__wrapper__table">
+            <table class="box__main__table">
+            <thead>
+              <td class="box__main__table__cell small">Item</td>
+              <td class="box__main__table__cell large">Description</td>
+              <td class="box__main__table__cell small">Unity price</td>
+              <td class="box__main__table__cell small">Quantity</td>
+              <td class="box__main__table__cell small">Amount</td>
+            </thead>
+            <tbody id="tbody">
+              <tr class="box__main__table__row">
+                <td class="box__main__table__row__cell small">
+                  <select id="js-select-product-0" class="js-select" name="productSelected0">
+                    <option value="0">-- Select --</option>
+                    <option value="1">Service</option>
+                    <option value="2">Hours</option>
+                    <option value="3">Days</option>
+                    <option value="4">Product</option>
+                    <option value="5">Discount</option>
+                  </select>
+                </td>
+                <td class="box__main__table__row__cell large">
+                  <textarea id="js-description-product-0" class="js-input-description" name="productDescription0"></textarea>
+                </td>
+                <td class="box__main__table__row__cell small">
+                  <input id="js-unity-product-0" class="js-input-unity" name="productUnity0" type="text" placeholder="0.00">
+                </td>
+                <td class="box__main__table__row__cell small">
+                  <input id="js-quantity-product-0" class="js-input-quantity" name="productQuantity0" type="text" placeholder="0">
+                </td>
+                <td class="box__main__table__row__cell small">
+                  <input id="js-amount-product-0" class="js-input-amount" name="productAmount0" type="text" placeholder="0.00">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div id="js-add-product-btn" class="box__main__btn">
+            <button>Add product</button>
+          </div>
+        </main>
+        <footer class="box__footer">
+          <div class="box__footer__left">
+            <div>
+              <h3>Estimate notes</h3>
+              <textarea js="js-note-input" placeholder="Add some notes..."></textarea>
+            </div>
+          </div>
+          <div class="box__footer__right">
+            <ul>
+              <li>
+                <strong>Subtotal</strong> <span class="js-subtotal">0</span>
+              </li>
+              <li>
+                <strong>Total</strong> <span class="js-total">0</span>
+              </li>
+              <li>
+                <strong>Amount Paid</strong> <span class="js-amount-paid">0</span>
+              </li>
+              <li>
+                <strong>Estimate</strong> <span class="js-estimate">0</span>
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
