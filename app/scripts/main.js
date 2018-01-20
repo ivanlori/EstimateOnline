@@ -17,10 +17,10 @@
 
         // Input table fields
   const $addProductBtn = document.getElementById('js-add-product-btn'),
-        $defaultSelectTag = document.getElementById('js-select-product-0'),
-        $subtotal = document.querySelector('.js-subtotal'),
-        $total = document.querySelector('.js-total'),
-        $estimate = document.querySelector('.js-estimate'),
+        $subtotal = document.querySelector('.js-subtotal-value'),
+        $total = document.querySelector('.js-total-value'),
+        $estimate = document.querySelector('.js-estimate-value'),
+        $discount = document.querySelector('.js-discount'),
 
         // Input data fields
         $logoInputField = document.getElementById('js-sender-logo-input'),
@@ -188,8 +188,7 @@
               '1': 'Service',
               '2': 'Hours',
               '3': 'Days',
-              '4': 'Product',
-              '5': 'Discount'
+              '4': 'Product'
           };
 
       for (let key in items) {
@@ -245,38 +244,51 @@
       // Insert the row created
       $tbody.appendChild(createRowTable(id));
 
-      let unityId = document.getElementById(`js-unity-product-${id}`),
+      let productId = document.getElementById(`js-select-product-${id}`),
+          unityId = document.getElementById(`js-unity-product-${id}`),
           quantityId = document.getElementById(`js-quantity-product-${id}`),
           amountId = document.getElementById(`js-amount-product-${id}`);
 
+
       // Focus out on dynamic input id
       quantityId.addEventListener('focusout', function() {
-
-        if (unityId.value !== '' && quantityId.value !== '') {
-          amountId.value = calculateSingleAmount(unityId.value, quantityId.value);
-          calculateTotalAmount();
-        }
-
+        onQuantityFocusOutHandler(this, unityId, amountId);
       });
-
-      if (sessionStorage.getItem('defaultSelectProduct')) {
-
-        // set the item select in the default row
-        $defaultSelectTag
-          .querySelector(`option[value="${sessionStorage.getItem('defaultSelectProduct')}"]`)
-          .setAttribute('selected', 'selected');
-      }
 
     }
 
   };
 
-  // Focus out on default first row input
-  $firstInputQuantity.addEventListener('focusout', function() {
-    if ($firstInputQuantity.value !== '' && $firstInputUnity.value !== '') {
-      $firstInputAmount.value = calculateSingleAmount($firstInputUnity.value, $firstInputQuantity.value);
+  const onQuantityFocusOutHandler = (quantityField, unityField, amountField) => {
+
+    let isQuantityEmpty = quantityField.value === '',
+      isUnityEmpty = unityField.value === '',
+      hasUnityValueInvalid = isNaN(unityField.value),
+      hasQuantityValueInvalid = isNaN(quantityField.value);
+
+    if (isUnityEmpty || hasUnityValueInvalid) {
+      unityField.classList.add('error');
+    } else if (isQuantityEmpty || hasQuantityValueInvalid) {
+      quantityField.classList.add('error');
+    } else {
+
+      quantityField.classList.remove('error');
+      unityField.classList.remove('error');
+
+      amountField.value = calculateSingleAmount(unityField.value, quantityField.value);
       calculateTotalAmount();
     }
+
+  };
+
+  const calculateDiscount = (discount) => {
+    let discountResult = (discount.value / 100) * $total.innerHTML;
+
+    $estimate.innerHTML = `${$total.innerHTML - discountResult}€`;
+  };
+
+  $firstInputQuantity.addEventListener('focusout', function() {
+    onQuantityFocusOutHandler(this, $firstInputUnity, $firstInputAmount);
   });
 
   $addProductBtn.addEventListener('click', function() {
@@ -287,13 +299,12 @@
     switchLogoInputType();
   });
 
-  // get the default row select product and save it
-  $defaultSelectTag.addEventListener('change', function() {
-    sessionStorage.setItem('defaultSelectProduct', $defaultSelectTag.value);
-  });
-
   $createPdfBtn.addEventListener('click', function() {
     createPdf();
+  });
+
+  $discount.addEventListener('change', function() {
+    calculateDiscount(this);
   });
 
   $printBtn.addEventListener('click', function() {

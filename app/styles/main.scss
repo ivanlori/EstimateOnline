@@ -39,7 +39,7 @@ select {
 }
 
 .hidden {
-  display: none;
+  display: none!important;
 }
 
 .visible {
@@ -163,6 +163,20 @@ ul {
       display: inline-block;
       position: absolute;
       bottom: 120px;
+    }
+    &__discount {
+      float: right;
+
+      label {
+        position: relative;
+        top: 20px;
+      }
+      input {
+        text-align: right;
+        min-width: 0;
+        width: 60%;
+        float: right;
+      }
     }
   }
   &__footer {

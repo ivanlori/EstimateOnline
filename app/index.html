@@ -24,8 +24,7 @@
     <!-- endbuild -->
   </head>
   <body>
-    <div id="app">
-      <div class="box">
+    <div class="box">
         <div class="action-container">
           <button type="button" id="js-create-btn">Create PDF</button>
           <button type="button" id="js-print-btn">Print</button>
@@ -70,43 +69,47 @@
         <main class="box__main">
           <div class="box__wrapper__table">
             <table class="box__main__table">
-            <thead>
-              <td class="box__main__table__cell small">Item</td>
-              <td class="box__main__table__cell large">Description</td>
-              <td class="box__main__table__cell small">Unity price</td>
-              <td class="box__main__table__cell small">Quantity</td>
-              <td class="box__main__table__cell small">Amount</td>
-            </thead>
-            <tbody id="tbody">
-              <tr class="box__main__table__row">
-                <td class="box__main__table__row__cell small">
-                  <select id="js-select-product-0" class="js-select" name="productSelected0">
-                    <option value="0">-- Select --</option>
-                    <option value="1">Service</option>
-                    <option value="2">Hours</option>
-                    <option value="3">Days</option>
-                    <option value="4">Product</option>
-                    <option value="5">Discount</option>
-                  </select>
-                </td>
-                <td class="box__main__table__row__cell large">
-                  <textarea id="js-description-product-0" class="js-input-description" name="productDescription0"></textarea>
-                </td>
-                <td class="box__main__table__row__cell small">
-                  <input id="js-unity-product-0" class="js-input-unity" name="productUnity0" type="text" placeholder="0.00">
-                </td>
-                <td class="box__main__table__row__cell small">
-                  <input id="js-quantity-product-0" class="js-input-quantity" name="productQuantity0" type="text" placeholder="0">
-                </td>
-                <td class="box__main__table__row__cell small">
-                  <input id="js-amount-product-0" class="js-input-amount" name="productAmount0" type="text" placeholder="0.00">
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              <thead>
+                <td class="box__main__table__cell small">Item</td>
+                <td class="box__main__table__cell large">Description</td>
+                <td class="box__main__table__cell small">Unity price</td>
+                <td class="box__main__table__cell small">Quantity</td>
+                <td class="box__main__table__cell small">Amount</td>
+              </thead>
+              <tbody id="tbody">
+                <tr class="box__main__table__row">
+                  <td class="box__main__table__row__cell small">
+                    <select id="js-select-product-0" class="js-select" name="productSelected0">
+                      <option value="0">-- Select --</option>
+                      <option value="1">Service</option>
+                      <option value="2">Hours</option>
+                      <option value="3">Days</option>
+                      <option value="4">Product</option>
+                    </select>
+                  </td>
+                  <td class="box__main__table__row__cell large">
+                    <textarea id="js-description-product-0" class="js-input-description" name="productDescription0"></textarea>
+                  </td>
+                  <td class="box__main__table__row__cell small">
+                    <input id="js-unity-product-0" class="js-input-unity" name="productUnity0" type="text" placeholder="0.00">
+                  </td>
+                  <td class="box__main__table__row__cell small">
+                    <input id="js-quantity-product-0" class="js-input-quantity" name="productQuantity0" type="text" placeholder="0">
+                  </td>
+                  <td class="box__main__table__row__cell small">
+                    <input id="js-amount-product-0" class="js-input-amount" name="productAmount0" type="text" placeholder="0.00">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div id="js-add-product-btn" class="box__main__btn">
-            <button>Add product</button>
+          <div>
+            <div id="js-add-product-btn" class="box__main__btn">
+              <button>Add product</button>
+            </div>
+            <div class="box__main__discount">
+              <label>Discount of</label> </pan><input type="text" class="js-discount" name="discount" placeholder="0%">
+            </div>
           </div>
         </main>
         <footer class="box__footer">
@@ -119,22 +122,21 @@
           <div class="box__footer__right">
             <ul>
               <li>
-                <strong>Subtotal</strong> <span class="js-subtotal">0</span>
+                <strong>Subtotal</strong> <span class="js-subtotal-value">0</span>
               </li>
               <li>
-                <strong>Total</strong> <span class="js-total">0</span>
+                <strong>Total</strong> <span class="js-total-value">0</span>
               </li>
               <li>
-                <strong>Amount Paid</strong> <span class="js-amount-paid">0</span>
+                <strong>Amount Paid</strong> <span class="js-amount-paid-value">0</span>
               </li>
               <li>
-                <strong>Estimate</strong> <span class="js-estimate">0</span>
+                <strong>Estimate</strong> <span class="js-estimate-value">0</span>
               </li>
             </ul>
           </div>
         </footer>
       </div>
-    </div>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
