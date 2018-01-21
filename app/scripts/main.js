@@ -23,8 +23,11 @@
         $discount = document.querySelector('.js-discount'),
 
         // Input data fields
-        $logoInputField = document.getElementById('js-sender-logo-input'),
-        $logoImageField = document.getElementById('js-sender-logo-image'),
+        $logoInputField = document.getElementById('js-logo-name'),
+        $logoImageField = document.getElementById('js-logo-image'),
+        $datepicker = document.getElementById('js-datepicker'),
+        $imgBlank = document.getElementsByClassName('js-image-blank'),
+        $logoSwitch = document.getElementById('js-logo-switch'),
 
         // Buttons
         $createPdfBtn = document.getElementById('js-create-btn'),
@@ -35,7 +38,7 @@
       $firstInputAmount = document.getElementById('js-amount-product-0'),
       $firstInputQuantity = document.getElementById('js-quantity-product-0'),
       id = 0,
-      isLogoBtnClicked = false;
+      isLogoImageBtnClicked = false;
 
   const saveDataInLocalStorage = () => {
 
@@ -49,37 +52,41 @@
 
   const switchLogoInputType = () => {
 
-    if (isLogoBtnClicked) {
-      $logoInputField.classList.remove('hidden');
-      $logoImageField.classList.add('hidden');
+    if (isLogoImageBtnClicked) {
+      $logoSwitch.classList.add('x-logo-name');
+      $logoSwitch.classList.remove('x-logo-image');
       $uploadBtn.innerText = 'Upload image';
-      isLogoBtnClicked = false;
+      isLogoImageBtnClicked = false;
     } else {
-      $logoInputField.classList.add('hidden');
-      $logoImageField.classList.remove('hidden');
-      $uploadBtn.innerText = 'Write your company name';
-      isLogoBtnClicked = true;
+      $logoSwitch.classList.remove('x-logo-name');
+      $logoSwitch.classList.add('x-logo-image');
+      $uploadBtn.innerText = 'Company name';
+      isLogoImageBtnClicked = true;
     }
 
   };
 
   /**
-   * Thanks to: https://stackoverflow.com/questions/19183180/how-to-save-an-image-to-localstorage-and-display-it-on-the-next-page
+   * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
    *
    * This converts an image into base 64 format
    * and then is possible to retrieve via local storage
    */
-  const getBase64Image = (img) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
+  const getBase64Image = (event) => {
 
-    let ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
+    const myCanvas = document.getElementById('js-image-blank');
+    let ctx = myCanvas.getContext('2d');
+    let img = new Image();
+    img.onload = function(){
+      myCanvas.width = img.width;
+      myCanvas.height = img.height;
 
-    let dataURL = canvas.toDataURL('image/png');
+      ctx.drawImage(img, 0, 0);
+    };
 
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
+    img.src = URL.createObjectURL(event.target.files[0]);
+    myCanvas.classList.remove('hidden');
+
   };
 
   const validateDataTable = (id) => {
@@ -90,19 +97,15 @@
         $defaultQuantityId = {};
 
     if (id === 0) {
-
-          $defaultSelectId = document.getElementById('js-select-product-0');
-          $defaultUnityId = document.getElementById('js-unity-product-0');
-          $defaultAmountId = document.getElementById('js-amount-product-0');
-          $defaultQuantityId = document.getElementById('js-quantity-product-0');
-
+      $defaultSelectId = document.getElementById('js-select-product-0');
+      $defaultUnityId = document.getElementById('js-unity-product-0');
+      $defaultAmountId = document.getElementById('js-amount-product-0');
+      $defaultQuantityId = document.getElementById('js-quantity-product-0');
     } else {
-
-          $defaultSelectId = document.getElementById(`js-select-product-${id}`);
-          $defaultUnityId = document.getElementById(`js-unity-product-${id}`);
-          $defaultAmountId = document.getElementById(`js-amount-product-${id}`);
-          $defaultQuantityId = document.getElementById(`js-quantity-product-${id}`);
-
+      $defaultSelectId = document.getElementById(`js-select-product-${id}`);
+      $defaultUnityId = document.getElementById(`js-unity-product-${id}`);
+      $defaultAmountId = document.getElementById(`js-amount-product-${id}`);
+      $defaultQuantityId = document.getElementById(`js-quantity-product-${id}`);
     }
 
     let unityValueParsed = parseInt($defaultUnityId.value),
@@ -310,5 +313,21 @@
   $printBtn.addEventListener('click', function() {
     window.print();
   });
+
+  // Thanks to -> https://github.com/chmln/flatpickr
+  flatpickr($datepicker, {
+    dateFormat: 'd-m-Y'
+  });
+
+  $logoImageField.addEventListener('change', function(event) {
+    let imgData = getBase64Image(event);
+    localStorage.setItem('imgData', imgData);
+  });
+
+  let dataImage = localStorage.getItem('imgData');
+
+  $imgBlank.src = 'data:image/png;base64,' + dataImage;
+
+
 
 }());

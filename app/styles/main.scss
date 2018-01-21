@@ -5,6 +5,7 @@ $white: #fff;
 $black: #000;
 $font-color: #333;
 $grey: #bcbcbc;
+$blue: #0b97c4;
 
 h3 {
   margin: 0;
@@ -59,12 +60,81 @@ ul {
   list-style-type: none;
 }
 
+canvas {
+  margin-bottom: 10px;
+  position: relative;
+  left: 180px;
+  max-width: 150px;
+}
+
+button {
+  width: 130px;
+  height: 40px;
+  border: 0;
+  color: $white;
+  font-weight: 800;
+  cursor: pointer;
+
+  .btn-label {
+    position: relative;
+    top: 9px;
+  }
+}
+
+// Sprite svg
+.icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url('../images/sprite.svg');
+  width: 23px;
+  height: 33px;
+  float: left;
+  background-size: 530px 40px;
+  background-position-y: -4px;
+
+  &.icon-file-text2 {
+    background-position-x: 0;
+  }
+  &.icon-printer {
+    background-position-x: -33px;
+  }
+  &.icon-earth {
+    background-position-x: -68px;
+  }
+  &.icon-plus {
+    background-position-x: -102px;
+  }
+}
+
+.actions {
+  text-align: right;
+  margin: 25px auto;
+  width: 1042px;
+
+  &__pdf {
+    width: 90px;
+    background: #ea6a68;
+  }
+  &__print {
+    width: 90px;
+    background: #f3bf5f;
+  }
+  &__language {
+    width: 130px;
+    background: $blue;
+  }
+  &__add {
+    width: 90px;
+  }
+}
+
 .box {
   background: $white;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: $font-color;
   max-width: 1000px;
-  border: 1px solid $black;
+  min-width: 940px;
+  border: 1px solid #cec6c6;
   margin: 20px auto;
   padding: 20px;
   min-height: 800px;
@@ -73,17 +143,41 @@ ul {
     &__first {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 250px;
+      grid-template-rows: 190px;
 
       &__left {
         textarea {
-          height: 110px;
+          height: 50px;
         }
       }
       &__right {
         div {
           float: right;
           overflow: auto;
+
+          &.x-logo-name {
+            .logo-image-input,
+            canvas {
+              display: none;
+            }
+            h3,
+            .logo-name-input {
+              display: block;
+            }
+          }
+          &.x-logo-image {
+            h3,
+            .logo-name-input {
+              display: none;
+            }
+            .logo-image-input {
+              display: block;
+            }
+          }
+          button {
+            background: $blue;
+            width: auto;
+          }
         }
       }
     }
@@ -94,7 +188,7 @@ ul {
 
       &__left {
         textarea {
-          height: 110px;
+          height: 50px;
         }
       }
       &__right {
@@ -117,7 +211,7 @@ ul {
     }
     &__table {
       thead {
-        background: #0b97c4;
+        background: $blue;
         color: $white;
         font-weight: 800;
 
@@ -158,11 +252,16 @@ ul {
           }
         }
       }
-      }
+    }
     &__btn {
       display: inline-block;
       position: absolute;
-      bottom: 120px;
+      bottom: 105px;
+
+      &__add {
+        width: 90px;
+        background: $blue;
+      }
     }
     &__discount {
       float: right;
@@ -190,8 +289,8 @@ ul {
 
        textarea {
          min-width: 150px;
-         width: 560px;
-         height: 90px;
+         width: 520px;
+         height: 70px;
        }
      }
     }

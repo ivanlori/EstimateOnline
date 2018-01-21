@@ -1,0 +1,45 @@
+button {
+  display: none;
+}
+
+input,
+textarea,
+select {
+  border: 0;
+}
+
+select {
+  -webkit-appearance: none;
+}
+
+textarea {
+  resize: none!important;
+  height: 60px!important;
+}
+
+.error {
+  display: none;
+}
+
+.box {
+  border: 0;
+
+  &__header {
+    &__first,
+    &__second {
+      height: 180px;
+    }
+  }
+  &__main {
+    min-height: 421px;
+  }
+  &__footer {
+    &__left {
+      width: 425px;
+
+      textarea {
+        width: 400px!important;
+      }
+    }
+  }
+}
