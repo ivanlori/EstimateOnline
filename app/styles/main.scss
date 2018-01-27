@@ -1,12 +1,17 @@
 @import "vendor/normalize";
 
-// Colors
+/* Settings */
 $white: #fff;
 $black: #000;
 $font-color: #333;
 $grey: #bcbcbc;
 $blue: #0b97c4;
+$action-bar-color: #f1eeee;
 
+$font-family: 'Roboto', sans-serif;
+/* Settings */
+
+/* Commons */
 h3 {
   margin: 0;
 }
@@ -15,12 +20,16 @@ input,
 textarea {
   display: block;
   margin: 10px 0;
-  min-width: 330px;
   padding: 8px;
   border-radius: 0;
   border: 1px solid $grey;
   width: auto;
   height: auto;
+
+  &:focus {
+    border: 1px solid $blue;
+    outline: none;
+  }
 }
 
 textarea {
@@ -60,13 +69,6 @@ ul {
   list-style-type: none;
 }
 
-canvas {
-  margin-bottom: 10px;
-  position: relative;
-  left: 180px;
-  max-width: 150px;
-}
-
 button {
   width: 130px;
   height: 40px;
@@ -86,7 +88,7 @@ button {
   display: inline-block;
   background-repeat: no-repeat;
   background-image: url('../images/sprite.svg');
-  width: 23px;
+  width: 33px;
   height: 33px;
   float: left;
   background-size: 530px 40px;
@@ -96,120 +98,143 @@ button {
     background-position-x: 0;
   }
   &.icon-printer {
-    background-position-x: -33px;
+    background-position-x: -30px;
   }
   &.icon-earth {
-    background-position-x: -68px;
+    background-position-x: -96px;
   }
   &.icon-plus {
-    background-position-x: -102px;
+    background-position-x: -130px;
+  }
+  &.icon-upload {
+    background-position-x: -62px;
   }
 }
+/* Commons */
 
-.actions {
-  text-align: right;
-  margin: 25px auto;
-  width: 1042px;
-
-  &__pdf {
-    width: 90px;
-    background: #ea6a68;
-  }
-  &__print {
-    width: 90px;
-    background: #f3bf5f;
-  }
-  &__language {
-    width: 130px;
-    background: $blue;
-  }
-  &__add {
-    width: 90px;
-  }
-}
-
-.box {
+.estimate {
   background: $white;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: $font-family;
   color: $font-color;
   max-width: 1000px;
   min-width: 940px;
   border: 1px solid #cec6c6;
   margin: 20px auto;
+  margin-bottom: 110px;
   padding: 20px;
+  padding-top: 0;
   min-height: 800px;
+  box-shadow: 0 0 3px $grey;
 
-  &__header {
-    &__first {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 190px;
+  &__title {
+    margin-bottom: 25px;
 
-      &__left {
-        textarea {
-          height: 50px;
+    h2 {
+      border-bottom: 1px solid $grey;
+    }
+  }
+  &__company {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 170px;
+
+    &__logo {
+      outline: 2px dashed #92b0b3;
+      outline-offset: -10px;
+      -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+      transition: outline-offset .15s ease-in-out, background-color .15s linear;
+      margin: 0 90px 45px 18px;
+      position: relative;
+
+      &.x-canvas-visible {
+        outline: none;
+
+        input,
+        label {
+          display: none;
+        }
+        canvas {
+          position: relative;
+          top: 35px;
+          left: 55px;
+          max-width: 190px;
         }
       }
-      &__right {
-        div {
-          float: right;
-          overflow: auto;
+      input {
+        display: block;
+        position: absolute;
+        left: 35px;
+        top: 32px;
+        z-index: -5;
+      }
+      label {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 55px;
+        text-align: center;
+        font-weight: 800;
+        cursor: pointer;
 
-          &.x-logo-name {
-            .logo-image-input,
-            canvas {
-              display: none;
-            }
-            h3,
-            .logo-name-input {
-              display: block;
-            }
-          }
-          &.x-logo-image {
-            h3,
-            .logo-name-input {
-              display: none;
-            }
-            .logo-image-input {
-              display: block;
-            }
-          }
-          button {
-            background: $blue;
-            width: auto;
-          }
+        &:hover {
+          text-decoration: underline;
         }
       }
     }
-    &__second {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 250px;
-
-      &__left {
-        textarea {
-          height: 50px;
-        }
+    &__references {
+      label {
+        display: block;
       }
-      &__right {
-        div {
-          float: right;
-          overflow: auto;
+      textarea {
+        margin-top: 0;
+        height: 19px;
+      }
+      input,
+      textarea {
+        width: 45%;
+
+        &.col {
+          float: left;
+          margin-right: 10px;
         }
       }
     }
   }
-  &__main {
-    min-height: 500px;
-    position: relative;
+  &__data {
+    display: inline-block;
+    width: 100%;
 
-    .box__wrapper__table {
-      width: 100%;
+    &__date,
+    &__discount {
+      display: inline-block;
+    }
+    &__discount {
+
+    }
+    &__notes {
+      float: right;
+      width: 500px;
+
+      textarea {
+        width: 478px;
+        height: 65px;
+      }
+    }
+  }
+  &__main {
+    min-height: 380px;
+    position: relative;
+    margin-top: 30px;
+
+    .estimate__wrapper__table {
       min-height: 345px;
       max-height: 345px;
       border-bottom: 1px solid $grey;
     }
     &__table {
+      width: 100%;
+
       thead {
         background: $blue;
         color: $white;
@@ -253,48 +278,15 @@ button {
         }
       }
     }
-    &__btn {
-      display: inline-block;
-      position: absolute;
-      bottom: 105px;
-
-      &__add {
-        width: 90px;
-        background: $blue;
-      }
-    }
-    &__discount {
-      float: right;
-
-      label {
-        position: relative;
-        top: 20px;
-      }
-      input {
-        text-align: right;
-        min-width: 0;
-        width: 60%;
-        float: right;
-      }
-    }
   }
   &__footer {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 150px;
+    text-align: right;
 
-    &__left {
-     div {
-       overflow: auto;
+    &__results {
+      width: 450px;
+      text-align: left;
+      display: inline-block;
 
-       textarea {
-         min-width: 150px;
-         width: 520px;
-         height: 70px;
-       }
-     }
-    }
-    &__right {
       li {
         border-bottom: 1px solid $grey;
         padding: 4px 0;
@@ -306,6 +298,64 @@ button {
           float: right;
         }
       }
+    }
+  }
+}
+
+.actions {
+  padding: 10px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 53px;
+  background: $action-bar-color;
+  border-top: 1px solid $grey;
+
+  button {
+    margin: 0 8px;
+    position: relative;
+    top: 7px;
+  }
+  &__pdf {
+    width: 90px;
+    background: #ea6a68;
+  }
+  &__print {
+    width: 90px;
+    background: #f3bf5f;
+  }
+  &__language {
+    width: 130px;
+    background: $blue;
+  }
+  &__add {
+    width: auto;
+    background: $blue;
+  }
+  &__tooltip {
+    position: relative;
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+    &__en,
+    &__it {
+      width: 120px;
+      background-color: black;
+      color: $white;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+    }
+    &__en {
+      top: -80px;
+    }
+    &__it {
+      top: -50px;
     }
   }
 }

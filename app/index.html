@@ -10,11 +10,10 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" media="print" href="styles/print.css">
@@ -25,66 +24,51 @@
     <!-- endbuild -->
   </head>
   <body>
-    <div class="actions">
-      <button type="button" id="js-create-btn" class="actions__pdf">
-        <span class="icon icon-file-text2"></span> <span class="btn-label">PDF</span>
-      </button>
-      <button type="button" id="js-print-btn" class="actions__print">
-        <span class="icon icon-printer"></span> <span class="btn-label">Print</span>
-      </button>
-      <button type="button" id="js-change-language-btn" class="actions__language">
-        <span class="icon icon-earth"></span> <span class="btn-label">Language</span>
-      </button>
-    </div>
-    <div class="box">
-        <header class="box__header">
-          <div class="box__header__first">
-            <div class="box__header__first__left">
-              <h3>From</h3>
-              <input type="text" id="js-name-input" name="senderName" placeholder="Your name">
-              <textarea id="js-sender-adress-input" name="senderAdress" placeholder="Your address"></textarea>
-            </div>
-            <div class="box__header__first__right">
-              <div id="js-logo-switch" class="x-logo-name">
-                <h3>Company name</h3>
-                <canvas width="150" height="50" id="js-image-blank" class="hidden"></canvas>
-                <input type="text" id="js-logo-name" class="logo-name-input" name="senderLogo" placeholder="Company name">
-                <input type="file" id="js-logo-image" class="logo-image-input">
-                <button type="button" id="js-upload-btn">Upload logo</button>
-              </div>
-            </div>
+    <div class="estimate">
+        <div class="estimate__title">
+          <h2>Job Estimate</h2>
+        </div>
+        <div class="estimate__company">
+          <div class="estimate__company__logo js-logo-wrapper">
+            <canvas width="150" height="50" id="js-image-blank" class="hidden"></canvas>
+            <input type="file" id="js-logo-image" class="logo-image-input">
+            <label for="js-logo-image">Choose a logo</label>
           </div>
-          <div class="box__header__second">
-            <div class="box__header__second__left">
-              <h3>To</h3>
-              <input type="text" name="customerName" placeholder="Customer name">
-              <textarea id="js-customer-address-input" name="customerAdress" placeholder="Customer address"></textarea>
-            </div>
-            <div class="box__header__second__right">
-              <div>
-                <h3>Estimate #</h3>
-                <input id="js-estimate-input" type="text" name="estimateNumber" placeholder="Customer name">
-              </div>
-              <div>
-                <h3>Estimate date</h3>
-                <input type="text" id="js-datepicker" class="date-input" name="estimateDate" placeholder="dd-mm-aaaa">
-              </div>
-            </div>
+          <div class="estimate__company__references">
+            <label>Information about Company</label>
+            <input type="text" class="js-company-name col" name="companyName" placeholder="Company name">
+            <input type="text" class="js-company-telephone" name="companyTelephone" placeholder="Telephone">
+            <textarea class="js-company-address col" name="companyAddress" placeholder="Company address"></textarea>
+            <input type="text" class="js-company-website" name="companyWebsite" placeholder="www.companywebsite.com">
           </div>
-        </header>
-        <main class="box__main">
-          <div class="box__wrapper__table">
-            <table class="box__main__table">
+        </div>
+        <div class="estimate__data">
+          <div class="estimate__data__date">
+            <label>Estimate date</label>
+            <input type="text" id="js-datepicker" class="date-input" name="estimateDate" placeholder="dd-mm-aaaa">
+          </div>
+          <div class="estimate__data__discount">
+            <label>Discount of</label>
+            <input type="text" class="js-discount" name="discount" placeholder="0%">
+          </div>
+          <div class="estimate__data__notes">
+            <label>Estimate notes</label>
+            <textarea class="js-note-input" placeholder="Add some notes..."></textarea>
+          </div>
+        </div>
+        <main class="estimate__main">
+          <div class="estimate__wrapper__table">
+            <table class="estimate__main__table">
               <thead>
-                <td class="box__main__table__cell small">Item</td>
-                <td class="box__main__table__cell large">Description</td>
-                <td class="box__main__table__cell small">Unity price</td>
-                <td class="box__main__table__cell small">Quantity</td>
-                <td class="box__main__table__cell small">Amount</td>
+                <td class="estimate__main__table__cell small">Item</td>
+                <td class="estimate__main__table__cell large">Description</td>
+                <td class="estimate__main__table__cell small">Unity price</td>
+                <td class="estimate__main__table__cell small">Quantity</td>
+                <td class="estimate__main__table__cell small">Amount</td>
               </thead>
               <tbody id="tbody">
-                <tr class="box__main__table__row">
-                  <td class="box__main__table__row__cell small">
+                <tr class="estimate__main__table__row">
+                  <td class="estimate__main__table__row__cell small">
                     <select id="js-select-product-0" class="js-select" name="productSelected0">
                       <option value="0">-- Select --</option>
                       <option value="1">Service</option>
@@ -93,41 +77,25 @@
                       <option value="4">Product</option>
                     </select>
                   </td>
-                  <td class="box__main__table__row__cell large">
+                  <td class="estimate__main__table__row__cell large">
                     <textarea id="js-description-product-0" class="js-input-description" name="productDescription0"></textarea>
                   </td>
-                  <td class="box__main__table__row__cell small">
+                  <td class="estimate__main__table__row__cell small">
                     <input id="js-unity-product-0" class="js-input-unity" name="productUnity0" type="text" placeholder="0.00">
                   </td>
-                  <td class="box__main__table__row__cell small">
+                  <td class="estimate__main__table__row__cell small">
                     <input id="js-quantity-product-0" class="js-input-quantity" name="productQuantity0" type="text" placeholder="0">
                   </td>
-                  <td class="box__main__table__row__cell small">
+                  <td class="estimate__main__table__row__cell small">
                     <input id="js-amount-product-0" class="js-input-amount" name="productAmount0" type="text" placeholder="0.00">
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div>
-            <div class="box__main__btn">
-              <button type="button" id="js-add-product-btn" class="box__main__btn__add">
-                <span class="icon icon-plus"></span> <span class="btn-label">Add</span>
-              </button>
-            </div>
-            <div class="box__main__discount">
-              <label>Discount of</label> </pan><input type="text" class="js-discount" name="discount" placeholder="0%">
-            </div>
-          </div>
         </main>
-        <footer class="box__footer">
-          <div class="box__footer__left">
-            <div>
-              <h3>Estimate notes</h3>
-              <textarea js="js-note-input" placeholder="Add some notes..."></textarea>
-            </div>
-          </div>
-          <div class="box__footer__right">
+        <footer class="estimate__footer">
+          <div class="estimate__footer__results">
             <ul>
               <li>
                 <strong>Subtotal</strong> <span class="js-subtotal-value">0</span>
@@ -145,8 +113,20 @@
           </div>
         </footer>
       </div>
-    <!-- build:js scripts/vendor.js -->
+      <div class="actions">
+        <button type="button" id="js-print-btn" class="actions__print">
+          <span class="icon icon-printer"></span> <span class="btn-label">Print</span>
+        </button>
+        <button type="button" id="js-add-btn" class="actions__add">
+          <span class="icon icon-plus"></span> <span class="btn-label">Add item</span>
+        </button>
+        <div class="js-tooltip actions__tooltip">
+          <span class="js-en actions__tooltip__en">English</span>
+          <span class="js-it actions__tooltip__it">Italian</span>
+        </div>
+      </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbower -->

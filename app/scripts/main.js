@@ -4,7 +4,7 @@
 
   /**
    * @Author: Ivan Lori
-   * @Description: An online estimate of costs with pdf creator
+   * @Description: An online estimate of costs
    *
    * My experiment with new features from ES6 and the new grid system
    * for responsive purposes
@@ -16,55 +16,26 @@
    */
 
         // Input table fields
-  const $addProductBtn = document.getElementById('js-add-product-btn'),
+  const $addProductBtn = document.getElementById('js-add-btn'),
         $subtotal = document.querySelector('.js-subtotal-value'),
         $total = document.querySelector('.js-total-value'),
         $estimate = document.querySelector('.js-estimate-value'),
         $discount = document.querySelector('.js-discount'),
 
         // Input data fields
-        $logoInputField = document.getElementById('js-logo-name'),
         $logoImageField = document.getElementById('js-logo-image'),
+        $logoWrapper = document.querySelector('.js-logo-wrapper'),
         $datepicker = document.getElementById('js-datepicker'),
         $imgBlank = document.getElementsByClassName('js-image-blank'),
-        $logoSwitch = document.getElementById('js-logo-switch'),
+        $tooltipContainer = document.querySelector('.js-tooltip'),
 
         // Buttons
-        $createPdfBtn = document.getElementById('js-create-btn'),
-        $uploadBtn = document.getElementById('js-upload-btn'),
         $printBtn = document.getElementById('js-print-btn');
 
   let $firstInputUnity = document.getElementById('js-unity-product-0'),
       $firstInputAmount = document.getElementById('js-amount-product-0'),
       $firstInputQuantity = document.getElementById('js-quantity-product-0'),
-      id = 0,
-      isLogoImageBtnClicked = false;
-
-  const saveDataInLocalStorage = () => {
-
-  };
-
-  const createPdf = () => {
-
-    // save all data in local storage
-    saveDataInLocalStorage();
-  };
-
-  const switchLogoInputType = () => {
-
-    if (isLogoImageBtnClicked) {
-      $logoSwitch.classList.add('x-logo-name');
-      $logoSwitch.classList.remove('x-logo-image');
-      $uploadBtn.innerText = 'Upload image';
-      isLogoImageBtnClicked = false;
-    } else {
-      $logoSwitch.classList.remove('x-logo-name');
-      $logoSwitch.classList.add('x-logo-image');
-      $uploadBtn.innerText = 'Company name';
-      isLogoImageBtnClicked = true;
-    }
-
-  };
+      id = 0;
 
   /**
    * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
@@ -290,20 +261,16 @@
     $estimate.innerHTML = `${$total.innerHTML - discountResult}€`;
   };
 
+  const switchLanguage = () => {
+    $tooltipContainer.classList.toggle('visible');
+  };
+
   $firstInputQuantity.addEventListener('focusout', function() {
     onQuantityFocusOutHandler(this, $firstInputUnity, $firstInputAmount);
   });
 
   $addProductBtn.addEventListener('click', function() {
     addProduct();
-  });
-
-  $uploadBtn.addEventListener('click', function() {
-    switchLogoInputType();
-  });
-
-  $createPdfBtn.addEventListener('click', function() {
-    createPdf();
   });
 
   $discount.addEventListener('change', function() {
@@ -322,12 +289,11 @@
   $logoImageField.addEventListener('change', function(event) {
     let imgData = getBase64Image(event);
     localStorage.setItem('imgData', imgData);
+    $logoWrapper.classList.add('x-canvas-visible');
   });
 
   let dataImage = localStorage.getItem('imgData');
 
   $imgBlank.src = 'data:image/png;base64,' + dataImage;
-
-
 
 }());

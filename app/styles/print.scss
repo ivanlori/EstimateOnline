@@ -1,3 +1,13 @@
+@import "vendor/normalize";
+
+// Colors
+$white: #fff;
+$black: #000;
+$font-color: #333;
+$grey: #bcbcbc;
+$blue: #0b97c4;
+$action-bar-color: #f1eeee;
+
 button {
   display: none;
 }
@@ -17,21 +27,48 @@ textarea {
   height: 60px!important;
 }
 
-.error {
-  display: none;
+.error,
+.logo-image-input,
+.actions,
+.box__header__title {
+  display: none!important;
+}
+
+canvas {
+  left: 0;
+}
+
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
 }
 
 .box {
   border: 0;
 
   &__header {
+    &__title {
+      h2 {
+        margin-top: 0;
+        border-bottom: 1px solid $grey;
+      }
+    }
     &__first,
     &__second {
-      height: 180px;
+      height: 192px;
+    }
+    &__first__right label,
+    &__first__left label {
+      display: none;
     }
   }
   &__main {
     min-height: 421px;
+
+    .box__wrapper__table {
+      border: 0;
+    }
   }
   &__footer {
     &__left {
