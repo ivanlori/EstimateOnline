@@ -30,53 +30,56 @@ textarea {
 .error,
 .logo-image-input,
 .actions,
-.box__header__title {
+.estimate__header__title {
   display: none!important;
 }
 
-canvas {
-  left: 0;
-}
-
-label {
-  display: inline-block;
-  width: 140px;
-  text-align: right;
-}
-
-.box {
+.estimate {
   border: 0;
 
-  &__header {
-    &__title {
-      h2 {
-        margin-top: 0;
-        border-bottom: 1px solid $grey;
+  &__title {
+    display: none;
+  }
+  &__company {
+    padding-top: 20px;
+
+    .x-canvas-visible {
+      canvas {
+        top: 10px;
+        left: 10px;
+        width: 240px;
       }
     }
-    &__first,
-    &__second {
-      height: 192px;
-    }
-    &__first__right label,
-    &__first__left label {
-      display: none;
+    &__references {
+      padding-top: 35px;
+
+      .website,
+      .email,
+      .telephone,
+      .address {
+        font-size: 14px;
+        position: relative;
+        top: -7px;
+        margin: 4px 0;
+        text-align: right;
+        padding: 3px;
+        color: #999;
+        width: 100%;
+      }
+      label {
+        display: none;
+      }
     }
   }
+
   &__main {
     min-height: 421px;
 
-    .box__wrapper__table {
-      border: 0;
+    .estimate__wrapper__table {
+      border: 1px solid $grey;
     }
   }
   &__footer {
-    &__left {
-      width: 425px;
 
-      textarea {
-        width: 400px!important;
-      }
-    }
   }
 }

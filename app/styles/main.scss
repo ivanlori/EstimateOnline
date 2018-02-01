@@ -136,14 +136,14 @@ button {
   &__company {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 170px;
+    grid-template-rows: 240px;
 
     &__logo {
       outline: 2px dashed #92b0b3;
       outline-offset: -10px;
       -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
       transition: outline-offset .15s ease-in-out, background-color .15s linear;
-      margin: 0 90px 45px 18px;
+      margin: 25px 90px 60px 45px;
       position: relative;
 
       &.x-canvas-visible {
@@ -157,14 +157,13 @@ button {
           position: relative;
           top: 35px;
           left: 55px;
-          max-width: 190px;
         }
       }
       input {
         display: block;
         position: absolute;
         left: 35px;
-        top: 32px;
+        top: 50px;
         z-index: -5;
       }
       label {
@@ -172,7 +171,7 @@ button {
         position: absolute;
         left: 0;
         right: 0;
-        top: 55px;
+        top: 72px;
         text-align: center;
         font-weight: 800;
         cursor: pointer;
@@ -183,6 +182,8 @@ button {
       }
     }
     &__references {
+      text-align: right;
+
       label {
         display: block;
       }
@@ -192,12 +193,9 @@ button {
       }
       input,
       textarea {
-        width: 45%;
-
-        &.col {
-          float: left;
-          margin-right: 10px;
-        }
+        width: 60%;
+        float: right;
+        margin: 5px 0;
       }
     }
   }
