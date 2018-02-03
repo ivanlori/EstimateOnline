@@ -1,4 +1,5 @@
 @import "vendor/normalize";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 /* Settings */
 $white: #fff;
@@ -6,7 +7,7 @@ $black: #000;
 $font-color: #333;
 $grey: #bcbcbc;
 $blue: #0b97c4;
-$action-bar-color: #f1eeee;
+$page-background: #F6F7F7;
 
 $font-family: 'Roboto', sans-serif;
 /* Settings */
@@ -41,6 +42,7 @@ select {
   border: 1px solid $grey;
   padding: 10px;
   background: $white;
+  cursor: pointer;
 
   &:-moz-focusring {
     color: transparent;
@@ -86,7 +88,6 @@ button {
 
 // Sprite svg
 .icon {
-  display: inline-block;
   background-repeat: no-repeat;
   background-image: url('../images/sprite.svg');
   width: 33px;
@@ -114,7 +115,7 @@ button {
 /* Commons */
 
 .estimate {
-  background: $white;
+  background: $page-background;
   font-family: $font-family;
   color: $font-color;
   max-width: 1000px;
@@ -147,11 +148,12 @@ button {
       margin: 25px 90px 60px 45px;
       position: relative;
 
-      &.x-canvas-visible {
+      &.x-logo-visible {
         outline: none;
 
         input,
-        label {
+        label,
+        span {
           display: none;
         }
         canvas {
@@ -181,6 +183,14 @@ button {
           text-decoration: underline;
         }
       }
+      span {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 14px;
+      }
     }
     &__references {
       text-align: right;
@@ -197,6 +207,7 @@ button {
         width: 60%;
         float: right;
         margin: 5px 0;
+        font-size: 13px;
       }
     }
   }
@@ -209,7 +220,18 @@ button {
       display: inline-block;
     }
     &__discount {
-
+      position: relative;
+      
+      input {
+        text-align: right;
+        width: 100px;
+        padding-right: 30px;
+      }
+      span {
+        position: absolute;
+        top: 38px;
+        right: 10px;
+      }
     }
     &__notes {
       float: right;
@@ -240,7 +262,7 @@ button {
         font-weight: 600;
 
         td {
-          padding: 10px 0px 10px 3px;
+          padding: 10px 0px 10px 10px;
         }
       }
       &__row {
@@ -281,21 +303,34 @@ button {
   &__footer {
     text-align: right;
 
-    &__results {
+    &__result {
       width: 450px;
       text-align: left;
       display: inline-block;
 
-      li {
-        border-bottom: 1px solid $grey;
-        padding: 4px 0;
+      &__description {
+        display: inline-block;
+        border: 1px solid $grey;
+        padding: 10px;
+        width: 257px;
+        border-right: 0;
+        height: 32px;
 
-        &:last-child {
-          border-bottom: 0;
+        h4 {
+          margin: 0;
         }
-        .value {
-          float: right;
+        span {
+          font-size: 13px;
         }
+      }
+      &__value {
+        float: right;
+        border: 1px solid $grey;
+        text-align: right;
+        padding: 10px;
+        width: 150px;
+        font-size: 28px;
+        background: $white;
       }
     }
   }
@@ -308,7 +343,7 @@ button {
   bottom: 0;
   width: 100%;
   height: 53px;
-  background: $action-bar-color;
+  background: $page-background;
   border-top: 1px solid $grey;
 
   button {

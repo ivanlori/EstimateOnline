@@ -30,12 +30,13 @@
         </div>
         <div class="estimate__company">
           <div class="estimate__company__logo js-logo-wrapper">
-            <canvas width="150" height="50" id="js-image-blank" class="hidden"></canvas>
+            <canvas id="js-image-blank" class="hidden"></canvas>
             <input type="file" id="js-logo-image" class="logo-image-input">
             <label for="js-logo-image">Choose a logo</label>
+            <span>(The ideally format is 200 x 80 px)</span>
           </div>
           <div class="estimate__company__references">
-            <label>Information about Company</label>
+            <label>Information about your Company</label>
             <input type="text" class="js-company-email email" name="companyEmail" placeholder="info@company.com">
             <input type="text" class="js-company-website website" name="companyWebsite" placeholder="www.companywebsite.com">
             <input type="text" class="js-company-telephone telephone" name="companyTelephone" placeholder="Telephone">
@@ -49,7 +50,8 @@
           </div>
           <div class="estimate__data__discount">
             <label>Discount of</label>
-            <input type="text" class="js-discount" name="discount" placeholder="0%">
+            <input type="text" class="js-discount" name="discount" placeholder="0">
+            <span>%</span>
           </div>
           <div class="estimate__data__notes">
             <label>Notes</label>
@@ -95,21 +97,14 @@
           </div>
         </main>
         <footer class="estimate__footer">
-          <div class="estimate__footer__results">
-            <ul>
-              <li>
-                <span class="bold">Subtotal</span> <span class="js-subtotal-value value">0</span>
-              </li>
-              <li>
-                <span class="bold">Total</span> <span class="js-total-value value">0</span>
-              </li>
-              <li>
-                <span class="bold">Amount Paid</span> <span class="js-amount-paid-value value">0</span>
-              </li>
-              <li>
-                <span class="bold">Estimate</span> <span class="js-estimate-value value">0</span>
-              </li>
-            </ul>
+          <div class="estimate__footer__result">
+            <div class="estimate__footer__result__description">
+              <h4>Total/Payments Terms</h4>
+              <span>The price is subject to <span class="js-vat-display">0</span>% VAT</span>
+            </div>
+            <div class="estimate__footer__result__value">
+              <span class="js-estimate-value value">0</span>
+            </div>
           </div>
         </footer>
       </div>

@@ -17,8 +17,6 @@
 
         // Input table fields
   const $addProductBtn = document.getElementById('js-add-btn'),
-        $subtotal = document.querySelector('.js-subtotal-value'),
-        $total = document.querySelector('.js-total-value'),
         $estimate = document.querySelector('.js-estimate-value'),
         $discount = document.querySelector('.js-discount'),
 
@@ -45,18 +43,23 @@
    */
   const getBase64Image = (event) => {
 
-    const myCanvas = document.getElementById('js-image-blank');
-    let ctx = myCanvas.getContext('2d');
+    const logo = document.getElementById('js-image-blank');
+    let ctx = logo.getContext('2d');
     let img = new Image();
-    img.onload = function(){
-      myCanvas.width = img.width;
-      myCanvas.height = img.height;
+    img.onload = function() {
 
+      if (img.height > 150) {
+        logo.height = 80;
+      } else {
+        logo.height = img.height;
+      }
+
+      logo.width = img.width;
       ctx.drawImage(img, 0, 0);
     };
 
     img.src = URL.createObjectURL(event.target.files[0]);
-    myCanvas.classList.remove('hidden');
+    logo.classList.remove('hidden');
 
   };
 
@@ -136,8 +139,6 @@
     // Iterate over all amount and sum
     for (let i = 0; i < $amountClass.length; i++) {
       sum += parseInt($amountClass[i].value);
-      $subtotal.innerHTML = sum;
-      $total.innerHTML = sum;
       $estimate.innerHTML = `${sum}€`;
     }
 
@@ -194,13 +195,13 @@
   const createRowTable = (id) => {
     let $row = document.createElement('tr');
 
-    $row.classList.add('box__main__table__row');
+    $row.classList.add('estimate__main__table__row');
 
-    $row.appendChild(createCellTable('select', 'box__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
-    $row.appendChild(createCellTable('textarea', 'box__main__table__row__cell large', 'js-input-description', `js-description-product-${id}`, `productDescription${id}`, ''));
-    $row.appendChild(createCellTable('input', 'box__main__table__row__cell small', 'js-input-unity', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
-    $row.appendChild(createCellTable('input', 'box__main__table__row__cell small', 'js-input-quantity', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
-    $row.appendChild(createCellTable('input', 'box__main__table__row__cell small', 'js-input-amount', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
+    $row.appendChild(createCellTable('select', 'estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
+    $row.appendChild(createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description', `js-description-product-${id}`, `productDescription${id}`, ''));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-amount', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
 
     return $row;
   };
@@ -256,7 +257,13 @@
   };
 
   const calculateDiscount = (discount) => {
-    let discountResult = (discount.value / 100) * $total.innerHTML;
+
+    if (isNaN(discount.value)) {
+      discount.classList.add('error');
+    } else {
+      discount.classList.remove('error');
+      let discountResult = (discount.value / 100) * $total.innerHTML;
+    }
 
     $estimate.innerHTML = `${$total.innerHTML - discountResult}€`;
   };
@@ -289,7 +296,7 @@
   $logoImageField.addEventListener('change', function(event) {
     let imgData = getBase64Image(event);
     localStorage.setItem('imgData', imgData);
-    $logoWrapper.classList.add('x-canvas-visible');
+    $logoWrapper.classList.add('x-logo-visible');
   });
 
   let dataImage = localStorage.getItem('imgData');

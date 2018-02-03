@@ -36,9 +36,17 @@ textarea {
 
 .estimate {
   border: 0;
+  background: $white;
 
   &__title {
     display: none;
+  }
+  &__data {
+    &__discount {
+      span {
+        top: 27px;
+      }
+    }
   }
   &__company {
     padding-top: 20px;
@@ -71,15 +79,27 @@ textarea {
       }
     }
   }
-
   &__main {
-    min-height: 421px;
+    min-height: 420px;
 
     .estimate__wrapper__table {
       border: 1px solid $grey;
+      max-height: none;
+      margin-bottom: 35px;
+
+      tbody {
+        td {
+          border-right: 1px solid $grey;
+
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
     }
   }
-  &__footer {
+}
 
-  }
+.estimate__footer__result__description {
+  height: 31px;
 }
