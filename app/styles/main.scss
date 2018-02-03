@@ -61,9 +61,10 @@ select {
   background: #ff9185;
 }
 
-strong {
-  font-weight: 800;
+.bold {
+  font-weight: 600;
 }
+
 
 ul {
   list-style-type: none;
@@ -74,7 +75,7 @@ button {
   height: 40px;
   border: 0;
   color: $white;
-  font-weight: 800;
+  font-weight: 600;
   cursor: pointer;
 
   .btn-label {
@@ -173,7 +174,7 @@ button {
         right: 0;
         top: 72px;
         text-align: center;
-        font-weight: 800;
+        font-weight: 600;
         cursor: pointer;
 
         &:hover {
@@ -236,7 +237,7 @@ button {
       thead {
         background: $blue;
         color: $white;
-        font-weight: 800;
+        font-weight: 600;
 
         td {
           padding: 10px 0px 10px 3px;
@@ -292,7 +293,7 @@ button {
         &:last-child {
           border-bottom: 0;
         }
-        span {
+        .value {
           float: right;
         }
       }
