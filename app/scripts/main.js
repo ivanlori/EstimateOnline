@@ -17,15 +17,18 @@
 
         // Input table fields
   const $addProductBtn = document.getElementById('js-add-btn'),
-        $estimate = document.querySelector('.js-estimate-value'),
+        $estimateTotal = document.querySelector('.js-estimate-total'),
+        $estimateSubtotal = document.querySelector('.js-estimate-subtotal'),
         $discount = document.querySelector('.js-discount'),
 
         // Input data fields
         $logoImageField = document.getElementById('js-logo-image'),
         $logoWrapper = document.querySelector('.js-logo-wrapper'),
-        $datepicker = document.getElementById('js-datepicker'),
+        $datepicker = document.querySelector('.js-datepicker'),
+        $vat = document.querySelector('.js-vat'),
         $imgBlank = document.getElementsByClassName('js-image-blank'),
         $tooltipContainer = document.querySelector('.js-tooltip'),
+        $vatFooterDisplay = document.querySelector('.js-vat-display'),
 
         // Buttons
         $printBtn = document.getElementById('js-print-btn');
@@ -134,12 +137,24 @@
   const calculateTotalAmount = () => {
 
     let sum = 0,
-        $amountClass = document.getElementsByClassName('js-input-amount');
+        $amountClass = document.getElementsByClassName('js-input-amount'),
+        discountValue = '',
+        vatValue = '';
 
     // Iterate over all amount and sum
     for (let i = 0; i < $amountClass.length; i++) {
       sum += parseInt($amountClass[i].value);
-      $estimate.innerHTML = `${sum}€`;
+      $estimateSubtotal.innerHTML = sum;
+
+      if ($vat.value !== '') {
+        vatValue = calculateAndSetVat($vat);
+      }
+
+      if ($discount.value !== '') {
+        discountValue = calculateDiscount($discount);
+      }
+
+      $estimateTotal.innerHTML = `${(sum + vatValue) - discountValue}€`;
     }
 
   };
@@ -258,14 +273,43 @@
 
   const calculateDiscount = (discount) => {
 
+    let discountResult = '';
+
     if (isNaN(discount.value)) {
       discount.classList.add('error');
     } else {
       discount.classList.remove('error');
-      let discountResult = (discount.value / 100) * $total.innerHTML;
+      discountResult = (discount.value / 100) * $estimateSubtotal.innerHTML;
+
+      $estimateTotal.innerHTML = `${parseInt($estimateSubtotal.innerHTML) - parseInt(discountResult)}€`;
+
+      return discountResult;
     }
 
-    $estimate.innerHTML = `${$total.innerHTML - discountResult}€`;
+  };
+
+  const calculateAndSetVat = (vat) => {
+
+    let vatValue = '',
+        discountValue = '';
+
+    // validate
+    if (isNaN(vat.value)) {
+      vat.classList.add('error');
+      return;
+    } else {
+      vat.classList.remove('error');
+      $vatFooterDisplay.innerText = vat.value;
+    }
+
+    discountValue = calculateDiscount($discount);
+
+    vatValue = ($estimateSubtotal.innerHTML * vat.value) / 100;
+
+    $estimateTotal.innerHTML = `${(parseInt($estimateSubtotal.innerHTML) - discountValue) + vatValue}€`;
+
+    return vatValue;
+
   };
 
   const switchLanguage = () => {
@@ -282,6 +326,10 @@
 
   $discount.addEventListener('change', function() {
     calculateDiscount(this);
+  });
+
+  $vat.addEventListener('change', function() {
+    calculateAndSetVat(this);
   });
 
   $printBtn.addEventListener('click', function() {

@@ -216,21 +216,28 @@ button {
     width: 100%;
 
     &__date,
-    &__discount {
+    &__discount,
+    &__vat {
       display: inline-block;
     }
-    &__discount {
+    .datepicker {
+      width: 120px;
+      margin-right: 15px;
+    }
+    &__discount,
+    &__vat {
       position: relative;
-      
+
       input {
         text-align: right;
-        width: 100px;
+        width: 70px;
         padding-right: 30px;
+        margin-right: 15px;
       }
       span {
         position: absolute;
         top: 38px;
-        right: 10px;
+        right: 25px;
       }
     }
     &__notes {
@@ -303,11 +310,8 @@ button {
   &__footer {
     text-align: right;
 
-    &__result {
-      width: 450px;
-      text-align: left;
-      display: inline-block;
-
+    &__total,
+    &__subtotal {
       &__description {
         display: inline-block;
         border: 1px solid $grey;
@@ -333,63 +337,103 @@ button {
         background: $white;
       }
     }
+    &__subtotal {
+      margin-bottom: 10px;
+
+      &__description {
+        height: 23px;
+        width: 120px;
+
+        h5 {
+          margin: 0;
+        }
+      }
+      &__value {
+        font-size: 20px;
+      }
+    }
   }
 }
 
 .actions {
+  font-family: $font-family;
   padding: 10px 0;
   text-align: center;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 53px;
+  height: 65px;
   background: $page-background;
   border-top: 1px solid $grey;
 
-  button {
-    margin: 0 8px;
-    position: relative;
-    top: 7px;
-  }
-  &__pdf {
-    width: 90px;
-    background: #ea6a68;
-  }
-  &__print {
-    width: 90px;
-    background: #f3bf5f;
-  }
-  &__language {
-    width: 130px;
-    background: $blue;
-  }
-  &__add {
-    width: auto;
-    background: $blue;
-  }
-  &__tooltip {
-    position: relative;
-    display: none;
+  &__estimate {
+    position: absolute;
+    left: 70px;
+    width: 50%;
+    text-align: left;
 
-    &.visible {
-      display: block;
+    .version {
+      float: right;
+      margin-top: 20px;
     }
-    &__en,
-    &__it {
-      width: 120px;
-      background-color: black;
-      color: $white;
-      text-align: center;
-      padding: 5px 0;
-      border-radius: 6px;
-      position: absolute;
-      z-index: 1;
+    button {
+      margin: 0 8px;
+      position: relative;
+      top: 7px;
     }
-    &__en {
-      top: -80px;
+    &__pdf {
+      width: 90px;
+      background: #ea6a68;
     }
-    &__it {
-      top: -50px;
+    &__print {
+      width: 90px;
+      background: #f3bf5f;
+    }
+    &__language {
+      width: 130px;
+      background: $blue;
+    }
+    &__add {
+      width: auto;
+      background: $blue;
+    }
+    &__tooltip {
+      position: relative;
+      display: none;
+
+      &.visible {
+        display: block;
+      }
+      &__en,
+      &__it {
+        width: 120px;
+        background-color: black;
+        color: $white;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+      }
+      &__en {
+        top: -80px;
+      }
+      &__it {
+        top: -50px;
+      }
+    }
+  }
+  &__github {
+    display: inline-block;
+    float: right;
+    position: absolute;
+    right: 70px;
+    top: 20px;
+
+    span {
+      margin-right: 10px;
+      display: inline-block;
+      line-height: 20px;
     }
   }
 }
