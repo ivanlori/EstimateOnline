@@ -131,7 +131,7 @@
   };
 
   const calculateSingleAmount = (unity, quantity) => {
-    return parseInt(unity) * parseInt(quantity);
+    return parseFloat(unity).toFixed(2) * parseFloat(quantity).toFixed(2);
   };
 
   const calculateTotalAmount = () => {
@@ -143,7 +143,7 @@
 
     // Iterate over all amount and sum
     for (let i = 0; i < $amountClass.length; i++) {
-      sum += parseInt($amountClass[i].value);
+      sum += parseFloat($amountClass[i].value);
       $estimateSubtotal.innerHTML = sum;
 
       if ($vat.value !== '') {
@@ -154,7 +154,7 @@
         discountValue = calculateDiscount($discount);
       }
 
-      $estimateTotal.innerHTML = `${(sum + vatValue) - discountValue}€`;
+      $estimateTotal.innerHTML = `${(sum.toFixed(2) + vatValue) - discountValue}€`;
     }
 
   };
@@ -281,7 +281,7 @@
       discount.classList.remove('error');
       discountResult = (discount.value / 100) * $estimateSubtotal.innerHTML;
 
-      $estimateTotal.innerHTML = `${parseInt($estimateSubtotal.innerHTML) - parseInt(discountResult)}€`;
+      $estimateTotal.innerHTML = `${parseFloat($estimateSubtotal.innerHTML) - parseFloat(discountResult)}€`;
 
       return discountResult;
     }
@@ -304,9 +304,9 @@
 
     discountValue = calculateDiscount($discount);
 
-    vatValue = ($estimateSubtotal.innerHTML * vat.value) / 100;
+    vatValue = (($estimateSubtotal.innerHTML * vat.value) / 100).toFixed(2);
 
-    $estimateTotal.innerHTML = `${(parseInt($estimateSubtotal.innerHTML) - discountValue) + vatValue}€`;
+    $estimateTotal.innerHTML = `${(parseFloat($estimateSubtotal.innerHTML) - discountValue) + vatValue}€`;
 
     return vatValue;
 
