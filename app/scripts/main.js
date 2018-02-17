@@ -138,23 +138,28 @@
 
     let sum = 0,
         $amountClass = document.getElementsByClassName('js-input-amount'),
-        discountValue = '',
-        vatValue = '';
+        discountVal = '',
+        vatVal = '',
+        parsedVatVal = '',
+        parsedDiscountVal = '',
+        subTotalParsed = '';
 
     // Iterate over all amount and sum
     for (let i = 0; i < $amountClass.length; i++) {
-      sum += parseFloat($amountClass[i].value);
-      $estimateSubtotal.innerHTML = sum;
+      sum += $amountClass[i].value;
 
       if ($vat.value !== '') {
-        vatValue = calculateAndSetVat($vat);
+        vatVal = calculateAndSetVat($vat);
+        parsedVatVal = parseFloat(vatVal);
       }
 
       if ($discount.value !== '') {
         discountValue = calculateDiscount($discount);
+        parsedDiscountVal = parseFloat(discountVal);
       }
 
-      $estimateTotal.innerHTML = `${(sum.toFixed(2) + vatValue) - discountValue}€`;
+      $estimateSubtotal.innerHTML = parseFloat(sum);
+      $estimateTotal.innerHTML = `${(sum + parsedVatVal) - parsedDiscountVal}€`;
     }
 
   };
@@ -273,15 +278,20 @@
 
   const calculateDiscount = (discount) => {
 
-    let discountResult = '';
+    let discountResult = '',
+        parsedDiscountVal = '',
+        parsedSubtotalVal = '';
 
     if (isNaN(discount.value)) {
       discount.classList.add('error');
     } else {
       discount.classList.remove('error');
-      discountResult = (discount.value / 100) * $estimateSubtotal.innerHTML;
+      discountResult = ((discount.value / 100) * $estimateSubtotal.innerHTML).toFixed(2);
 
-      $estimateTotal.innerHTML = `${parseFloat($estimateSubtotal.innerHTML) - parseFloat(discountResult)}€`;
+      parsedDiscountVal = parseFloat(discountResult);
+      parsedSubtotalVal = parseFloat($estimateSubtotal.innerHTML);
+      
+      $estimateTotal.innerHTML = `${parsedSubtotalVal - parsedDiscountVal}€`;
 
       return discountResult;
     }
@@ -290,8 +300,9 @@
 
   const calculateAndSetVat = (vat) => {
 
-    let vatValue = '',
-        discountValue = '';
+    let vatVal = '',
+        parsedSubtotalVal = '',
+        parsedVatVal = '';
 
     // validate
     if (isNaN(vat.value)) {
@@ -300,15 +311,16 @@
     } else {
       vat.classList.remove('error');
       $vatFooterDisplay.innerText = vat.value;
+    
+      vatVal = (($estimateSubtotal.innerHTML * vat.value) / 100).toFixed(2);
+
+      parsedVatVal = parseFloat(vatVal);
+      parsedSubtotalVal = parseFloat($estimateSubtotal.innerHTML);
+
+      $estimateTotal.innerHTML = `${parsedSubtotalVal + parsedVatVal}€`;
+
+      return vatVal;
     }
-
-    discountValue = calculateDiscount($discount);
-
-    vatValue = (($estimateSubtotal.innerHTML * vat.value) / 100).toFixed(2);
-
-    $estimateTotal.innerHTML = `${(parseFloat($estimateSubtotal.innerHTML) - discountValue) + vatValue}€`;
-
-    return vatValue;
 
   };
 
