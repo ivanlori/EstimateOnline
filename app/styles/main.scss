@@ -1,18 +1,4 @@
-@import "vendor/normalize";
-@import "font";
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-/* Settings */
-$white: #fff;
-$black: #000;
-$font-color: #333;
-$grey: #bcbcbc;
-$blue: #0b97c4;
-$blue-hover: #037297;
-$page-background: #F6F7F7;
-
-$font-family: 'Roboto', sans-serif;
-/* End Settings */
+@import 'common_style';
 
 h3 {
   margin: 0;
