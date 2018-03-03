@@ -146,7 +146,7 @@
 
     // Iterate over all amount and sum
     for (let i = 0; i < $amountClass.length; i++) {
-      sum += $amountClass[i].value;
+      sum += parseFloat($amountClass[i].value);
 
       if ($vat.value !== '') {
         vatVal = calculateAndSetVat($vat);
@@ -158,7 +158,7 @@
         parsedDiscountVal = parseFloat(discountVal);
       }
 
-      $estimateSubtotal.innerHTML = parseFloat(sum);
+      $estimateSubtotal.innerHTML = sum;
       $estimateTotal.innerHTML = `${(sum + parsedVatVal) - parsedDiscountVal}€`;
     }
 
