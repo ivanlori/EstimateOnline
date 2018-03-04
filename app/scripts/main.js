@@ -154,7 +154,7 @@
       }
 
       if ($discount.value !== '') {
-        discountValue = calculateDiscount($discount);
+        discountVal = calculateDiscount($discount);
         parsedDiscountVal = parseFloat(discountVal);
       }
 
@@ -218,10 +218,10 @@
     $row.classList.add('estimate__main__table__row');
 
     $row.appendChild(createCellTable('select', 'estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
-    $row.appendChild(createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description', `js-description-product-${id}`, `productDescription${id}`, ''));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-amount', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
+    $row.appendChild(createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, `productDescription${id}`, ''));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
+    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
 
     return $row;
   };

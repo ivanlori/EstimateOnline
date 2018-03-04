@@ -66,7 +66,8 @@ gulp.task('html', ['styles', 'scripts'], () => {
       removeComments: true,
       removeEmptyAttributes: true,
       removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true
+      removeStyleLinkTypeAttributes: true,
+      preventAttributesEscaping: true
     })))
     .pipe(gulp.dest('docs'));
 });
