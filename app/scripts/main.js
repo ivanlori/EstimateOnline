@@ -20,6 +20,8 @@
         $estimateTotal = document.querySelector('.js-estimate-total'),
         $estimateSubtotal = document.querySelector('.js-estimate-subtotal'),
         $discount = document.querySelector('.js-discount'),
+        $selectIcon = document.querySelector('.js-select-icon'),
+        $selectBox = document.querySelector('.js-select'),
 
         // Input data fields
         $logoImageField = document.getElementById('js-logo-image'),
@@ -29,6 +31,7 @@
         $imgBlank = document.getElementsByClassName('js-image-blank'),
         $tooltipContainer = document.querySelector('.js-tooltip'),
         $vatFooterDisplay = document.querySelector('.js-vat-display'),
+        $addressInputField = document.querySelector('.js-company-address'),
 
         // Buttons
         $printBtn = document.getElementById('js-print-btn');
@@ -327,6 +330,20 @@
   const switchLanguage = () => {
     $tooltipContainer.classList.toggle('visible');
   };
+
+  $addressInputField.addEventListener('focusin', function() {
+    this.classList.add('expand');
+  });
+
+  $selectBox.addEventListener('click', function() {
+    if ($selectIcon.classList.contains('icon-circle-down')) {
+      $selectIcon.classList.remove('icon-circle-down');
+      $selectIcon.classList.add('icon-circle-up');
+    } else {
+      $selectIcon.classList.add('icon-circle-down');
+      $selectIcon.classList.remove('icon-circle-up');
+    }
+  });
 
   $firstInputQuantity.addEventListener('focusout', function() {
     onQuantityFocusOutHandler(this, $firstInputUnity, $firstInputAmount);

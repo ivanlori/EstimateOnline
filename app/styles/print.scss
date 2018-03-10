@@ -211,6 +211,10 @@ ul {
           }
           &.small {
             width: 150px;
+
+            .select-icon {
+              display: none;
+            }
           }
         }
       }
