@@ -276,7 +276,6 @@ button {
             -webkit-appearance: none;
             -moz-appearance: none;
             -ms-progress-appearance: none;
-            appearance: none;
           }
           textarea {
             width: 95%;
@@ -297,7 +296,7 @@ button {
           select {
             width: 100%;
             height: 37px;
-            padding: 0 10px;
+            padding: 0 0 0 10px;
           }
           &.small {
             width: 150px;
@@ -307,6 +306,29 @@ button {
               position: absolute;
               right: 7px;
               top: 12px;
+              z-index: 1;
+            }
+            &.amount-cell {
+              .amount-euro {
+                position: absolute;
+                right: 8px;
+                top: 10px;
+                z-index: 1;
+                display: none;
+
+                &::after {
+                  content: "€";
+                }
+              }
+              &.x-value {
+                input {
+                  width: 82%;
+                  padding-right: 18px;
+                }
+                .amount-euro {
+                  display: block;
+                }
+              }
             }
           }
         }

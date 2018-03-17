@@ -178,16 +178,21 @@
   const createCellTable = (elementChildType, cellClassAttr, elemClassAttr, idAttr, nameAttr, placeholderAttr) => {
 
     let $td = document.createElement('td'),
-        $elem = document.createElement(elementChildType);
+        $elem = document.createElement(elementChildType),
+        $selectIconElem = document.createElement('span'),
+        $euroSymbol = document.createElement('span');
 
     if (elementChildType === 'select') {
-          let items = {
-              '0': '-- Select --',
-              '1': 'Service',
-              '2': 'Hours',
-              '3': 'Days',
-              '4': 'Product'
-          };
+
+      $selectIconElem.setAttribute('class', 'js-select-icon select-icon icon-circle-down');
+
+      let items = {
+          '0': '-- Select --',
+          '1': 'Service',
+          '2': 'Hours',
+          '3': 'Days',
+          '4': 'Product'
+      };
 
       for (let key in items) {
         if (items.hasOwnProperty(key)) {
@@ -200,6 +205,8 @@
         }
       }
 
+      $td.appendChild($selectIconElem);
+
     }
 
     $td.setAttribute('class', cellClassAttr);
@@ -208,6 +215,11 @@
     $elem.setAttribute('class', elemClassAttr);
     $elem.setAttribute('id', idAttr);
     $elem.setAttribute('placeholder', placeholderAttr);
+
+    if ($elem.classList.contains('js-input-amount')) {
+      $euroSymbol.setAttribute('class', 'amount-euro');
+      $td.appendChild($euroSymbol);
+    }
 
     $td.appendChild($elem);
 
@@ -220,11 +232,11 @@
 
     $row.classList.add('estimate__main__table__row');
 
-    $row.appendChild(createCellTable('select', 'estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
+    $row.appendChild(createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
     $row.appendChild(createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, `productDescription${id}`, ''));
     $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
     $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
+    $row.appendChild(createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
 
     return $row;
   };
@@ -251,6 +263,7 @@
       // Focus out on dynamic input id
       quantityId.addEventListener('focusout', function() {
         onQuantityFocusOutHandler(this, unityId, amountId);
+        amountId.parentNode.classList.add('x-value');
       });
 
     }
@@ -260,20 +273,28 @@
   const onQuantityFocusOutHandler = (quantityField, unityField, amountField) => {
 
     let isQuantityEmpty = quantityField.value === '',
-      isUnityEmpty = unityField.value === '',
-      hasUnityValueInvalid = isNaN(unityField.value),
-      hasQuantityValueInvalid = isNaN(quantityField.value);
+        isUnityEmpty = unityField.value === '',
+        hasUnityValueInvalid = isNaN(unityField.value),
+        hasQuantityValueInvalid = isNaN(quantityField.value),
+        errors = 0;
 
     if (isUnityEmpty || hasUnityValueInvalid) {
       unityField.classList.add('error');
-    } else if (isQuantityEmpty || hasQuantityValueInvalid) {
-      quantityField.classList.add('error');
+      errors += 1;
     } else {
-
-      quantityField.classList.remove('error');
       unityField.classList.remove('error');
+    }
 
+    if (isQuantityEmpty || hasQuantityValueInvalid) {
+      quantityField.classList.add('error');
+      errors += 1;
+    } else {
+      quantityField.classList.remove('error');
+    }
+
+    if (errors === 0) {
       amountField.value = calculateSingleAmount(unityField.value, quantityField.value);
+      $firstInputAmount.parentNode.classList.add('x-value');
       calculateTotalAmount();
     }
 
@@ -331,15 +352,34 @@
     $tooltipContainer.classList.toggle('visible');
   };
 
+  const selectIconHandler = (elem) => {
+    if (elem.classList.contains('icon-circle-down')) {
+      elem.classList.remove('icon-circle-down');
+      elem.classList.add('icon-circle-up');
+    } else {
+      elem.classList.add('icon-circle-down');
+      elem.classList.remove('icon-circle-up');
+    }
+  }
+
   $addressInputField.addEventListener('focusin', function() {
     this.classList.add('expand');
   });
 
-  $selectBox.addEventListener('click', function() {
-    if ($selectIcon.classList.contains('icon-circle-down')) {
-      $selectIcon.classList.remove('icon-circle-down');
-      $selectIcon.classList.add('icon-circle-up');
-    } else {
+  document.querySelector('body').addEventListener('click', function(event) {
+    
+    let icon = '';
+
+    if (event.target.classList.contains('js-select')) {
+      icon = event.srcElement.previousElementSibling;
+      selectIconHandler(icon);
+    }
+
+  });
+
+  // reset icon state
+  $selectBox.addEventListener('focusout', function() {
+    if ($selectIcon.classList.contains('icon-circle-up')) {
       $selectIcon.classList.add('icon-circle-down');
       $selectIcon.classList.remove('icon-circle-up');
     }

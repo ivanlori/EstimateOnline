@@ -211,9 +211,22 @@ ul {
           }
           &.small {
             width: 150px;
+            position: relative;
 
             .select-icon {
               display: none;
+            }
+            &.amount-cell {
+              .amount-euro {
+                position: absolute;
+                top: 10px;
+                right: 5px;
+                z-index: 1;
+
+                &::after {
+                  content: "€";
+                }
+              }
             }
           }
         }
