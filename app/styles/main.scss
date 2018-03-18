@@ -1,5 +1,13 @@
 @import 'common_style';
 
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
 h3 {
   margin: 0;
 }
@@ -9,7 +17,6 @@ textarea:not(.table-field) {
   display: block;
   width: auto;
   padding: .375rem .75rem;
-  font-size: 1rem;
   line-height: 1.5;
   color: #495057;
   background: $white;
@@ -17,6 +24,7 @@ textarea:not(.table-field) {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  @include rem(font-size, 15px);
 
   &:focus {
     color: #495057;
@@ -88,10 +96,10 @@ button {
   user-select: none;
   border: 1px solid transparent;
   padding: .375rem .75rem;
-  font-size: 1rem;
   line-height: 1.5;
   border-radius: .25rem;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  @include rem(font-size, 15px);
 
   &:focus {
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
@@ -173,7 +181,7 @@ button {
         left: 0;
         right: 0;
         text-align: center;
-        font-size: 14px;
+        @include rem(font-size, 14px);
       }
     }
     &__references {
@@ -196,7 +204,7 @@ button {
         width: 60%;
         float: right;
         margin: 5px 0;
-        font-size: 13px;
+        @include rem(font-size, 13px);
       }
     }
   }
@@ -225,7 +233,7 @@ button {
       }
       span {
         position: absolute;
-        top: 36px;
+        top: 30px;
         right: 25px;
       }
     }
@@ -352,7 +360,7 @@ button {
           margin: 0;
         }
         span {
-          font-size: 13px;
+          @include rem(font-size, 13px);
         }
       }
       &__value {
@@ -361,7 +369,7 @@ button {
         text-align: right;
         padding: 10px;
         width: 150px;
-        font-size: 28px;
+        @include rem(font-size, 28px);
         background: $white;
       }
     }
@@ -377,7 +385,7 @@ button {
         }
       }
       &__value {
-        font-size: 20px;
+        @include rem(font-size, 20px);
       }
     }
   }
@@ -456,7 +464,17 @@ button {
     span {
       margin-right: 10px;
       display: inline-block;
-      line-height: 20px;
+      @include rem(font-size, 13px);
+      @include rem(line-height, 20px);
     }
   }
+}
+
+// Style for tablet
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    @import "tablet";
 }

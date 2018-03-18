@@ -1,0 +1,42 @@
+.estimate {
+    min-width: unset;
+    padding: 10px;
+
+    &__company {
+       grid-template-columns: repeat(2, 1fr);
+       grid-template-rows: 210px;
+
+       &__logo {
+           margin: 0 50px 55px 25px;
+
+           input {
+               left: -3px;
+               top: 62px;
+           }
+       }
+    }
+    &__data {
+        &__notes {
+            width: 35%;
+
+            textarea {
+                width: 93%;
+            }
+        }
+    }
+    &__main {
+        textarea {
+            width: auto;
+        }
+        .amount-euro {
+            top: 12px!important;
+        }
+    }
+}
+
+.actions {
+    .wrapper {
+        width: 100%;
+        grid-template-columns: 35% 30% 35%;
+    }
+}
