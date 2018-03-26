@@ -15,289 +15,341 @@
    * Feel free to inspect my code and reuse it or... Contribute! :D
    */
 
-        // Input table fields
-  const $addProductBtn = document.getElementById('js-add-btn'),
-        $estimateTotal = document.querySelector('.js-estimate-total'),
-        $estimateSubtotal = document.querySelector('.js-estimate-subtotal'),
-        $discount = document.querySelector('.js-discount'),
-        $selectIcon = document.querySelector('.js-select-icon'),
-        $selectBox = document.querySelector('.js-select'),
+  const 
+    $datepicker = document.querySelector('.js-datepicker'),
+    $vat = document.querySelector('.js-vat'),
+    $tooltipContainer = document.querySelector('.js-tooltip'),
+    $vatFooterDisplay = document.querySelector('.js-vat-display'),
+    $addressInputField = document.querySelector('.js-company-address'),
+    $discount = document.querySelector('.js-discount'),
+    $estimateSubtotal = document.querySelector('.js-estimate-subtotal'),
+    $estimateTotal = document.querySelector('.js-estimate-total');
 
-        // Input data fields
-        $logoImageField = document.getElementById('js-logo-image'),
-        $logoWrapper = document.querySelector('.js-logo-wrapper'),
-        $datepicker = document.querySelector('.js-datepicker'),
-        $vat = document.querySelector('.js-vat'),
-        $imgBlank = document.getElementsByClassName('js-image-blank'),
-        $tooltipContainer = document.querySelector('.js-tooltip'),
-        $vatFooterDisplay = document.querySelector('.js-vat-display'),
-        $addressInputField = document.querySelector('.js-company-address'),
+  let
+    id = 0;
 
-        // Buttons
-        $printBtn = document.getElementById('js-print-btn');
-
-  let $firstInputUnity = document.getElementById('js-unity-product-0'),
-      $firstInputAmount = document.getElementById('js-amount-product-0'),
-      $firstInputQuantity = document.getElementById('js-quantity-product-0'),
-      id = 0;
-
-  /**
-   * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
-   *
-   * This converts an image into base 64 format
-   * and then is possible to retrieve via local storage
-   */
-  const getBase64Image = (event) => {
-
-    const logo = document.getElementById('js-image-blank');
-    let ctx = logo.getContext('2d');
-    let img = new Image();
-    img.onload = function() {
-
-      if (img.height > 150) {
-        logo.height = 80;
-      } else {
-        logo.height = img.height;
-      }
-
-      logo.width = img.width;
-      ctx.drawImage(img, 0, 0);
-    };
-
-    img.src = URL.createObjectURL(event.target.files[0]);
-    logo.classList.remove('hidden');
-
-  };
-
-  const validateDataTable = (id) => {
-
-    let $defaultSelectId = {},
-        $defaultUnityId = {},
-        $defaultAmountId = {},
-        $defaultQuantityId = {};
-
-    if (id === 0) {
-      $defaultSelectId = document.getElementById('js-select-product-0');
-      $defaultUnityId = document.getElementById('js-unity-product-0');
-      $defaultAmountId = document.getElementById('js-amount-product-0');
-      $defaultQuantityId = document.getElementById('js-quantity-product-0');
-    } else {
-      $defaultSelectId = document.getElementById(`js-select-product-${id}`);
-      $defaultUnityId = document.getElementById(`js-unity-product-${id}`);
-      $defaultAmountId = document.getElementById(`js-amount-product-${id}`);
-      $defaultQuantityId = document.getElementById(`js-quantity-product-${id}`);
-    }
-
-    let unityValueParsed = parseInt($defaultUnityId.value),
-        quantityValueParsed = parseInt($defaultQuantityId.value),
-        amountValueParsed = parseInt($defaultAmountId.value),
-        isError = false;
-
-    // Check product select field
-    if ($defaultSelectId.value === '0') {
-      $defaultSelectId.classList.add('error');
-      isError = true;
-    } else {
-      $defaultSelectId.classList.remove('error');
-      isError = false;
-    }
-
-    // Check unity field
-    if (isNaN(unityValueParsed) || $defaultUnityId.value === '') {
-      $defaultUnityId.classList.add('error');
-      isError = true;
-    } else {
-      $defaultUnityId.classList.remove('error');
-      isError = false;
-    }
-
-    // Check quantity field
-    if (isNaN(quantityValueParsed) || $defaultQuantityId.value === '') {
-      $defaultQuantityId.classList.add('error');
-      isError = true;
-    } else {
-      $defaultQuantityId.classList.remove('error');
-      isError = false;
-    }
-
-    // Check amount field
-    if (isNaN(amountValueParsed) || $defaultAmountId.value === '') {
-      $defaultAmountId.classList.add('error');
-      isError = true;
-    } else {
-      $defaultAmountId.classList.remove('error');
-      isError = false;
-    }
-
-    return isError;
-
-  };
-
-  const calculateSingleAmount = (unity, quantity) => {
-    return parseFloat(unity).toFixed(2) * parseFloat(quantity).toFixed(2);
-  };
-
-  const calculateTotalAmount = () => {
-
-    let sum = 0,
-        $amountClass = document.getElementsByClassName('js-input-amount'),
-        discountVal = '',
-        vatVal = '',
-        parsedVatVal = '',
-        parsedDiscountVal = '',
-        subTotalParsed = '';
-
-    // Iterate over all amount and sum
-    for (let i = 0; i < $amountClass.length; i++) {
-      sum += parseFloat($amountClass[i].value);
-
-      if ($vat.value !== '') {
-        vatVal = calculateAndSetVat($vat);
-        parsedVatVal = parseFloat(vatVal);
-      }
-
-      if ($discount.value !== '') {
-        discountVal = calculateDiscount($discount);
-        parsedDiscountVal = parseFloat(discountVal);
-      }
-
-      $estimateSubtotal.innerHTML = sum;
-      $estimateTotal.innerHTML = `${(sum + parsedVatVal) - parsedDiscountVal}€`;
-    }
-
-  };
-
-  /**
-   *
-   * @param elementChildType
-   * @param cellClassAttr
-   * @param nameAttr
-   * @param placeholderAttr
-   * @returns Cell table with element in it
-   */
-  const createCellTable = (elementChildType, cellClassAttr, elemClassAttr, idAttr, nameAttr, placeholderAttr) => {
-
-    let $td = document.createElement('td'),
-        $elem = document.createElement(elementChildType),
-        $selectIconElem = document.createElement('span'),
-        $euroSymbol = document.createElement('span');
-
-    if (elementChildType === 'select') {
-
-      $selectIconElem.setAttribute('class', 'js-select-icon select-icon icon-circle-down');
-
-      let items = {
-          '0': '-- Select --',
-          '1': 'Service',
-          '2': 'Hours',
-          '3': 'Days',
-          '4': 'Product'
-      };
-
-      for (let key in items) {
-        if (items.hasOwnProperty(key)) {
-
-          let $option = document.createElement('option');
-
-          $option.setAttribute('value', key);
-          $option.innerHTML = items[key];
-          $elem.appendChild($option);
+  const imageHandler = {
+    variables: {
+      $imgBlank: document.getElementById('js-image-blank'),
+      $logoImageField: document.getElementById('js-logo-image'),
+      $logoWrapper: document.querySelector('.js-logo-wrapper'),
+    },
+    getBase64Image(event) {
+      
+      /**
+       * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
+       *
+       * This converts an image into base 64 format
+       * and then is possible to retrieve via local storage
+       */
+      const logo = this.variables.$imgBlank;
+      let ctx = logo.getContext('2d');
+      let img = new Image();
+      img.onload = function() {
+  
+        if (img.height > 150) {
+          logo.height = 80;
+        } else {
+          logo.height = img.height;
         }
+  
+        logo.width = img.width;
+        ctx.drawImage(img, 0, 0);
+      };
+  
+      img.src = URL.createObjectURL(event.target.files[0]);
+      logo.classList.remove('hidden');
+  
+    },
+    getImageFromStorage() {
+      let dataImage = localStorage.getItem('imgData');
+      this.variables.$imgBlank.src = 'data:image/png;base64,' + dataImage;
+    },
+    init() {
+      let self = this;
+
+      // On image select
+      this.variables.$logoImageField.addEventListener('change', function(event) {
+        let imgData = self.getBase64Image(event);
+        localStorage.setItem('imgData', imgData);
+        self.variables.$logoWrapper.classList.add('x-logo-visible');
+      });
+
+      this.getImageFromStorage();
+    
+    }
+  };
+
+  const productTableHandler = {
+    variables: {
+      $selectIcon: document.querySelector('.js-select-icon'),
+      $selectBox: document.querySelector('.js-select'),
+      $firstInputUnity: document.getElementById('js-unity-product-0'),
+      $firstInputAmount: document.getElementById('js-amount-product-0'),
+      $firstInputQuantity: document.getElementById('js-quantity-product-0'),
+      $firstSelectProduct: document.getElementById('js-select-product-0')
+    },
+    isDataTableValid(id) {
+      
+      let $defaultSelectId = {},
+          $defaultUnityId = {},
+          $defaultAmountId = {},
+          $defaultQuantityId = {};
+
+      if (id === 0) {
+        $defaultSelectId = this.variables.$firstSelectProduct;
+        $defaultUnityId = this.variables.$firstInputUnity;
+        $defaultAmountId = this.variables.$firstInputAmount;
+        $defaultQuantityId = this.variables.$firstInputQuantity;
+      } else {
+        $defaultSelectId = document.getElementById(`js-select-product-${id}`);
+        $defaultUnityId = document.getElementById(`js-unity-product-${id}`);
+        $defaultAmountId = document.getElementById(`js-amount-product-${id}`);
+        $defaultQuantityId = document.getElementById(`js-quantity-product-${id}`);
       }
 
-      $td.appendChild($selectIconElem);
+      let unityValueParsed = parseInt($defaultUnityId.value),
+          quantityValueParsed = parseInt($defaultQuantityId.value),
+          amountValueParsed = parseInt($defaultAmountId.value),
+          isValid = false;
 
-    }
+      // Check product select field
+      if ($defaultSelectId.value === '0') {
+        $defaultSelectId.classList.add('error');
+        return isValid = false;
+      } else {
+        $defaultSelectId.classList.remove('error');
+        isValid = true;
+      }
 
-    $td.setAttribute('class', cellClassAttr);
+      // Check unity field
+      if (isNaN(unityValueParsed) || $defaultUnityId.value === '') {
+        $defaultUnityId.classList.add('error');
+        return isValid = false;
+      } else {
+        $defaultUnityId.classList.remove('error');
+        isValid = true;
+      }
 
-    $elem.setAttribute('name', nameAttr);
-    $elem.setAttribute('class', elemClassAttr);
-    $elem.setAttribute('id', idAttr);
-    $elem.setAttribute('placeholder', placeholderAttr);
+      // Check quantity field
+      if (isNaN(quantityValueParsed) || $defaultQuantityId.value === '') {
+        $defaultQuantityId.classList.add('error');
+        return isValid = false;
+      } else {
+        $defaultQuantityId.classList.remove('error');
+        isValid = true;
+      }
 
-    if ($elem.classList.contains('js-input-amount')) {
-      $euroSymbol.setAttribute('class', 'amount-euro');
-      $td.appendChild($euroSymbol);
-    }
+      // Check amount field
+      if (isNaN(amountValueParsed) || $defaultAmountId.value === '') {
+        $defaultAmountId.classList.add('error');
+        return isValid = false;
+      } else {
+        $defaultAmountId.classList.remove('error');
+        isValid = true;
+      }
 
-    $td.appendChild($elem);
+      return isValid;
 
-    return $td;
+    },
+    onQuantityFocusOutHandler(quantityField, unityField, amountField) {
 
-  };
+      let isQuantityEmpty = quantityField.value === '',
+          isUnityEmpty = unityField.value === '',
+          hasUnityValueInvalid = isNaN(unityField.value),
+          hasQuantityValueInvalid = isNaN(quantityField.value),
+          errors = 0;
+  
+      if (isUnityEmpty || hasUnityValueInvalid) {
+        unityField.classList.add('error');
+        errors += 1;
+      } else {
+        unityField.classList.remove('error');
+      }
+  
+      if (isQuantityEmpty || hasQuantityValueInvalid) {
+        quantityField.classList.add('error');
+        errors += 1;
+      } else {
+        quantityField.classList.remove('error');
+      }
+  
+      if (errors === 0) {
+        amountField.value = this.calculateSingleAmount(unityField.value, quantityField.value);
+        this.variables.$firstInputAmount.parentNode.classList.add('x-value');
+        this.calculateTotalAmount();
+      }
+  
+    },
+    calculateTotalAmount() {
 
-  const createRowTable = (id) => {
-    let $row = document.createElement('tr');
+      let sum = 0,
+          $amountClass = document.getElementsByClassName('js-input-amount'),
+          discountVal = '',
+          vatVal = '',
+          parsedVatVal = '',
+          parsedDiscountVal = '',
+          subTotalParsed = '';
+  
+      // Iterate over all amount and sum
+      for (let i = 0; i < $amountClass.length; i++) {
+        sum += parseFloat($amountClass[i].value);
+  
+        if ($vat.value !== '') {
+          vatVal = calculateAndSetVat($vat);
+          parsedVatVal = parseFloat(vatVal);
+        }
+  
+        if ($discount.value !== '') {
+          discountVal = calculateDiscount($discount);
+          parsedDiscountVal = parseFloat(discountVal);
+        }
+  
+        $estimateSubtotal.innerHTML = sum;
+        $estimateTotal.innerHTML = `${(sum + parsedVatVal) - parsedDiscountVal}€`;
+      }
+  
+    },
+    calculateSingleAmount(unity, quantity) {
+      return parseFloat(unity).toFixed(2) * parseFloat(quantity).toFixed(2);
+    },
+    
+    /**
+     * @param elementChildType
+     * @param cellClassAttr
+     * @param nameAttr
+     * @param placeholderAttr
+     * @returns Cell table with element in it
+     */
+    createCellTable(elementChildType, cellClassAttr, elemClassAttr, idAttr, nameAttr, placeholderAttr) {
 
-    $row.classList.add('estimate__main__table__row');
+      let $td = document.createElement('td'),
+          $elem = document.createElement(elementChildType),
+          $selectIconElem = document.createElement('span'),
+          $euroSymbol = document.createElement('span');
 
-    $row.appendChild(createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
-    $row.appendChild(createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, `productDescription${id}`, ''));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
-    $row.appendChild(createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
-    $row.appendChild(createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
+      if (elementChildType === 'select') {
 
-    return $row;
-  };
+        $selectIconElem.setAttribute('class', 'js-select-icon select-icon icon-circle-down');
 
-  const addProduct = () => {
+        let items = {
+            '0': '-- Select --',
+            '1': 'Service',
+            '2': 'Hours',
+            '3': 'Days',
+            '4': 'Product'
+        };
 
-    // Clone the default row
-    let $tbody = document.getElementById('tbody');
+        for (let key in items) {
+          if (items.hasOwnProperty(key)) {
 
-    // if there's not errors
-    if (!validateDataTable(id)) {
+            let $option = document.createElement('option');
 
-      id += 1;
+            $option.setAttribute('value', key);
+            $option.innerHTML = items[key];
+            $elem.appendChild($option);
+          }
+        }
 
-      // Insert the row created
-      $tbody.appendChild(createRowTable(id));
+        $td.appendChild($selectIconElem);
 
-      let productId = document.getElementById(`js-select-product-${id}`),
-          unityId = document.getElementById(`js-unity-product-${id}`),
-          quantityId = document.getElementById(`js-quantity-product-${id}`),
-          amountId = document.getElementById(`js-amount-product-${id}`);
+      }
 
+      $td.setAttribute('class', cellClassAttr);
 
-      // Focus out on dynamic input id
-      quantityId.addEventListener('focusout', function() {
-        onQuantityFocusOutHandler(this, unityId, amountId);
-        amountId.parentNode.classList.add('x-value');
+      $elem.setAttribute('name', nameAttr);
+      $elem.setAttribute('class', elemClassAttr);
+      $elem.setAttribute('id', idAttr);
+      $elem.setAttribute('placeholder', placeholderAttr);
+
+      if ($elem.classList.contains('js-input-amount')) {
+        $euroSymbol.setAttribute('class', 'amount-euro');
+        $td.appendChild($euroSymbol);
+      }
+
+      $td.appendChild($elem);
+
+      return $td;
+
+    },
+    createRowTable(id) {
+      let $row = document.createElement('tr');
+  
+      $row.classList.add('estimate__main__table__row');
+  
+      $row.appendChild(this.createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
+      $row.appendChild(this.createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, `productDescription${id}`, ''));
+      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
+      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
+      $row.appendChild(this.createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
+  
+      return $row;
+    },
+    selectIconHandler(elem) {
+      if (elem.classList.contains('icon-circle-down')) {
+        elem.classList.remove('icon-circle-down');
+        elem.classList.add('icon-circle-up');
+      } else {
+        elem.classList.add('icon-circle-down');
+        elem.classList.remove('icon-circle-up');
+      }
+    },
+    addProduct() {
+
+      // Clone the default row
+      let $tbody = document.getElementById('tbody'),
+          self = this;
+  
+      // if there's not errors
+      if (this.isDataTableValid(id)) {
+  
+        id += 1;
+  
+        // Insert the row created
+        $tbody.appendChild(this.createRowTable(id));
+  
+        let productId = document.getElementById(`js-select-product-${id}`),
+            unityId = document.getElementById(`js-unity-product-${id}`),
+            quantityId = document.getElementById(`js-quantity-product-${id}`),
+            amountId = document.getElementById(`js-amount-product-${id}`);
+  
+        // Focus out on dynamic input id
+        quantityId.addEventListener('focusout', function() {
+          self.onQuantityFocusOutHandler(this, unityId, amountId);
+          amountId.parentNode.classList.add('x-value');
+        });
+  
+      }
+  
+    },
+    init() {
+      let variables = this.variables,
+          self = this;
+
+      // reset icon state
+      variables.$selectBox.addEventListener('focusout', function() {
+        if (variables.$selectIcon.classList.contains('icon-circle-up')) {
+          variables.$selectIcon.classList.add('icon-circle-down');
+          variables.$selectIcon.classList.remove('icon-circle-up');
+        }
+      });
+
+      document.querySelector('body').addEventListener('click', function(event) {
+    
+        let icon = '';
+    
+        if (event.target.classList.contains('js-select')) {
+          icon = event.srcElement.previousElementSibling;
+            self.selectIconHandler(icon);
+        }
+    
+      });
+    
+      variables.$firstInputQuantity.addEventListener('focusout', function() {
+        self.onQuantityFocusOutHandler(this, variables.$firstInputUnity, variables.$firstInputAmount);
       });
 
     }
-
-  };
-
-  const onQuantityFocusOutHandler = (quantityField, unityField, amountField) => {
-
-    let isQuantityEmpty = quantityField.value === '',
-        isUnityEmpty = unityField.value === '',
-        hasUnityValueInvalid = isNaN(unityField.value),
-        hasQuantityValueInvalid = isNaN(quantityField.value),
-        errors = 0;
-
-    if (isUnityEmpty || hasUnityValueInvalid) {
-      unityField.classList.add('error');
-      errors += 1;
-    } else {
-      unityField.classList.remove('error');
-    }
-
-    if (isQuantityEmpty || hasQuantityValueInvalid) {
-      quantityField.classList.add('error');
-      errors += 1;
-    } else {
-      quantityField.classList.remove('error');
-    }
-
-    if (errors === 0) {
-      amountField.value = calculateSingleAmount(unityField.value, quantityField.value);
-      $firstInputAmount.parentNode.classList.add('x-value');
-      calculateTotalAmount();
-    }
-
   };
 
   const calculateDiscount = (discount) => {
@@ -348,49 +400,33 @@
 
   };
 
+  const actionsHandler = {
+    variables: {
+      $addProductBtn: document.getElementById('js-add-btn'),
+      $printBtn: document.getElementById('js-print-btn'),
+      $previewBtn: document.getElementById('js-preview-btn')
+    },
+    init() {
+      this.variables.$addProductBtn.addEventListener('click', function() {
+        productTableHandler.addProduct();
+      });
+
+      this.variables.$printBtn.addEventListener('click', function() {
+        window.print();
+      });
+    
+      this.variables.$previewBtn.addEventListener('click', function() {
+        document.querySelector('body').classList.toggle('x-preview');
+      });
+    }
+  };
+
   const switchLanguage = () => {
     $tooltipContainer.classList.toggle('visible');
   };
 
-  const selectIconHandler = (elem) => {
-    if (elem.classList.contains('icon-circle-down')) {
-      elem.classList.remove('icon-circle-down');
-      elem.classList.add('icon-circle-up');
-    } else {
-      elem.classList.add('icon-circle-down');
-      elem.classList.remove('icon-circle-up');
-    }
-  }
-
   $addressInputField.addEventListener('focusin', function() {
     this.classList.add('expand');
-  });
-
-  document.querySelector('body').addEventListener('click', function(event) {
-    
-    let icon = '';
-
-    if (event.target.classList.contains('js-select')) {
-      icon = event.srcElement.previousElementSibling;
-      selectIconHandler(icon);
-    }
-
-  });
-
-  // reset icon state
-  $selectBox.addEventListener('focusout', function() {
-    if ($selectIcon.classList.contains('icon-circle-up')) {
-      $selectIcon.classList.add('icon-circle-down');
-      $selectIcon.classList.remove('icon-circle-up');
-    }
-  });
-
-  $firstInputQuantity.addEventListener('focusout', function() {
-    onQuantityFocusOutHandler(this, $firstInputUnity, $firstInputAmount);
-  });
-
-  $addProductBtn.addEventListener('click', function() {
-    addProduct();
   });
 
   $discount.addEventListener('change', function() {
@@ -401,23 +437,13 @@
     calculateAndSetVat(this);
   });
 
-  $printBtn.addEventListener('click', function() {
-    window.print();
-  });
-
   // Thanks to -> https://github.com/chmln/flatpickr
   flatpickr($datepicker, {
     dateFormat: 'd-m-Y'
   });
 
-  $logoImageField.addEventListener('change', function(event) {
-    let imgData = getBase64Image(event);
-    localStorage.setItem('imgData', imgData);
-    $logoWrapper.classList.add('x-logo-visible');
-  });
-
-  let dataImage = localStorage.getItem('imgData');
-
-  $imgBlank.src = 'data:image/png;base64,' + dataImage;
+  imageHandler.init();
+  productTableHandler.init();
+  actionsHandler.init();
 
 }());

@@ -10,34 +10,25 @@
 }
 
 @mixin rem($property, $values) {
-    $px: ();
-    $rem: ();
-  
-    @each $value in $values {
 
-      @if $value == 0 or $value == auto {
-        $px: append($px, $value);
-        $rem: append($rem, $value);
+  $base-font-size: 14px;
+  $px-values: ();
+  $rem-values: ();
+
+  @each $value in $values {
+      @if $value == 0 or $value == 0px {
+          $px-values: join($px-values, 0);
+          $rem-values: join($rem-values, 0);
+      } @else if type-of($value) == number and not unitless($value) and (unit($value) == px) {
+          $new-rem-value: $value / $base-font-size;
+          $px-values: join($px-values, round($value));
+          $rem-values: join($rem-values, #{$new-rem-value}rem);
       } @else {
-        $unit: unit($value);
-        $val: parseInt($value);
-  
-        @if $unit == 'px' {
-          $px: append($px, $value);
-          $rem: append($rem,  ($val / 10 + rem));
-        }
-  
-        @if $unit == 'rem' {
-          $px: append($px,  ($val * 10 + px));
-          $rem: append($rem, $value);
-        }
+          $px-values: join($px-values, round($value * $base-font-size));
+          $rem-values: join($rem-values, #{$value}rem);
       }
-    }
-  
-    @if $px == $rem {
-      #{$property}: $px;
-    } @else {
-      #{$property}: $px;
-      #{$property}: $rem;
-    }
   }
+
+  #{$property}: $px-values;
+  #{$property}: $rem-values;
+}
