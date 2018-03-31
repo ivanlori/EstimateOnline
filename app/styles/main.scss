@@ -150,6 +150,11 @@ button {
           left: 55px;
         }
       }
+      .x-logo-error {
+        color: red;
+        font-weight: 600;
+        top: 155px;
+      }
       input {
         display: block;
         position: absolute;
@@ -190,7 +195,7 @@ button {
         margin-top: 0;
         height: 19px;
         @include transition(height .1s linear);
-        
+
         &.expand {
           height: 50px;
         }
@@ -250,11 +255,11 @@ button {
 
     .estimate__wrapper__table {
       min-height: 345px;
-      max-height: 345px;
       border-bottom: 1px solid $grey;
     }
     &__table {
       width: 100%;
+      margin-bottom: 20px;
 
       thead {
         background: $blue;
@@ -305,7 +310,7 @@ button {
           &.small {
             width: 150px;
             position: relative;
-            
+
             .select-icon {
               position: absolute;
               right: 7px;
@@ -336,11 +341,23 @@ button {
             }
           }
         }
+        .icon-minus {
+          position: relative;
+          top: 13px;
+          left: 10px;
+          border-radius: 50%;
+          border: 1px solid;
+          padding: 5px;
+          color: red;
+          font-size: 10px;
+          cursor: pointer;
+        }
       }
     }
   }
   &__footer {
     text-align: right;
+    margin-top: 20px;
 
     &__total,
     &__subtotal {
@@ -396,6 +413,7 @@ button {
   height: 65px;
   background: $page-background;
   border-top: 1px solid $grey;
+  z-index: 2;
 
   .wrapper {
     width: 1000px;
@@ -485,10 +503,14 @@ button {
 }
 
 // Style for tablet
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (orientation: portrait) 
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (orientation: portrait)
   and (-webkit-min-device-pixel-ratio: 1) {
     @import "tablet";
+}
+
+@media print {
+  @import 'print';
 }

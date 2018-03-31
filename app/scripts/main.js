@@ -15,10 +15,9 @@
    * Feel free to inspect my code and reuse it or... Contribute! :D
    */
 
-  const 
+  const
     $datepicker = document.querySelector('.js-datepicker'),
     $vat = document.querySelector('.js-vat'),
-    $tooltipContainer = document.querySelector('.js-tooltip'),
     $vatFooterDisplay = document.querySelector('.js-vat-display'),
     $addressInputField = document.querySelector('.js-company-address'),
     $discount = document.querySelector('.js-discount'),
@@ -35,7 +34,7 @@
       $logoWrapper: document.querySelector('.js-logo-wrapper'),
     },
     getBase64Image(event) {
-      
+
       /**
        * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
        *
@@ -43,29 +42,33 @@
        * and then is possible to retrieve via local storage
        */
       const logo = this.variables.$imgBlank;
-      let ctx = logo.getContext('2d');
-      let img = new Image();
+
+      let
+        ctx = logo.getContext('2d'),
+        img = new Image();
+
       img.onload = function() {
-  
+
         if (img.height > 150) {
           logo.height = 80;
         } else {
           logo.height = img.height;
         }
-  
+
         logo.width = img.width;
         ctx.drawImage(img, 0, 0);
       };
-  
+
       img.src = URL.createObjectURL(event.target.files[0]);
       logo.classList.remove('hidden');
-  
+
     },
     getImageFromStorage() {
       let dataImage = localStorage.getItem('imgData');
       this.variables.$imgBlank.src = 'data:image/png;base64,' + dataImage;
     },
     init() {
+
       let self = this;
 
       // On image select
@@ -76,7 +79,7 @@
       });
 
       this.getImageFromStorage();
-    
+
     }
   };
 
@@ -87,14 +90,16 @@
       $firstInputUnity: document.getElementById('js-unity-product-0'),
       $firstInputAmount: document.getElementById('js-amount-product-0'),
       $firstInputQuantity: document.getElementById('js-quantity-product-0'),
-      $firstSelectProduct: document.getElementById('js-select-product-0')
+      $firstSelectProduct: document.getElementById('js-select-product-0'),
+      $inputTable: document.querySelectorAll('.js-input-table')
     },
     isDataTableValid(id) {
-      
-      let $defaultSelectId = {},
-          $defaultUnityId = {},
-          $defaultAmountId = {},
-          $defaultQuantityId = {};
+
+      let
+        $defaultSelectId = {},
+        $defaultUnityId = {},
+        $defaultAmountId = {},
+        $defaultQuantityId = {};
 
       if (id === 0) {
         $defaultSelectId = this.variables.$firstSelectProduct;
@@ -108,10 +113,11 @@
         $defaultQuantityId = document.getElementById(`js-quantity-product-${id}`);
       }
 
-      let unityValueParsed = parseInt($defaultUnityId.value),
-          quantityValueParsed = parseInt($defaultQuantityId.value),
-          amountValueParsed = parseInt($defaultAmountId.value),
-          isValid = false;
+      let
+        unityValueParsed = parseInt($defaultUnityId.value),
+        quantityValueParsed = parseInt($defaultQuantityId.value),
+        amountValueParsed = parseInt($defaultAmountId.value),
+        isValid = false;
 
       // Check product select field
       if ($defaultSelectId.value === '0') {
@@ -152,68 +158,69 @@
       return isValid;
 
     },
-    onQuantityFocusOutHandler(quantityField, unityField, amountField) {
+    onQuantityKeyUpHandler(quantityField, unityField, amountField) {
 
-      let isQuantityEmpty = quantityField.value === '',
-          isUnityEmpty = unityField.value === '',
-          hasUnityValueInvalid = isNaN(unityField.value),
-          hasQuantityValueInvalid = isNaN(quantityField.value),
-          errors = 0;
-  
+      let
+        isQuantityEmpty = quantityField.value === '',
+        isUnityEmpty = unityField.value === '',
+        hasUnityValueInvalid = isNaN(unityField.value),
+        hasQuantityValueInvalid = isNaN(quantityField.value),
+        errors = 0;
+
       if (isUnityEmpty || hasUnityValueInvalid) {
         unityField.classList.add('error');
         errors += 1;
       } else {
         unityField.classList.remove('error');
       }
-  
+
       if (isQuantityEmpty || hasQuantityValueInvalid) {
         quantityField.classList.add('error');
         errors += 1;
       } else {
         quantityField.classList.remove('error');
       }
-  
+
       if (errors === 0) {
         amountField.value = this.calculateSingleAmount(unityField.value, quantityField.value);
         this.variables.$firstInputAmount.parentNode.classList.add('x-value');
         this.calculateTotalAmount();
       }
-  
+
     },
     calculateTotalAmount() {
 
-      let sum = 0,
-          $amountClass = document.getElementsByClassName('js-input-amount'),
-          discountVal = '',
-          vatVal = '',
-          parsedVatVal = '',
-          parsedDiscountVal = '',
-          subTotalParsed = '';
-  
+      let
+        sum = 0,
+        $amountClass = document.getElementsByClassName('js-input-amount'),
+        discountVal = '',
+        vatVal = '',
+        parsedVatVal = '',
+        parsedDiscountVal = '';
+
       // Iterate over all amount and sum
       for (let i = 0; i < $amountClass.length; i++) {
         sum += parseFloat($amountClass[i].value);
-  
+
         if ($vat.value !== '') {
           vatVal = calculateAndSetVat($vat);
           parsedVatVal = parseFloat(vatVal);
         }
-  
+
         if ($discount.value !== '') {
           discountVal = calculateDiscount($discount);
           parsedDiscountVal = parseFloat(discountVal);
         }
-  
+
         $estimateSubtotal.innerHTML = sum;
         $estimateTotal.innerHTML = `${(sum + parsedVatVal) - parsedDiscountVal}€`;
       }
-  
+
     },
     calculateSingleAmount(unity, quantity) {
       return parseFloat(unity).toFixed(2) * parseFloat(quantity).toFixed(2);
     },
-    
+
     /**
      * @param elementChildType
      * @param cellClassAttr
@@ -221,12 +228,13 @@
      * @param placeholderAttr
      * @returns Cell table with element in it
      */
-    createCellTable(elementChildType, cellClassAttr, elemClassAttr, idAttr, nameAttr, placeholderAttr) {
+    createCellTable(elementChildType, cellClassAttr, elemClassAttr, idAttr, placeholderAttr) {
 
-      let $td = document.createElement('td'),
-          $elem = document.createElement(elementChildType),
-          $selectIconElem = document.createElement('span'),
-          $euroSymbol = document.createElement('span');
+      let
+        $td = document.createElement('td'),
+        $elem = document.createElement(elementChildType),
+        $selectIconElem = document.createElement('span'),
+        $euroSymbol = document.createElement('span');
 
       if (elementChildType === 'select') {
 
@@ -257,7 +265,6 @@
 
       $td.setAttribute('class', cellClassAttr);
 
-      $elem.setAttribute('name', nameAttr);
       $elem.setAttribute('class', elemClassAttr);
       $elem.setAttribute('id', idAttr);
       $elem.setAttribute('placeholder', placeholderAttr);
@@ -273,16 +280,25 @@
 
     },
     createRowTable(id) {
-      let $row = document.createElement('tr');
-  
+
+      let
+        $row = document.createElement('tr'),
+        $deleteRowBtn = document.createElement('i');
+
+      $deleteRowBtn.setAttribute('class', 'icon-minus')
+      $deleteRowBtn.setAttribute('id', id);
+
       $row.classList.add('estimate__main__table__row');
-  
-      $row.appendChild(this.createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, `productSelect${id}`, '-- Select --'));
-      $row.appendChild(this.createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, `productDescription${id}`, ''));
-      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, `productUnity${id}`, '0.00'));
-      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, `productQuantity${id}`, '0'));
-      $row.appendChild(this.createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, `productAmount${id}`, '0.00'));
-  
+
+      $row.appendChild(this.createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, '-- Select --'));
+      $row.appendChild(this.createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, ''));
+      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, '0.00'));
+      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, '0'));
+      $row.appendChild(this.createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, '0.00'));
+
+      $row.appendChild($deleteRowBtn);
+      $row.setAttribute('id', id);
+
       return $row;
     },
     selectIconHandler(elem) {
@@ -296,35 +312,37 @@
     },
     addProduct() {
 
-      // Clone the default row
-      let $tbody = document.getElementById('tbody'),
-          self = this;
-  
+      let
+        $tbody = document.getElementById('tbody'),
+        self = this;
+
       // if there's not errors
       if (this.isDataTableValid(id)) {
-  
+
         id += 1;
-  
+
         // Insert the row created
         $tbody.appendChild(this.createRowTable(id));
-  
-        let productId = document.getElementById(`js-select-product-${id}`),
-            unityId = document.getElementById(`js-unity-product-${id}`),
-            quantityId = document.getElementById(`js-quantity-product-${id}`),
-            amountId = document.getElementById(`js-amount-product-${id}`);
-  
+
+        let
+          unityId = document.getElementById(`js-unity-product-${id}`),
+          quantityId = document.getElementById(`js-quantity-product-${id}`),
+          amountId = document.getElementById(`js-amount-product-${id}`);
+
         // Focus out on dynamic input id
-        quantityId.addEventListener('focusout', function() {
-          self.onQuantityFocusOutHandler(this, unityId, amountId);
+        quantityId.addEventListener('keyup', function() {
+          self.onQuantityKeyUpHandler(this, unityId, amountId);
           amountId.parentNode.classList.add('x-value');
         });
-  
+
       }
-  
+
     },
     init() {
-      let variables = this.variables,
-          self = this;
+
+      let
+        variables = this.variables,
+        self = this;
 
       // reset icon state
       variables.$selectBox.addEventListener('focusout', function() {
@@ -335,18 +353,27 @@
       });
 
       document.querySelector('body').addEventListener('click', function(event) {
-    
+
         let icon = '';
-    
+
         if (event.target.classList.contains('js-select')) {
           icon = event.srcElement.previousElementSibling;
-            self.selectIconHandler(icon);
+          self.selectIconHandler(icon);
         }
-    
+
+        // when user click on delete btn, remove the own row
+        if (event.target.classList.contains('icon-minus')) {
+          id -= 1;
+          event.target.parentNode.remove();
+
+          // recalculate total after row remove
+          self.calculateTotalAmount();
+        }
+
       });
-    
-      variables.$firstInputQuantity.addEventListener('focusout', function() {
-        self.onQuantityFocusOutHandler(this, variables.$firstInputUnity, variables.$firstInputAmount);
+
+      variables.$firstInputQuantity.addEventListener('keyup', function() {
+        self.onQuantityKeyUpHandler(this, variables.$firstInputUnity, variables.$firstInputAmount);
       });
 
     }
@@ -354,9 +381,10 @@
 
   const calculateDiscount = (discount) => {
 
-    let discountResult = '',
-        parsedDiscountVal = '',
-        parsedSubtotalVal = '';
+    let
+      discountResult = '',
+      parsedDiscountVal = '',
+      parsedSubtotalVal = '';
 
     if (isNaN(discount.value)) {
       discount.classList.add('error');
@@ -366,7 +394,7 @@
 
       parsedDiscountVal = parseFloat(discountResult);
       parsedSubtotalVal = parseFloat($estimateSubtotal.innerHTML);
-      
+
       $estimateTotal.innerHTML = `${parsedSubtotalVal - parsedDiscountVal}€`;
 
       return discountResult;
@@ -376,9 +404,10 @@
 
   const calculateAndSetVat = (vat) => {
 
-    let vatVal = '',
-        parsedSubtotalVal = '',
-        parsedVatVal = '';
+    let
+      vatVal = '',
+      parsedSubtotalVal = '',
+      parsedVatVal = '';
 
     // validate
     if (isNaN(vat.value)) {
@@ -387,7 +416,7 @@
     } else {
       vat.classList.remove('error');
       $vatFooterDisplay.innerText = vat.value;
-    
+
       vatVal = (($estimateSubtotal.innerHTML * vat.value) / 100).toFixed(2);
 
       parsedVatVal = parseFloat(vatVal);
@@ -412,28 +441,36 @@
       });
 
       this.variables.$printBtn.addEventListener('click', function() {
-        window.print();
+
+        let
+          isLogoUploaded = imageHandler.variables.$logoWrapper.classList.contains('x-logo-visible'),
+          isThereAnyErrorInTable = (function() {
+              document.querySelector('.js') //qui
+          });
+
+        // if user has uploaded an image
+        if (isLogoUploaded) {
+          window.print();
+        } else {
+          document.querySelector('.x-logo-error').classList.remove('hidden');
+        }
       });
-    
+
       this.variables.$previewBtn.addEventListener('click', function() {
         document.querySelector('body').classList.toggle('x-preview');
       });
     }
   };
 
-  const switchLanguage = () => {
-    $tooltipContainer.classList.toggle('visible');
-  };
-
   $addressInputField.addEventListener('focusin', function() {
     this.classList.add('expand');
   });
 
-  $discount.addEventListener('change', function() {
+  $discount.addEventListener('keyup', function() {
     calculateDiscount(this);
   });
 
-  $vat.addEventListener('change', function() {
+  $vat.addEventListener('keyup', function() {
     calculateAndSetVat(this);
   });
 

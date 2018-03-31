@@ -11,10 +11,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" media="screen" href="styles/main.css">
-    <!-- endbuild -->
-    <!-- build:css styles/print.css -->
-    <link rel="stylesheet" media="print" href="styles/print.css">
+    <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -32,6 +29,7 @@
             <input type="file" id="js-logo-image" class="logo-image-input">
             <label for="js-logo-image">Choose a logo</label>
             <span>(The ideally format is 200 x 80 px)</span>
+            <span class="x-logo-error hidden">! Add a logo</span>
           </div>
           <div class="estimate__company__references">
             <label>Information about your Company</label>
@@ -75,7 +73,7 @@
                 <tr class="estimate__main__table__row">
                   <td class="js-select-wrapper estimate__main__table__row__cell small">
                     <span class="js-select-icon select-icon icon-circle-down"></span>
-                    <select id="js-select-product-0" class="js-select" name="productSelected0">
+                    <select id="js-select-product-0" class="js-select js-input-table">
                       <option value="0">-- Select --</option>
                       <option value="1">Service</option>
                       <option value="2">Hours</option>
@@ -84,17 +82,17 @@
                     </select>
                   </td>
                   <td class="estimate__main__table__row__cell large">
-                    <textarea id="js-description-product-0" class="js-input-description table-field" name="productDescription0"></textarea>
+                    <textarea id="js-description-product-0" class="js-input-description js-input-table table-field"></textarea>
                   </td>
                   <td class="estimate__main__table__row__cell small">
-                    <input id="js-unity-product-0" class="js-input-unity table-field" name="productUnity0" type="text" placeholder="0.00">
+                    <input id="js-unity-product-0" class="js-input-unity js-input-table table-field" type="text" placeholder="0.00">
                   </td>
                   <td class="estimate__main__table__row__cell small">
-                    <input id="js-quantity-product-0" class="js-input-quantity table-field" name="productQuantity0" type="text" placeholder="0">
+                    <input id="js-quantity-product-0" class="js-input-quantity js-input-table table-field" type="text" placeholder="0">
                   </td>
                   <td class="amount-cell estimate__main__table__row__cell small">
                     <span class="amount-euro"></span>
-                    <input id="js-amount-product-0" class="js-input-amount table-field" name="productAmount0" type="text" placeholder="0.00">
+                    <input id="js-amount-product-0" class="js-input-amount js-input-table table-field" type="text" placeholder="0.00">
                   </td>
                 </tr>
               </tbody>
