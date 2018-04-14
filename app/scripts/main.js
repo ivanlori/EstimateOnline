@@ -85,13 +85,11 @@
 
   const productTableHandler = {
     variables: {
-      $selectIcon: document.querySelector('.js-select-icon'),
       $selectBox: document.querySelector('.js-select'),
       $firstInputUnity: document.getElementById('js-unity-product-0'),
       $firstInputAmount: document.getElementById('js-amount-product-0'),
       $firstInputQuantity: document.getElementById('js-quantity-product-0'),
-      $firstSelectProduct: document.getElementById('js-select-product-0'),
-      $inputTable: document.querySelectorAll('.js-input-table')
+      $firstSelectProduct: document.getElementById('js-select-product-0')
     },
     isDataTableValid(id) {
 
@@ -223,22 +221,19 @@
 
     /**
      * @param elementChildType
-     * @param cellClassAttr
+     * @param colClassAttr
      * @param nameAttr
      * @param placeholderAttr
-     * @returns Cell table with element in it
+     * @returns Col table with element in it
      */
-    createCellTable(elementChildType, cellClassAttr, elemClassAttr, idAttr, placeholderAttr) {
+    createColTable(elementChildType, colClassAttr, elemClassAttr, idAttr, placeholderAttr) {
 
       let
         $td = document.createElement('td'),
         $elem = document.createElement(elementChildType),
-        $selectIconElem = document.createElement('span'),
         $euroSymbol = document.createElement('span');
 
       if (elementChildType === 'select') {
-
-        $selectIconElem.setAttribute('class', 'js-select-icon select-icon icon-circle-down');
 
         let items = {
             '0': '-- Select --',
@@ -259,11 +254,9 @@
           }
         }
 
-        $td.appendChild($selectIconElem);
-
       }
 
-      $td.setAttribute('class', cellClassAttr);
+      $td.setAttribute('class', colClassAttr);
 
       $elem.setAttribute('class', elemClassAttr);
       $elem.setAttribute('id', idAttr);
@@ -285,35 +278,26 @@
         $row = document.createElement('tr'),
         $deleteRowBtn = document.createElement('i');
 
-      $deleteRowBtn.setAttribute('class', 'icon-minus')
+      $deleteRowBtn.setAttribute('class', 'icon-minus');
       $deleteRowBtn.setAttribute('id', id);
 
-      $row.classList.add('estimate__main__table__row');
+      $row.classList.add('row');
 
-      $row.appendChild(this.createCellTable('select', 'js-select-wrapper estimate__main__table__row__cell small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, '-- Select --'));
-      $row.appendChild(this.createCellTable('textarea', 'estimate__main__table__row__cell large', 'js-input-description table-field', `js-description-product-${id}`, ''));
-      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-unity table-field', `js-unity-product-${id}`, '0.00'));
-      $row.appendChild(this.createCellTable('input', 'estimate__main__table__row__cell small', 'js-input-quantity table-field', `js-quantity-product-${id}`, '0'));
-      $row.appendChild(this.createCellTable('input', 'amount-cell estimate__main__table__row__cell small', 'js-input-amount table-field', `js-amount-product-${id}`, '0.00'));
+      $row.appendChild(this.createColTable('select', 'js-select-wrapper col small', 'js-select', `js-select-product-${id}`, `js-select-product-${id}`, '-- Select --'));
+      $row.appendChild(this.createColTable('textarea', 'col large', 'js-input-description table-field', `js-description-product-${id}`, ''));
+      $row.appendChild(this.createColTable('input', 'col small', 'js-input-unity table-field', `js-unity-product-${id}`, '0.00'));
+      $row.appendChild(this.createColTable('input', 'col small', 'js-input-quantity table-field', `js-quantity-product-${id}`, '0'));
+      $row.appendChild(this.createColTable('input', 'amount-col col small', 'js-input-amount table-field', `js-amount-product-${id}`, '0.00'));
 
       $row.appendChild($deleteRowBtn);
       $row.setAttribute('id', id);
 
       return $row;
     },
-    selectIconHandler(elem) {
-      if (elem.classList.contains('icon-circle-down')) {
-        elem.classList.remove('icon-circle-down');
-        elem.classList.add('icon-circle-up');
-      } else {
-        elem.classList.add('icon-circle-down');
-        elem.classList.remove('icon-circle-up');
-      }
-    },
     addProduct() {
 
       let
-        $tbody = document.getElementById('tbody'),
+        $tbody = document.getElementById('js-tbody'),
         self = this;
 
       // if there's not errors
@@ -344,33 +328,18 @@
         variables = this.variables,
         self = this;
 
-      // reset icon state
-      variables.$selectBox.addEventListener('focusout', function() {
-        if (variables.$selectIcon.classList.contains('icon-circle-up')) {
-          variables.$selectIcon.classList.add('icon-circle-down');
-          variables.$selectIcon.classList.remove('icon-circle-up');
-        }
-      });
+      document.querySelector('body').addEventListener('click', function(e) {
 
-      document.querySelector('body').addEventListener('click', function(event) {
-
-        let icon = '';
-
-        if (event.target.classList.contains('js-select')) {
-          icon = event.srcElement.previousElementSibling;
-          self.selectIconHandler(icon);
-        }
-
-        // when user click on delete btn, remove the own row
-        if (event.target.classList.contains('icon-minus')) {
+        // when user clicks on delete btn, remove the own row
+        if (e.target.classList.contains('icon-minus')) {
           id -= 1;
-          event.target.parentNode.remove();
+          e.target.parentNode.remove();
 
           // recalculate total after row remove
           self.calculateTotalAmount();
         }
 
-      });
+      }, false);
 
       variables.$firstInputQuantity.addEventListener('keyup', function() {
         self.onQuantityKeyUpHandler(this, variables.$firstInputUnity, variables.$firstInputAmount);

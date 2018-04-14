@@ -4,7 +4,21 @@
     -webkit-transition: $transition;
     transition:         $transition;
 }
-  
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+}
+
 @function parseInt($n) {
     @return $n / ($n * 0 + 1);
 }

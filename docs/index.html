@@ -35,7 +35,7 @@
             <textarea class="js-company-address address" name="companyAddress" placeholder="Company address"></textarea>
           </div>
         </div>
-        <div class="estimate__data">
+        <div class="estimate__data clearfix">
           <div class="estimate__data__date">
             <label>Date</label>
             <input type="text" class="js-datepicker datepicker" name="estimateDate" placeholder="dd-mm-yyyy">
@@ -55,46 +55,43 @@
             <textarea class="js-note-input" placeholder="Add some notes..."></textarea>
           </div>
         </div>
-        <main class="estimate__main">
-          <div class="estimate__wrapper__table">
-            <table class="estimate__main__table">
-              <thead>
-                <td class="estimate__main__table__cell small">Item</td>
-                <td class="estimate__main__table__cell large">Description</td>
-                <td class="estimate__main__table__cell small">Unity price</td>
-                <td class="estimate__main__table__cell small">Quantity</td>
-                <td class="estimate__main__table__cell small">Amount</td>
-              </thead>
-              <tbody id="tbody">
-                <tr class="estimate__main__table__row">
-                  <td class="js-select-wrapper estimate__main__table__row__cell small">
-                    <span class="js-select-icon select-icon icon-circle-down"></span>
-                    <select id="js-select-product-0" class="js-select js-input-table">
-                      <option value="0">-- Select --</option>
-                      <option value="1">Service</option>
-                      <option value="2">Hours</option>
-                      <option value="3">Days</option>
-                      <option value="4">Product</option>
-                    </select>
-                  </td>
-                  <td class="estimate__main__table__row__cell large">
-                    <textarea id="js-description-product-0" class="js-input-description js-input-table table-field"></textarea>
-                  </td>
-                  <td class="estimate__main__table__row__cell small">
-                    <input id="js-unity-product-0" class="js-input-unity js-input-table table-field" type="text" placeholder="0.00">
-                  </td>
-                  <td class="estimate__main__table__row__cell small">
-                    <input id="js-quantity-product-0" class="js-input-quantity js-input-table table-field" type="text" placeholder="0">
-                  </td>
-                  <td class="amount-cell estimate__main__table__row__cell small">
-                    <span class="amount-euro"></span>
-                    <input id="js-amount-product-0" class="js-input-amount js-input-table table-field" type="text" placeholder="0.00">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </main>
+        <div class="estimate__table">
+          <table>
+            <thead>
+              <td>Item</td>
+              <td>Description</td>
+              <td>Unity price</td>
+              <td>Quantity</td>
+              <td>Amount</td>
+            </thead>
+            <tbody id="js-tbody">
+              <tr class="row">
+                <td class="js-select-wrapper col small">
+                  <select id="js-select-product-0" class="js-select">
+                    <option value="0">-- Select --</option>
+                    <option value="1">Service</option>
+                    <option value="2">Hours</option>
+                    <option value="3">Days</option>
+                    <option value="4">Product</option>
+                  </select>
+                </td>
+                <td class="col large">
+                  <textarea id="js-description-product-0" class="js-input-description table-field"></textarea>
+                </td>
+                <td class="col small">
+                  <input id="js-unity-product-0" class="js-input-unity table-field" type="text" placeholder="0.00">
+                </td>
+                <td class="col small">
+                  <input id="js-quantity-product-0" class="js-input-quantity table-field" type="text" placeholder="0">
+                </td>
+                <td class="amount-col col small">
+                  <span class="amount-euro"></span>
+                  <input id="js-amount-product-0" class="js-input-amount table-field" type="text" placeholder="0.00">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <footer class="estimate__footer">
           <div class="estimate__footer__subtotal">
             <div class="estimate__footer__subtotal__description">
@@ -129,10 +126,10 @@
             </button>
           </div>
           <div class="actions__version">
-            <span>Version: 0.7</span>
+            <span>Version: 0.8</span>
           </div>
           <div class="actions__github">
-            <span class="bold">Do you like this project?<br>Star on Github!</span>
+            <span class="bold">Do you like this project?<br>Support on Github!</span>
             <a class="github-button" data-size="large" href="https://github.com/ivanlori/free-online-estimate" aria-label="Star ivanlori/free-online-estimate on GitHub">Star</a>
           </div>
         </div>
