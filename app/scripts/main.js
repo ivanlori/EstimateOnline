@@ -405,28 +405,37 @@
       $previewBtn: document.getElementById('js-preview-btn')
     },
     init() {
+
+      let isLogoUploaded = false;
+
+      function scrollToError() {
+        return window.scroll(0, '.x-logo-error');
+      }
+
       this.variables.$addProductBtn.addEventListener('click', function() {
         productTableHandler.addProduct();
       });
 
       this.variables.$printBtn.addEventListener('click', function() {
+        isLogoUploaded = imageHandler.variables.$logoWrapper.classList.contains('x-logo-visible');
 
-        let
-          isLogoUploaded = imageHandler.variables.$logoWrapper.classList.contains('x-logo-visible'),
-          isThereAnyErrorInTable = (function() {
-              document.querySelector('.js') //qui
-          });
-
-        // if user has uploaded an image
         if (isLogoUploaded) {
           window.print();
         } else {
           document.querySelector('.x-logo-error').classList.remove('hidden');
+          scrollToError();
         }
       });
 
       this.variables.$previewBtn.addEventListener('click', function() {
-        document.querySelector('body').classList.toggle('x-preview');
+        isLogoUploaded = imageHandler.variables.$logoWrapper.classList.contains('x-logo-visible');
+
+        if (isLogoUploaded) {
+          document.querySelector('body').classList.toggle('x-preview');
+        } else {
+          document.querySelector('.x-logo-error').classList.remove('hidden');
+          scrollToError();
+        }
       });
     }
   };

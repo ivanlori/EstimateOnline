@@ -158,7 +158,9 @@ button {
       .x-logo-error {
         color: red;
         font-weight: 600;
-        top: 155px;
+        position: relative;
+        top: 35px;
+        left: 153px;
       }
       input {
         display: block;
