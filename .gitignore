@@ -11,3 +11,8 @@ npm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
+docs/fonts/icomoon.woff
+docs/fonts/icomoon.ttf
+docs/fonts/icomoon.svg
+docs/fonts/icomoon.eot
+docs/CNAME
