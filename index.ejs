@@ -5,20 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="A free online estimate of cost">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Free Online Estimate</title>
-
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <title><%= htmlWebpackPlugin.options.title %></title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="/bower_components/modernizr/modernizr.js"></script>
-    <!-- endbuild -->
-  </head>
-  <body>
+</head>
+<body>
     <div class="estimate">
         <div class="estimate__title">
           <h2>Job Estimate</h2>
@@ -130,7 +121,7 @@
             </button>
           </div>
           <div class="actions__version">
-            <span>Version: 0.9</span>
+            <span>Version: <%= htmlWebpackPlugin.options.version %></span>
           </div>
           <div class="actions__github">
             <span class="bold">Do you like this project?<br>Support on Github!</span>
@@ -148,16 +139,9 @@
 
       gtag('config', 'UA-67777901-4');
     </script>
+
+    <!-- Github button -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="/bower_components/modernizr/modernizr.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-  </body>
+</body>
 </html>

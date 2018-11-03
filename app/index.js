@@ -1,8 +1,4 @@
-'use strict';
-
-(function() {
-
-  /**
+ /**
    * @Author: Ivan Lori
    * @Description: An online estimate of costs
    *
@@ -11,9 +7,16 @@
    *
    * The code style which I adopted is from AirBnb
    * references to: https://github.com/airbnb/javascript
-   *
-   * Feel free to inspect my code and reuse it or... Contribute! :D
+   * 
+   * Application entry point
    */
+
+'use strict';
+
+// Load application styles
+import 'styles/main.scss';
+
+(function() {
 
   const
     $datepicker = document.querySelector('.js-datepicker'),

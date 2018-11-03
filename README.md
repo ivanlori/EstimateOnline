@@ -6,8 +6,6 @@ A free online estimate of costs written in Vanilla js
 
 - [Node.js](https://nodejs.org/en/) (>=4.x or 6.x preferred)
 - npm version 3+ and [Git](https://git-scm.com/)
-- Gulp.js (https://gulpjs.com/)
-- Bower.js (https://bower.io/)
 
 ### Installing
 
@@ -18,14 +16,11 @@ git clone https://github.com/ivanlori/free-online-estimate.git
 # install dependencies
 npm install
 
-# install bower dependencies
-bower install
-
-# serve with hot reload at localhost:9000
-gulp serve
+# serve with hot reload at localhost:8080
+npm run serve
 
 # build for production with minification
-gulp build
+npm run build
 
 ```
 
