@@ -1,6 +1,8 @@
 # Free online estimate
 
-A free online estimate of costs written in Vanilla js
+A free online estimate of costs in ES6 javascript
+![](https://img.shields.io/github/license/ivanlori/free-online-estimate.svg)
+[![devDependency Status](https://david-dm.org/ivanlori/free-online-estimate/dev-status.svg)](https://david-dm.org/ivanlori/free-online-estimate#info=devDependencies)
 
 ### Prerequisites
 
