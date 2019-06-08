@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, CSSProperties } from 'react'
 
 import { SelectView } from '../../components/select/Select.view'
 import { InputView } from '../../components/input/Input.view'
@@ -13,7 +13,12 @@ interface State {
   amountPlaceholder: string,
   quantityPlaceholder: string,
   pricePlaceholder: string,
+  notesPlaceholder: string,
   typology: Array<Object>
+}
+
+const textareaStyle: React.CSSProperties = {
+  width: '265px'
 }
 
 export default class ProductsTable extends Component<Props, State> {
@@ -25,6 +30,7 @@ export default class ProductsTable extends Component<Props, State> {
       amountPlaceholder: '0.00',
       quantityPlaceholder: '0',
       pricePlaceholder: '0.00',
+      notesPlaceholder: 'Product details',
       typology: [
         { key: 0, value: '-- Select --' },
         { key: 1, value: 'Service' },
@@ -45,6 +51,7 @@ export default class ProductsTable extends Component<Props, State> {
       amountPlaceholder,
       quantityPlaceholder,
       pricePlaceholder,
+      notesPlaceholder,
       typology
     } = this.state
 
@@ -69,7 +76,7 @@ export default class ProductsTable extends Component<Props, State> {
                 />
               </td>
               <td>
-                <TextareaView width="245" />
+                <TextareaView placeholder={ notesPlaceholder } style={ textareaStyle } />
               </td>
               <td>
                 <InputView type="text" placeholder={ pricePlaceholder } />

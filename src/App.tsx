@@ -13,12 +13,16 @@ import ProductsContainer from './containers/products-table/ProductsContainer'
 import Datepicker from './components/Datepicker'
 import DiscountContainer from './components/discount/Discount.container'
 import VatContainer from './components/vat/VAT.container'
-import VatView from './components/vat/VAT.view'
 
 const companyInputStyle: React.CSSProperties = {
   float: 'right',
   width:'60%',
   margin: '5px 0'
+}
+
+const notesStyle: React.CSSProperties = {
+  width: '100px',
+  height: '80px'
 }
 
 export default class App extends Component {
@@ -63,7 +67,7 @@ export default class App extends Component {
             <Notes>
               <TextareaView
                 placeholder="Add some notes..."
-                style="width: 100px; height: 80px;"
+                style={ notesStyle }
                 label="Notes"
               />
             </Notes>

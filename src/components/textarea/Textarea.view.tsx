@@ -5,10 +5,11 @@ import { Label } from '../../styles/global.style'
 
 interface Props {
   placeholder: string,
+  label?: string,
   style: CSSProperties
 }
 
-export const TextareaView = (props: any) => {
+export const TextareaView = (props: Props) => {
   return (
     <React.Fragment>
       <Label>{ props.label }</Label>
