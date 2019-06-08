@@ -1,36 +1,45 @@
 {
-  "name": "free-online-estimate",
-  "version": "1.0.0",
-  "description": "A free online estimate of costs",
-  "author": "Ivan Lori",
-  "license": "MIT",
-  "homepage": "https://github.com/ivanlori/free-online-estimate",
+  "name": "online-estimate-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.4",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-flatpickr": "^3.7.1",
+    "@types/react-redux": "^7.0.9",
+    "@types/redux": "^3.6.0",
+    "@types/styled-components": "^4.1.16",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-flatpickr": "^3.9.0",
+    "react-redux": "^7.0.3",
+    "react-scripts": "3.0.0",
+    "redux": "^4.0.1",
+    "styled-components": "^4.3.0",
+    "styled-normalize": "^8.0.6",
+    "typescript": "^3.5.1"
+  },
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
-    "build": "webpack -p --progress --mode production --config webpack.config.build.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ivanlori/free-online-estimate.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.7.0",
-    "clean-webpack-plugin": "^0.1.19",
-    "cross-env": "^5.2.0",
-    "css-loader": "^1.0.1",
-    "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
-    "webpack-merge": "^4.2.1"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

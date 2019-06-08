@@ -1,6 +1,6 @@
 # Free online estimate
 
-A free online estimate of costs in ES6 javascript
+A free online estimate of costs in React.js and Typescript
 ![](https://img.shields.io/github/license/ivanlori/free-online-estimate.svg)
 [![devDependency Status](https://david-dm.org/ivanlori/free-online-estimate/dev-status.svg)](https://david-dm.org/ivanlori/free-online-estimate#info=devDependencies)
 
@@ -18,11 +18,11 @@ git clone https://github.com/ivanlori/free-online-estimate.git
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run serve
+# serve with hot reload at localhost:3000
+npm start
 
-# build for production with minification
-npm run build
+# build for production
+npm build
 
 ```
 
