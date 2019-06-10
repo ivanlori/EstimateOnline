@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Normalize } from 'styled-normalize'
 
-import { LogoUpload } from './containers/logo-upload/LogoUpload.view'
 import { Wrapper, Title, GlobalStyle, Footer } from './styles/global.style'
 import { InputView } from './components/input/Input.view'
 import { TextareaView } from './components/textarea/Textarea.view'
 import { Total } from './containers/total/Total.view'
 import { Subtotal } from './containers/subtotal/Subtotal.view'
+import LogoUploadContainer from './containers/logo/LogoContainer'
 import UserBarContainer from './containers/user-bar/UserBarContainer'
 import ProductsContainer from './containers/products-table/ProductsContainer'
-import Datepicker from './components/Datepicker'
+import DatepickerContainer from './components/Datepicker.container'
 import DiscountContainer from './components/discount/Discount.container'
 import VatContainer from './components/vat/VAT.container'
 
@@ -21,8 +21,9 @@ const companyInputStyle: React.CSSProperties = {
 }
 
 const notesStyle: React.CSSProperties = {
-  width: '100px',
-  height: '80px'
+  width: '100%',
+  height: '80px',
+  boxSizing: 'border-box'
 }
 
 export default class App extends Component {
@@ -36,7 +37,7 @@ export default class App extends Component {
             <h2>Job Estimate</h2>
           </Title>
           <CompanyData>
-            <LogoUpload />
+            <LogoUploadContainer />
             <CompanyReferences>
               <label>Information about your Company</label>
               <InputView
@@ -61,7 +62,7 @@ export default class App extends Component {
             </CompanyReferences>
           </CompanyData>
           <div className="page__data clearfix">
-            <Datepicker />
+            <DatepickerContainer />
             <DiscountContainer />
             <VatContainer />
             <Notes>
@@ -95,11 +96,6 @@ const CompanyReferences = styled.div`
 `
 
 const Notes = styled.div`
+  width: 50%;
   float: right;
-  width: 500px;
-
-  textarea {
-    width: 478px;
-    height: 65px;
-  }
 `

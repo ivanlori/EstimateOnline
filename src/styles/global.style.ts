@@ -7,6 +7,27 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Roboto", sans-serif;
     color: #333;
   }
+
+  .input {
+    display: block;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    color: #495057;
+    background: ${ colors.basic.white };
+    background-clip: border-box;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 15px;
+    border-radius: 5px;
+
+    &:focus {
+      color: #495057;
+      background: ${ colors.basic.white };
+      border-color: ${ colors.basic.blue };
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25)
+    }
+  }
 `
 
 export const Wrapper = styled.div`

@@ -16,6 +16,7 @@ export const TextareaView = (props: Props) => {
       <Textarea
         placeholder={ props.placeholder }
         style={ props.style }
+        className="input"
       />
     </React.Fragment>
   )

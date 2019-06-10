@@ -4,20 +4,18 @@ import { connect } from 'react-redux'
 import { InputView } from '../input/Input.view'
 import { Label } from '../../styles/global.style'
 import { Wrapper, Percentage } from './VAT.style'
+import { changeVat } from '../../store/actions'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     changeVat: (value: any) => {
-      dispatch({
-        type: 'CHANGE_VAT',
-        payload: value
-      })
+      dispatch(changeVat(value))
     }
   }
 }
 
 interface Props {
-  changeVat: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  changeVat: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 class VatContainer extends Component<Props> {

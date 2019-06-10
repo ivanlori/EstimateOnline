@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { Input } from '../../components/input/Input.style'
-
 export const InputStyle = styled.input`
   .logo input {
     display: block;

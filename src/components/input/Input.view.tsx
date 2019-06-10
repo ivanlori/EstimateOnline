@@ -1,7 +1,5 @@
 import React, { FunctionComponent, CSSProperties } from 'react'
 
-import { Input } from './Input.style'
-
 interface Props {
   placeholder?: string,
   type: string,
@@ -11,11 +9,12 @@ interface Props {
 
 export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style }) => {
   return (
-    <Input
+    <input
       type={ type }
       placeholder={ placeholder }
       onChange={ onChange }
       style={ style }
+      className="input"
     />
   )
 }
