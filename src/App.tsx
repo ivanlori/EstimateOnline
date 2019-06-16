@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { Normalize } from 'styled-normalize'
 
@@ -7,9 +7,9 @@ import { InputView } from './components/input/Input.view'
 import { TextareaView } from './components/textarea/Textarea.view'
 import { Total } from './containers/total/Total.view'
 import { Subtotal } from './containers/subtotal/Subtotal.view'
+import ProductsContainer from './containers/products-table/ProductsContainer'
 import LogoUploadContainer from './containers/logo/LogoContainer'
 import UserBarContainer from './containers/user-bar/UserBarContainer'
-import ProductsContainer from './containers/products-table/ProductsContainer'
 import DatepickerContainer from './components/Datepicker.container'
 import DiscountContainer from './components/discount/Discount.container'
 import VatContainer from './components/vat/VAT.container'
@@ -29,7 +29,7 @@ const notesStyle: React.CSSProperties = {
 export default class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <Normalize />
         <GlobalStyle />
         <Wrapper>
@@ -80,7 +80,7 @@ export default class App extends Component {
           </Footer>
           <UserBarContainer />
         </Wrapper>
-      </React.Fragment>
+      </Fragment>
     )
   }
 }

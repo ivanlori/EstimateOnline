@@ -11,9 +11,7 @@ import {
 import { InputView } from '../../components/input/Input.view';
 import { logoUpload } from '../../store/actions'
 
-const style: CSSProperties = {
-  visibility: 'hidden'
-}
+interface State {}
 
 interface Props {
   logoUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -27,11 +25,11 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-class LogoUploadContainer extends Component<Props> {
+class LogoUploadContainer extends Component<Props, State> {
 
   logoUploadHandler = (e: any) => {
     if (e.target.value !== '') {
-      this.props.logoUpload(false)
+      //this.props.logoUpload()
     }
   }
 
@@ -49,6 +47,10 @@ class LogoUploadContainer extends Component<Props> {
       </Wrapper>
     )
   }
+}
+
+const style: CSSProperties = {
+  visibility: 'hidden'
 }
 
 export default connect(null, mapDispatchToProps)(LogoUploadContainer)

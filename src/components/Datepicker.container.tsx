@@ -32,7 +32,7 @@ export default class DatepickerContainer extends Component<Props, State> {
     return (
       <React.Fragment>
         <Label>Date</Label>
-        <Datepicker
+        <DatepickerStyled
           selected={ this.state.startDate }
           onChange={ this.changeHandler }
           dateFormat="dd/MM/yyyy"
@@ -42,3 +42,8 @@ export default class DatepickerContainer extends Component<Props, State> {
     )
   }
 }
+
+const DatepickerStyled = styled(Datepicker)`
+  width: 120px;
+  margin-right: 15px;
+`

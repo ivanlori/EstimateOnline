@@ -1,62 +1,19 @@
-import React, { Component, CSSProperties } from 'react'
+import React, { Fragment, FunctionComponent } from 'react'
+import { connect } from 'react-redux';
 
-import { SelectView } from '../../components/select/Select.view'
-import { InputView } from '../../components/input/Input.view'
-import { TextareaView } from '../../components/textarea/Textarea.view'
-import { Table, Thead, Td } from './Products.style'
+import RowTable from './RowTable'
+import { Table, Thead, Td, Wrapper } from './Products.style'
 
-interface Props {
-
-}
-
-interface State {
-  amountPlaceholder: string,
-  quantityPlaceholder: string,
-  pricePlaceholder: string,
-  notesPlaceholder: string,
-  typology: Array<Object>
-}
-
-const textareaStyle: React.CSSProperties = {
-  width: '265px'
-}
-
-export default class ProductsTable extends Component<Props, State> {
-
-  constructor (props: Props) {
-    super (props)
-
-    this.state = {
-      amountPlaceholder: '0.00',
-      quantityPlaceholder: '0',
-      pricePlaceholder: '0.00',
-      notesPlaceholder: 'Product details',
-      typology: [
-        { key: 0, value: '-- Select --' },
-        { key: 1, value: 'Service' },
-        { key: 2, value: 'Hours' },
-        { key: 3, value: 'Days', },
-        { key: 4, value: 'Product' }
-      ]
-    }
+const mapStateToProps = (state: any) => {
+  return {
+    rowKey: state.rowKey
   }
+}
 
-  typologyHandler () {
-
-  }
-
-  render() {
-
-    const {
-      amountPlaceholder,
-      quantityPlaceholder,
-      pricePlaceholder,
-      notesPlaceholder,
-      typology
-    } = this.state
-
-    return (
-      <React.Fragment>
+export const ProductsTable: FunctionComponent = (props: any) => {
+  return (
+    <Fragment>
+      <Wrapper>
         <Table>
           <Thead>
             <tr>
@@ -68,30 +25,16 @@ export default class ProductsTable extends Component<Props, State> {
             </tr>
           </Thead>
           <tbody>
-            <tr>
-              <td>
-                <SelectView
-                  onChange={ this.typologyHandler }
-                  data={ typology }
-                />
-              </td>
-              <td>
-                <TextareaView placeholder={ notesPlaceholder } style={ textareaStyle } />
-              </td>
-              <td>
-                <InputView type="text" placeholder={ pricePlaceholder } />
-              </td>
-              <td>
-                <InputView type="text" placeholder={ quantityPlaceholder } />
-              </td>
-              <td>
-                <span></span>
-                <InputView type="text" placeholder={ amountPlaceholder } />
-              </td>
-            </tr>
+            {
+              props.rowKey.forEach((el: any) => {
+                (<RowTable />)
+              })
+            }
           </tbody>
         </Table>
-      </React.Fragment>
-    );
-  }
+      </Wrapper>
+    </Fragment>
+  )
 }
+
+export default connect(mapStateToProps, null)(ProductsTable)

@@ -1,12 +1,40 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { Button } from '../../components/buttons/Button.view'
 import { Wrapper, Bar, ButtonWrapper, Version } from './UserBar.style'
+import { addRow } from '../../store/actions'
 
-export default class UserBarContainer extends Component {
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addRow: (value: number) => {
+      dispatch(addRow(value))
+    }
+  }
+}
+
+interface State {
+  clicks: number
+}
+
+interface Props {
+  addRow: (event: any) => void
+}
+
+class UserBarContainer extends Component<Props, State> {
+
+  constructor (props: any) {
+    super (props)
+    this.state = {
+      clicks: 0
+    }
+  }
 
   addHandler = () => {
-    console.log('add')
+    this.setState({
+      clicks: this.state.clicks + 1
+    })
+    this.props.addRow(this.state.clicks)
   }
 
   printHandler = () => {
@@ -32,3 +60,5 @@ export default class UserBarContainer extends Component {
     )
   }
 }
+
+export default connect(null, mapDispatchToProps)(UserBarContainer)

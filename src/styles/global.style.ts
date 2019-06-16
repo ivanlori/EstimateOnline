@@ -28,6 +28,29 @@ export const GlobalStyle = createGlobalStyle`
       box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25)
     }
   }
+
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .small {
+    width: 150px;
+    vertical-align: top;
+  }
+
+  .large {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    resize: vertical;
+    min-height: 45px;
+    max-height: 60px;
+    height: 45px;
+    padding: 6px;
+    border: 1px solid #ced4da;
+  }
 `
 
 export const Wrapper = styled.div`

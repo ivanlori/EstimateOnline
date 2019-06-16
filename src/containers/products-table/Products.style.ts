@@ -16,3 +16,10 @@ export const Thead = styled.thead`
 export const Td = styled.td`
   padding: 10px 0px 10px 10px;
 `
+
+export const Wrapper = styled.div`
+  min-height: 380px;
+  position: relative;
+  margin-top: 30px;
+  border-bottom: 1px solid #ced4da;
+`
