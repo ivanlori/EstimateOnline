@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent } from 'react'
+import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux';
 
 import RowTable from './RowTable'
@@ -10,31 +10,46 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export const ProductsTable: FunctionComponent = (props: any) => {
-  return (
-    <Fragment>
-      <Wrapper>
-        <Table>
-          <Thead>
-            <tr>
-              <Td>Item</Td>
-              <Td>Description</Td>
-              <Td>Unity price</Td>
-              <Td>Quantity</Td>
-              <Td>Amount</Td>
-            </tr>
-          </Thead>
-          <tbody>
-            {
-              props.rowKey.forEach((el: any) => {
-                (<RowTable />)
-              })
-            }
-          </tbody>
-        </Table>
-      </Wrapper>
-    </Fragment>
-  )
+interface Props {
+  rowKey: number
+}
+
+interface State {
+  
+}
+
+class ProductsTable extends Component<Props, State> {
+
+  createRows = () => {
+    let num = 0
+    for (let i = 0; i <= this.props.rowKey; i++) {
+        num = i
+    }
+    return num
+  }
+
+  render () {
+    return (
+      <Fragment>
+        <Wrapper>
+          <Table>
+            <Thead>
+              <tr>
+                <Td>Item</Td>
+                <Td>Description</Td>
+                <Td>Unity price</Td>
+                <Td>Quantity</Td>
+                <Td>Amount</Td>
+              </tr>
+            </Thead>
+            <tbody>
+              <RowTable id={ this.createRows } />
+            </tbody>
+          </Table>
+        </Wrapper>
+      </Fragment>
+    )
+  }
 }
 
 export default connect(mapStateToProps, null)(ProductsTable)

@@ -32,7 +32,7 @@ class UserBarContainer extends Component<Props, State> {
 
   addHandler = () => {
     this.setState({
-      clicks: this.state.clicks + 1
+      clicks: this.state.clicks
     })
     this.props.addRow(this.state.clicks)
   }

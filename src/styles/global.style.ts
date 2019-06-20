@@ -40,6 +40,10 @@ export const GlobalStyle = createGlobalStyle`
     vertical-align: top;
   }
 
+  td {
+    display: table-cell;
+  }
+
   .large {
     width: 100%;
     box-sizing: border-box;
@@ -48,8 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 45px;
     max-height: 60px;
     height: 45px;
-    padding: 6px;
-    border: 1px solid #ced4da;
+    vertical-align: top;
   }
 `
 

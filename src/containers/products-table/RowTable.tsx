@@ -5,7 +5,13 @@ import { InputView } from '../../components/input/Input.view'
 import { TextareaView } from '../../components/textarea/Textarea.view'
 
 const textareaStyle: CSSProperties = {
-  width: '265px'
+  width: '265px',
+  height: '25px',
+  display: 'inline-block'
+}
+
+interface Props {
+  id: number
 }
 
 interface State {
@@ -16,10 +22,10 @@ interface State {
   typology: Array<Object>
 }
 
-class RowTable extends Component<{}, State> {
+class RowTable extends Component<Props, State> {
 
-  constructor(props: any) {
-    super(props)
+  constructor (props: any) {
+    super (props)
 
     this.state = {
       amountPlaceholder: '0.00',
@@ -48,7 +54,7 @@ class RowTable extends Component<{}, State> {
 
     return (
       <Fragment>
-        <tr>
+        <tr key={this.props.id}>
           <td className="small">
             <SelectView
               data={typology}

@@ -11,7 +11,7 @@ const initialState = {
   vat: 0,
   discount: 0,
   isLogoUploaded: false,
-  rowKey: []
+  rowKey: 0
 }
 
 // reducer
@@ -38,10 +38,9 @@ export function reducer(state = initialState, action: any) {
     case ADD_KEY_ROW:
       state = {
         ...state,
-        rowKey: state.rowKey.concat(action.payload + 1)
+        rowKey: action.payload + 1
       }
   }
-
   return state
 }
 
