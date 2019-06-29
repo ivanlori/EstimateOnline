@@ -1,21 +1,16 @@
 import * as constants from './constants'
 
-export const changeVat = (value: any) => ({
+export const changeVat = (value: number) => ({
   type: constants.CHANGE_VAT,
   payload: value
 })
 
-export const changeDiscount = (value: any) => ({
+export const changeDiscount = (value: number) => ({
   type: constants.CHANGE_DISCOUNT,
   payload: value
 })
 
-export const logoUpload = (value: any) => ({
+export const logoUpload = (value: string) => ({
   type: constants.UPLOAD_LOGO,
-  payload: value
-})
-
-export const addRow = (value: number) => ({
-  type: constants.ADD_KEY_ROW,
   payload: value
 })

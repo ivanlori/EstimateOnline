@@ -58,7 +58,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Wrapper = styled.div`
   background-color: ${ colors.basic.lightGrey };
-  max-width: 1050px;
+  max-width: 1077px;
   min-width: 940px;
   border: 1px solid ${ colors.basic.grey };
   margin: 20px auto;

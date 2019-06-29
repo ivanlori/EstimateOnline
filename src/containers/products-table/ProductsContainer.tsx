@@ -1,31 +1,42 @@
 import React, { Fragment, Component } from 'react'
-import { connect } from 'react-redux';
 
 import RowTable from './RowTable'
+import { Button } from '../../components/buttons/Button.view'
 import { Table, Thead, Td, Wrapper } from './Products.style'
 
-const mapStateToProps = (state: any) => {
-  return {
-    rowKey: state.rowKey
-  }
-}
-
-interface Props {
-  rowKey: number
-}
+interface Props {}
 
 interface State {
-  
+  rows: Array<number>,
+  clicks: number
 }
 
 class ProductsTable extends Component<Props, State> {
 
-  createRows = () => {
-    let num = 0
-    for (let i = 0; i <= this.props.rowKey; i++) {
-        num = i
+  constructor (props: any) {
+    super (props)
+    
+    this.state = {
+      rows: [ 0 ],
+      clicks: 0
     }
-    return num
+
+    this.addRowHandler = this.addRowHandler.bind(this)
+  }
+
+  createRows = () => {
+    return (
+      this.state.rows.map((index, el) => (
+        <RowTable key={el} id={ index } />
+      ))
+    )
+  }
+
+  addRowHandler () {
+    this.setState({
+      clicks: this.state.clicks + 1,
+      rows: this.state.rows.concat(this.state.clicks)
+    })
   }
 
   render () {
@@ -36,6 +47,7 @@ class ProductsTable extends Component<Props, State> {
             <Thead>
               <tr>
                 <Td>Item</Td>
+ 
                 <Td>Description</Td>
                 <Td>Unity price</Td>
                 <Td>Quantity</Td>
@@ -43,13 +55,14 @@ class ProductsTable extends Component<Props, State> {
               </tr>
             </Thead>
             <tbody>
-              <RowTable id={ this.createRows } />
+              { this.createRows() }
             </tbody>
           </Table>
+          <Button onClick={ this.addRowHandler } label="Add" icon="icon-plus" color="#0b97c4" />
         </Wrapper>
       </Fragment>
     )
   }
 }
 
-export default connect(mapStateToProps, null)(ProductsTable)
+export default ProductsTable

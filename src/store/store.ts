@@ -3,15 +3,13 @@ import { createStore, applyMiddleware } from 'redux'
 import {
   CHANGE_VAT,
   CHANGE_DISCOUNT,
-  UPLOAD_LOGO,
-  ADD_KEY_ROW
+  UPLOAD_LOGO
 } from './constants'
 
 const initialState = {
   vat: 0,
   discount: 0,
-  isLogoUploaded: false,
-  rowKey: 0
+  isLogoUploaded: false
 }
 
 // reducer
@@ -35,11 +33,6 @@ export function reducer(state = initialState, action: any) {
         isLogoUploaded: action.payload
       }
     break;
-    case ADD_KEY_ROW:
-      state = {
-        ...state,
-        rowKey: action.payload + 1
-      }
   }
   return state
 }
