@@ -33,6 +33,8 @@ export function reducer(state = initialState, action: any) {
         isLogoUploaded: action.payload
       }
     break;
+    default:
+    break;
   }
   return state
 }

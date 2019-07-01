@@ -1,13 +1,14 @@
-import React, { FunctionComponent, CSSProperties } from 'react'
+import React, { FunctionComponent, CSSProperties, ChangeEvent } from 'react'
 
 interface Props {
   placeholder?: string,
   type: string,
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  style?: CSSProperties
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
+  style?: CSSProperties,
+  defaultValue?: string
 }
 
-export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style }) => {
+export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue }) => {
   return (
     <input
       type={ type }
@@ -15,10 +16,7 @@ export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChang
       onChange={ onChange }
       style={ style }
       className="input"
+      defaultValue={ defaultValue }
     />
   )
-}
-
-InputView.defaultProps = {
-  type: 'text'
 }

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, CSSProperties } from 'react'
 import styled from 'styled-components'
 import { Normalize } from 'styled-normalize'
 
@@ -14,13 +14,13 @@ import DatepickerContainer from './components/Datepicker.container'
 import DiscountContainer from './components/discount/Discount.container'
 import VatContainer from './components/vat/VAT.container'
 
-const companyInputStyle: React.CSSProperties = {
+const companyInputStyle: CSSProperties = {
   float: 'right',
   width:'60%',
   margin: '5px 0'
 }
 
-const notesStyle: React.CSSProperties = {
+const notesStyle: CSSProperties = {
   width: '100%',
   height: '80px',
   boxSizing: 'border-box'
