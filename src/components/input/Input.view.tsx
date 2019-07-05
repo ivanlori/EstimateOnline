@@ -5,7 +5,8 @@ interface Props {
   type: string,
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
   style?: CSSProperties,
-  defaultValue?: string
+  defaultValue?: string,
+  name?: string
 }
 
 export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue }) => {

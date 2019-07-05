@@ -20,9 +20,9 @@ interface State {
   pricePlaceholder: string,
   notesPlaceholder: string,
   typology: Array<Object>,
-  priceValue: string,
-  quantityValue: string,
-  amountValue: string
+  price: string,
+  quantity: string,
+  amount: string
 }
 
 class RowTable extends Component<Props, State> {
@@ -42,39 +42,26 @@ class RowTable extends Component<Props, State> {
         { key: 3, value: 'Days', },
         { key: 4, value: 'Product' }
       ],
-      priceValue: '',
-      quantityValue: '',
-      amountValue: ''
+      price: '',
+      quantity: '',
+      amount: ''
     }
-    this.priceHandler = this.priceHandler.bind(this)
-    this.quantityHandler = this.quantityHandler.bind(this)
   }
 
-  priceHandler(e: ChangeEvent<HTMLInputElement>): void {
-
-    let value = e.currentTarget.value
-
-    this.setState({
-      priceValue: value
-    })
+  logFields = () => {
+    const {price, quantity} = this.state
+    console.log(`Price: ${price} and Quantity: ${quantity}`)
   }
 
-  quantityHandler(e: ChangeEvent<HTMLInputElement>): void {
+  dataChange = (e: ChangeEvent<HTMLInputElement>): void => {
 
-    let tot = 0
-
-    this.setState({quantityValue: e.currentTarget.value}, () => {
-      return {
-        quantityValue: this.state.quantityValue,
-      }
-    })
-
-    tot = (parseFloat(this.state.priceValue) * parseFloat(this.state.quantityValue))
-    console.log(tot)
+    const {name, defaultValue} = e.target
 
     this.setState({
-      amountValue: tot.toString()
-    })
+      [name]: defaultValue
+    } as any)
+
+    this.logFields()
   }
 
   render() {
@@ -85,9 +72,9 @@ class RowTable extends Component<Props, State> {
       pricePlaceholder,
       notesPlaceholder,
       typology,
-      quantityValue,
-      priceValue,
-      amountValue
+      quantity,
+      price,
+      amount
     } = this.state
 
     return (
@@ -108,23 +95,26 @@ class RowTable extends Component<Props, State> {
             <InputView
               type="text"
               placeholder={pricePlaceholder}
-              defaultValue={priceValue}
-              onChange={this.priceHandler}
+              defaultValue={price}
+              onChange={this.dataChange}
+              name="price"
             />
           </td>
           <td className="small">
             <InputView
               type="text"
               placeholder={quantityPlaceholder}
-              defaultValue={quantityValue}
-              onChange={this.quantityHandler}
+              defaultValue={quantity}
+              onChange={this.dataChange}
+              name="quantity"
             />
           </td>
           <td className="small">
             <InputView
               type="text"
               placeholder={amountPlaceholder}
-              defaultValue={amountValue}
+              defaultValue={amount}
+              name='amount'
             />
           </td>
         </tr>

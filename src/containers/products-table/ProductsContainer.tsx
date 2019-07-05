@@ -4,35 +4,31 @@ import RowTable from './RowTable'
 import { Button } from '../../components/buttons/Button.view'
 import { Table, Thead, Td, Wrapper } from './Products.style'
 
-interface Props {}
-
 interface State {
   rows: Array<number>,
   clicks: number
 }
 
+interface Props {}
+
 class ProductsTable extends Component<Props, State> {
 
-  constructor (props: any) {
+  constructor (props: Props) {
     super (props)
-    
+
     this.state = {
       rows: [ 0 ],
       clicks: 0
     }
-
-    this.addRowHandler = this.addRowHandler.bind(this)
   }
 
-  createRows = () => {
-    return (
-      this.state.rows.map((index, el) => (
-        <RowTable key={el} id={ index } />
-      ))
-    )
+  createRows = (): JSX.Element[] => {
+    return this.state.rows.map((index, el) => {
+      return <RowTable key={el} id={ index } />
+    })
   }
 
-  addRowHandler () {
+  addRowHandler = (): void => {
     this.setState({
       clicks: this.state.clicks + 1,
       rows: this.state.rows.concat(this.state.clicks)
