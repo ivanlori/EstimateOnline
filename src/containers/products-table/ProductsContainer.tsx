@@ -9,17 +9,11 @@ interface State {
   clicks: number
 }
 
-interface Props {}
+class ProductsTable extends Component {
 
-class ProductsTable extends Component<Props, State> {
-
-  constructor (props: Props) {
-    super (props)
-
-    this.state = {
-      rows: [ 0 ],
-      clicks: 0
-    }
+  state = {
+    rows: [ 0 ],
+    clicks: 0
   }
 
   createRows = (): JSX.Element[] => {

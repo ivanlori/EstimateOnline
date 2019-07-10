@@ -3,13 +3,15 @@ import React, { FunctionComponent, CSSProperties, ChangeEvent } from 'react'
 interface Props {
   placeholder?: string,
   type: string,
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
   style?: CSSProperties,
   defaultValue?: string,
-  name?: string
+  value?: string,
+  name?: string,
+  readOnly?: boolean
 }
 
-export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue }) => {
+export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly }) => {
   return (
     <input
       type={ type }
@@ -18,6 +20,9 @@ export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChang
       style={ style }
       className="input"
       defaultValue={ defaultValue }
+      value={ value }
+      name={ name }
+      readOnly={ readOnly }
     />
   )
 }

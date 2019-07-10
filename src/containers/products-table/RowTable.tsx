@@ -15,23 +15,20 @@ interface Props {
 }
 
 interface State {
-  amountPlaceholder: string,
   quantityPlaceholder: string,
   pricePlaceholder: string,
   notesPlaceholder: string,
   typology: Array<Object>,
-  price: string,
-  quantity: string,
-  amount: string
+  amount: string,
+  [key: string]: any
 }
 
 class RowTable extends Component<Props, State> {
 
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
-      amountPlaceholder: '0.00',
       quantityPlaceholder: '0',
       pricePlaceholder: '0.00',
       notesPlaceholder: 'Product details',
@@ -42,10 +39,12 @@ class RowTable extends Component<Props, State> {
         { key: 3, value: 'Days', },
         { key: 4, value: 'Product' }
       ],
+      amount: '',
       price: '',
-      quantity: '',
-      amount: ''
+      quantity: ''
     }
+
+    this.dataChange = this.dataChange.bind(this)
   }
 
   logFields = () => {
@@ -53,27 +52,32 @@ class RowTable extends Component<Props, State> {
     console.log(`Price: ${price} and Quantity: ${quantity}`)
   }
 
-  dataChange = (e: ChangeEvent<HTMLInputElement>): void => {
-
-    const {name, defaultValue} = e.target
+  dataChange (e: ChangeEvent<HTMLInputElement>): void {
+    
+    const {name, value} = e.target
 
     this.setState({
-      [name]: defaultValue
-    } as any)
+      [name]: value
+    }, () => this.calculateAmount())
 
-    this.logFields()
+  }
+
+  calculateAmount = () => {
+
+    let totSingleAmount = parseFloat(this.state.price) * parseFloat(this.state.quantity)
+
+    this.setState({
+      amount: totSingleAmount.toString()
+    })
   }
 
   render() {
 
     const {
-      amountPlaceholder,
       quantityPlaceholder,
       pricePlaceholder,
       notesPlaceholder,
       typology,
-      quantity,
-      price,
       amount
     } = this.state
 
@@ -95,7 +99,6 @@ class RowTable extends Component<Props, State> {
             <InputView
               type="text"
               placeholder={pricePlaceholder}
-              defaultValue={price}
               onChange={this.dataChange}
               name="price"
             />
@@ -104,7 +107,6 @@ class RowTable extends Component<Props, State> {
             <InputView
               type="text"
               placeholder={quantityPlaceholder}
-              defaultValue={quantity}
               onChange={this.dataChange}
               name="quantity"
             />
@@ -112,9 +114,9 @@ class RowTable extends Component<Props, State> {
           <td className="small">
             <InputView
               type="text"
-              placeholder={amountPlaceholder}
-              defaultValue={amount}
-              name='amount'
+              readOnly
+              value={amount}
+              name="amount"
             />
           </td>
         </tr>
