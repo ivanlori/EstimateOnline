@@ -3,13 +3,17 @@ import { createStore, applyMiddleware } from 'redux'
 import {
   CHANGE_VAT,
   CHANGE_DISCOUNT,
-  UPLOAD_LOGO
+  UPLOAD_LOGO,
+  TOTAL_AMOUNT,
+  AMOUNT_WITHOUT_TAXES
 } from './constants'
 
 const initialState = {
   vat: 0,
   discount: 0,
-  isLogoUploaded: false
+  isLogoUploaded: false,
+  totalAmount: 0,
+  amountWithoutTaxes: 0
 }
 
 // reducer
@@ -31,6 +35,18 @@ export function reducer(state = initialState, action: any) {
       state = {
         ...state,
         isLogoUploaded: action.payload
+      }
+    break;
+    case TOTAL_AMOUNT:
+      state = {
+        ...state,
+        amountWithoutTaxes: action.payload
+      }
+    break;
+    case AMOUNT_WITHOUT_TAXES:
+      state = {
+        ...state,
+        totalAmount: action.payload
       }
     break;
     default:

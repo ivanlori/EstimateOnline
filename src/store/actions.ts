@@ -14,3 +14,13 @@ export const logoUpload = (value: string) => ({
   type: constants.UPLOAD_LOGO,
   payload: value
 })
+
+export const totalAmount = (value: string) => ({
+  type: constants.TOTAL_AMOUNT,
+  payload: value
+})
+
+export const amountWithoutTaxes = (value: string) => ({
+  type: constants.AMOUNT_WITHOUT_TAXES,
+  payload: value
+})

@@ -5,7 +5,6 @@ import { Normalize } from 'styled-normalize'
 import { Wrapper, Title, GlobalStyle, Footer } from './styles/global.style'
 import { InputView } from './components/input/Input.view'
 import { TextareaView } from './components/textarea/Textarea.view'
-import { Total } from './containers/total/Total.view'
 import { Subtotal } from './containers/subtotal/Subtotal.view'
 import ProductsContainer from './containers/products-table/ProductsContainer'
 import LogoUploadContainer from './containers/logo/LogoContainer'
@@ -13,6 +12,7 @@ import UserBarContainer from './containers/user-bar/UserBarContainer'
 import DatepickerContainer from './components/Datepicker.container'
 import DiscountContainer from './components/discount/Discount.container'
 import VatContainer from './components/vat/VAT.container'
+import TotalView from './containers/total/Total.view'
 
 const companyInputStyle: CSSProperties = {
   float: 'right',
@@ -76,7 +76,7 @@ export default class App extends Component {
           <ProductsContainer />
           <Footer>
             <Subtotal />
-            <Total />
+            <TotalView />
           </Footer>
           <UserBarContainer />
         </Wrapper>

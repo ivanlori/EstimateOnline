@@ -37,7 +37,6 @@ class ProductsTable extends Component {
             <Thead>
               <tr>
                 <Td>Item</Td>
- 
                 <Td>Description</Td>
                 <Td>Unity price</Td>
                 <Td>Quantity</Td>

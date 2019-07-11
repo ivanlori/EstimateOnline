@@ -47,28 +47,30 @@ class RowTable extends Component<Props, State> {
     this.dataChange = this.dataChange.bind(this)
   }
 
-  logFields = () => {
-    const {price, quantity} = this.state
-    console.log(`Price: ${price} and Quantity: ${quantity}`)
-  }
-
   dataChange (e: ChangeEvent<HTMLInputElement>): void {
     
     const {name, value} = e.target
 
     this.setState({
       [name]: value
-    }, () => this.calculateAmount())
+    }, () => this.calculateSingleAmount())
 
   }
 
-  calculateAmount = () => {
+  calculateSingleAmount = (): void => {
 
     let totSingleAmount = parseFloat(this.state.price) * parseFloat(this.state.quantity)
 
     this.setState({
       amount: totSingleAmount.toString()
     })
+
+    this.calculateTotalAmount()
+  }
+
+  calculateTotalAmount = (): void => {
+
+
   }
 
   render() {
