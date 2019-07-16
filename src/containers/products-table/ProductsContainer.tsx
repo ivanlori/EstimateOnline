@@ -18,7 +18,7 @@ class ProductsTable extends Component {
 
   createRows = (): JSX.Element[] => {
     return this.state.rows.map((index, el) => {
-      return <RowTable key={el} id={ index } />
+      return <RowTable key={el} id={ el } />
     })
   }
 

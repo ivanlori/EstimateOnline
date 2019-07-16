@@ -61,16 +61,19 @@ class RowTable extends Component<Props, State> {
 
     let totSingleAmount = parseFloat(this.state.price) * parseFloat(this.state.quantity)
 
-    this.setState({
-      amount: totSingleAmount.toString()
-    })
+    if (!isNaN(totSingleAmount)) {
+      this.setState({
+        amount: totSingleAmount.toString()
+      })
 
-    this.calculateTotalAmount()
+      this.calculateTotalAmount()
+    }
   }
 
   calculateTotalAmount = (): void => {
-
-
+    let amountEl = (document.getElementById(`id-${this.props.id}`) as HTMLInputElement).value
+    
+    console.log(this.state)
   }
 
   render() {
@@ -119,6 +122,7 @@ class RowTable extends Component<Props, State> {
               readOnly
               value={amount}
               name="amount"
+              id={ `id-${this.props.id}` }
             />
           </td>
         </tr>

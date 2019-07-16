@@ -8,10 +8,11 @@ interface Props {
   defaultValue?: string,
   value?: string,
   name?: string,
-  readOnly?: boolean
+  readOnly?: boolean,
+  id?: string
 }
 
-export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly }) => {
+export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id }) => {
   return (
     <input
       type={ type }
@@ -23,6 +24,7 @@ export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChang
       value={ value }
       name={ name }
       readOnly={ readOnly }
+      id={ id }
     />
   )
 }
