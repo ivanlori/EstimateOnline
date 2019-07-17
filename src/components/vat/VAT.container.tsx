@@ -8,21 +8,21 @@ import { changeVat } from '../../store/actions'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    changeVat: (value: any) => {
+    setVATtoProps: (value: any) => {
       dispatch(changeVat(value))
     }
   }
 }
 
 interface Props {
-  changeVat: (event: React.ChangeEvent<HTMLInputElement>) => void
+  setVATtoProps: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 class VatContainer extends Component<Props> {
 
   vatHandler = (e: any) => {
     if (e.target.value !== '') {
-      this.props.changeVat(e.target.value)
+      this.props.setVATtoProps(e.target.value)
     }
   }
 

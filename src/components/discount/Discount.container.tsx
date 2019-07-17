@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { InputView } from '../input/Input.view'
 import { Wrapper, Percentage } from './Discount.style'
 import { Label } from '../../styles/global.style'
+import { changeDiscount } from '../../store/actions'
+import { CHANGE_DISCOUNT } from '../../store/constants'
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     changeDiscount: (value: any) => {
-      dispatch({
-        type: 'CHANGE_DISCOUNT',
-        payload: value
-      })
+      dispatch(changeDiscount(value))
     }
   }
 }

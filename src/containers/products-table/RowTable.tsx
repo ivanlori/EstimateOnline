@@ -1,8 +1,10 @@
 import React, { Component, CSSProperties, Fragment, ChangeEvent } from 'react'
+import { connect } from 'react-redux'
 
 import { SelectView } from '../../components/select/Select.view'
 import { InputView } from '../../components/input/Input.view'
 import { TextareaView } from '../../components/textarea/Textarea.view'
+import { amountWithoutTaxes } from '../../store/actions'
 
 const textareaStyle: CSSProperties = {
   width: '265px',
@@ -11,7 +13,8 @@ const textareaStyle: CSSProperties = {
 }
 
 interface Props {
-  id: number
+  id: number,
+  setAmountWithoutTaxes: (amount: string) => void
 }
 
 interface State {
@@ -64,16 +67,20 @@ class RowTable extends Component<Props, State> {
     if (!isNaN(totSingleAmount)) {
       this.setState({
         amount: totSingleAmount.toString()
-      })
+      }, () => this.calculateTotalAmount())
 
-      this.calculateTotalAmount()
     }
   }
 
   calculateTotalAmount = (): void => {
-    let amountEl = (document.getElementById(`id-${this.props.id}`) as HTMLInputElement).value
-    
-    console.log(this.state)
+    let resultArray = []
+    let amount = (document.getElementById(`id-${this.props.id}`) as HTMLInputElement)
+
+    resultArray.push(amount)
+    for (let i in amount) {
+      
+ }
+    this.props.setAmountWithoutTaxes(this.state.amount)
   }
 
   render() {
@@ -131,4 +138,12 @@ class RowTable extends Component<Props, State> {
   }
 }
 
-export default RowTable
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setAmountWithoutTaxes: (value: any) => {
+      dispatch(amountWithoutTaxes(value))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(RowTable)

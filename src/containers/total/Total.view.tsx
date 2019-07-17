@@ -16,7 +16,7 @@ const TotalView = (state: any) => {
         <Title>{ 'Total/Payments Terms' }</Title>
         <VatView />
       </Description>
-      <Value>{ state.totalAmount }</Value>
+      <Value>{ state.totalAmount + '€' }</Value>
     </Wrapper>
   )
 }
