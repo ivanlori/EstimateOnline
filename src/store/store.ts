@@ -37,13 +37,13 @@ export function reducer(state = initialState, action: any) {
         isLogoUploaded: action.payload
       }
     break;
-    case TOTAL_AMOUNT:
+    case AMOUNT_WITHOUT_TAXES:
       state = {
         ...state,
         amountWithoutTaxes: action.payload
       }
     break;
-    case AMOUNT_WITHOUT_TAXES:
+    case TOTAL_AMOUNT:
       state = {
         ...state,
         totalAmount: action.payload

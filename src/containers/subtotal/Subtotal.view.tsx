@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import {
   Wrapper,
@@ -7,13 +8,22 @@ import {
   Value
 } from './Subtotal.style'
 
-export const Subtotal = () => {
+const Subtotal = (state: any) => {
   return (
     <Wrapper>
       <Description>
         <Title>Subtotal</Title>
       </Description>
-      <Value>0</Value>
+      <Value>{ state.amountWithoutTaxes + '€' }</Value>
     </Wrapper>
   )
 }
+
+const mapStateToProps = (state: any) => {
+	return {
+    amountWithoutTaxes: state.amountWithoutTaxes
+  }
+}
+
+export default connect(mapStateToProps, null)(Subtotal)
+

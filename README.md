@@ -1,8 +1,6 @@
 # Free online estimate
 
 An online estimate of costs written in React.js and Typescript
-![](https://img.shields.io/github/license/ivanlori/free-online-estimate.svg)
-[![devDependency Status](https://david-dm.org/ivanlori/free-online-estimate/dev-status.svg)](https://david-dm.org/ivanlori/free-online-estimate#info=devDependencies)
 
 ### Installing
 
