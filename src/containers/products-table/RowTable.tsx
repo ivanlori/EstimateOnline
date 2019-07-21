@@ -72,15 +72,19 @@ class RowTable extends Component<Props, State> {
     }
   }
 
-  calculateTotalAmount = (): void => {
-    let resultArray = []
-    let amount = (document.getElementById(`id-${this.props.id}`) as HTMLInputElement)
+  sum = (a: number, b: number): number => {
+    return a + b
+  }
 
-    resultArray.push(amount)
-    for (let i in amount) {
-      
- }
-    this.props.setAmountWithoutTaxes(this.state.amount)
+  calculateTotalAmount = (): void => {
+    let amountEl: NodeList = document.querySelectorAll('.amount')
+    let total: Array<number> = []
+
+    Array.prototype.forEach.call(amountEl, (el, i) => {
+      total.push(parseFloat(el.value))
+    });
+
+    this.props.setAmountWithoutTaxes(total.reduce(this.sum).toString())
   }
 
   render() {
@@ -127,6 +131,7 @@ class RowTable extends Component<Props, State> {
             <InputView
               type="text"
               readOnly
+              className="amount"
               value={amount}
               name="amount"
               id={ `id-${this.props.id}` }

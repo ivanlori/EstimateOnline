@@ -9,17 +9,18 @@ interface Props {
   value?: string,
   name?: string,
   readOnly?: boolean,
-  id?: string
+  id?: string,
+  className?: string
 }
 
-export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id }) => {
+export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id, className }) => {
   return (
     <input
       type={ type }
       placeholder={ placeholder }
       onChange={ onChange }
       style={ style }
-      className="input"
+      className={ `input ${className}` }
       defaultValue={ defaultValue }
       value={ value }
       name={ name }
