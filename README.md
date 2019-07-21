@@ -1,6 +1,6 @@
 # Free online estimate
 
-A free online estimate of costs built in React.js and Typescript
+An online estimate of costs written in React.js and Typescript
 ![](https://img.shields.io/github/license/ivanlori/free-online-estimate.svg)
 [![devDependency Status](https://david-dm.org/ivanlori/free-online-estimate/dev-status.svg)](https://david-dm.org/ivanlori/free-online-estimate#info=devDependencies)
 
@@ -8,7 +8,7 @@ A free online estimate of costs built in React.js and Typescript
 
 ```
 # clone repository
-git clone https://github.com/ivanlori/free-online-estimate.git
+git clone https://github.com/ivanlori/EstimateOnline.git
 
 # install dependencies
 npm install
@@ -17,7 +17,7 @@ npm install
 npm start
 
 # build for production
-npm build
+npm run build
 
 ```
 
