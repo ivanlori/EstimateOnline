@@ -57,7 +57,7 @@ export function reducer(state = initialState, action: any) {
 
 const vatController = (state: any) => (next: any) => (action: any) => {
   if (action.type === CHANGE_VAT) {
-    
+
   }
   next(action)
 }

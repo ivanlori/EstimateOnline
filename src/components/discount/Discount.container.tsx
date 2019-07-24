@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { InputView } from '../input/Input.view'
 import { Wrapper, Percentage } from './Discount.style'
 import { Label } from '../../styles/global.style'
-import { changeDiscount } from '../../store/actions'
-import { CHANGE_DISCOUNT } from '../../store/constants'
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    changeDiscount: (value: any) => {
-      dispatch(changeDiscount(value))
-    }
-  }
-}
+import { changeDiscount, amountWithoutTaxes } from '../../store/actions'
 
 interface Props {
-  changeDiscount: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  changeDiscount: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  setAmountWithoutTaxes: (value: any) => void,
+  amountWithoutTaxes: string
 }
 
 class DiscountContainer extends Component<Props> {
 
-  discountHandler = (e: any) => {
-    this.props.changeDiscount(e.target.value)
+  discountHandler = (e: any): void => {
+    let discountValue = e.target.value
+    this.props.changeDiscount(discountValue)
+    let discount = this.calculareDiscountPercentage(parseFloat(this.props.amountWithoutTaxes), discountValue)
+
+  }
+
+  calculareDiscountPercentage = (discount: number, amount: number): number => {
+    return (discount * amount) / 100
   }
 
   render() {
@@ -40,4 +40,21 @@ class DiscountContainer extends Component<Props> {
   }
 }
 
-export default connect(null, mapDispatchToProps)(DiscountContainer)
+const mapStateToProps = (state: any) => {
+	return {
+    amountWithoutTaxes: state.amountWithoutTaxes
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeDiscount: (value: any) => {
+      dispatch(changeDiscount(value))
+    },
+    setAmountWithoutTaxes: (value: any) => {
+      dispatch(amountWithoutTaxes(value))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiscountContainer)

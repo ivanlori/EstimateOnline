@@ -14,14 +14,9 @@ interface Props {
 
 class VatContainer extends Component<Props> {
 
-
   vatHandler = (e: any): void => {
     if (e.target.value !== '') {
       let vatValue = e.target.value
-
-      this.setState({
-        vat: e.target.value
-      })
       this.amountWithTaxesCalc(vatValue)
       this.props.setVATtoProps(vatValue)
     }
