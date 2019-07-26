@@ -7,7 +7,7 @@ import { Label } from '../../styles/global.style'
 import { changeDiscount, amountWithoutTaxes } from '../../store/actions'
 
 interface Props {
-  changeDiscount: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  setDiscountInView: (e: React.ChangeEvent<HTMLInputElement>) => void,
   setAmountWithoutTaxes: (value: any) => void,
   amountWithoutTaxes: string
 }
@@ -16,12 +16,14 @@ class DiscountContainer extends Component<Props> {
 
   discountHandler = (e: any): void => {
     let discountValue = e.target.value
-    this.props.changeDiscount(discountValue)
-    let discount = this.calculareDiscountPercentage(parseFloat(this.props.amountWithoutTaxes), discountValue)
-
+    let amountWithoutTaxes = this.props.amountWithoutTaxes
+    let discount = this.discountPercentageCalculator(parseFloat(this.props.amountWithoutTaxes), discountValue)
+    
+    this.props.setDiscountInView(discountValue)
+    this.props.setAmountWithoutTaxes(parseFloat(amountWithoutTaxes) - discount)
   }
 
-  calculareDiscountPercentage = (discount: number, amount: number): number => {
+  discountPercentageCalculator = (discount: number, amount: number): number => {
     return (discount * amount) / 100
   }
 
@@ -48,7 +50,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    changeDiscount: (value: any) => {
+    setDiscountInView: (value: any) => {
       dispatch(changeDiscount(value))
     },
     setAmountWithoutTaxes: (value: any) => {
