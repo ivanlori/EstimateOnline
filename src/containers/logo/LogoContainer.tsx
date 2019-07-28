@@ -66,17 +66,30 @@ class LogoUploadContainer extends Component<Props, State> {
       isImageDisplayed
     } = this.state
 
+    let contentToDisplay;
+    let error;
+
+    if (isImageDisplayed) {
+      contentToDisplay = (
+        <Image src={ file } />
+      )
+    } else {
+      contentToDisplay = (
+        <div>
+          <InputView type="file" style={ style } onChange={ this.logoUploadHandler } />
+          <Tip>(The ideally format is 200 x 80 px)</Tip>
+        </div>
+      )
+    }
+
+    if (isErrorVisible) {
+      error = <ErrorLabel />
+    }
+
     return (
       <Wrapper>
-        <Image src={ file } />
-        <InputView
-          type="file"
-          style={ style }
-          onChange={ this.logoUploadHandler }
-          hidden={ isImageDisplayed }
-        />
-        <Tip>(The ideally format is 200 x 80 px)</Tip>
-        <ErrorLabel isVisible={ isErrorVisible } />
+        { contentToDisplay }
+        { error }
       </Wrapper>
     )
   }
