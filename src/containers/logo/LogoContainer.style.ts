@@ -29,33 +29,12 @@ export const Wrapper = styled.div`
   position: relative;
 `
 
-export const ErrorLabel = styled.span`
-  color: red;
-  font-weight: 600;
-  position: relative;
-  top: 35px;
-  left: 153px;
-`
-
-export const Canvas = styled.canvas`
-  position: relative;
-  top: 35px;
-  left: 55px;
-`
-
-export const Label = styled.label`
-  display: block;
+export const Image = styled.img`
+  width: 200px;
+  height: 80px;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 72px;
-  text-align: center;
-  font-weight: 600;
-  cursor: pointer;
-
-  :hover & {
-    text-decoration: underline;
-  }
+  left: 105px;
+  top: 40px;
 `
 
 export const Tip = styled.span`

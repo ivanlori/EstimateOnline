@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 
 import { Button } from '../../components/buttons/Button.view'
-import { Wrapper, Bar, ButtonWrapper, Version } from './UserBar.style'
+import {
+  Wrapper,
+  Bar,
+  ButtonWrapper,
+  Version
+} from './UserBar.style'
 
 class UserBarContainer extends Component {
 
-  printHandler = () => {
-    window.print()
-  }
+  printHandler = () => window.print()
 
-  previewHandler = () => {
-    console.log('preview')
-  }
+  previewHandler = () => console.log('preview')
 
   render () {
     return (
