@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Button } from '../../components/buttons/Button.view'
+import Button from '../../components/buttons/Button.view'
 import {
   Wrapper,
   Bar,

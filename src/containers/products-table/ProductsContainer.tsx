@@ -1,13 +1,9 @@
 import React, { Fragment, Component } from 'react'
 
 import RowTable from './RowTable'
-import { Button } from '../../components/buttons/Button.view'
+import Button from '../../components/buttons/Button.view'
 import { Table, Thead, Td, Wrapper } from './Products.style'
 
-interface State {
-  rows: Array<number>,
-  clicks: number
-}
 
 class ProductsTable extends Component {
 

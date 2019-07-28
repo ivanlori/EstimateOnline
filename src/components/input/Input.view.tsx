@@ -13,7 +13,7 @@ interface Props {
   className?: string
 }
 
-export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id, className }) => {
+const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id, className }) => {
   return (
     <input
       type={ type }
@@ -29,3 +29,5 @@ export const InputView: FunctionComponent<Props> = ({ placeholder, type, onChang
     />
   )
 }
+
+export default InputView

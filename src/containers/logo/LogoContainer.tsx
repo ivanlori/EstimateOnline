@@ -1,13 +1,13 @@
 import React, { CSSProperties, Component } from 'react'
 import { connect } from 'react-redux'
 
+import InputView from '../../components/input/Input.view'
 import {
   Wrapper,
   Tip,
   Image
 } from './LogoContainer.style';
 import { ErrorLabel } from '../../components/Error.view'
-import { InputView } from '../../components/input/Input.view'
 import { logoUpload } from '../../store/actions'
 
 interface Props {

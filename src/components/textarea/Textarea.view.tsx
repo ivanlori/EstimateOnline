@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, Fragment } from 'react'
 
 import { Textarea } from './Textarea.style'
 import { Label } from '../../styles/global.style'
@@ -9,15 +9,17 @@ interface Props {
   style: CSSProperties
 }
 
-export const TextareaView = (props: Props) => {
+const TextareaView = (props: Props) => {
   return (
-    <React.Fragment>
+    <Fragment>
       <Label>{ props.label }</Label>
       <Textarea
         placeholder={ props.placeholder }
         style={ props.style }
         className="input"
       />
-    </React.Fragment>
+    </Fragment>
   )
 }
+
+export default TextareaView

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 
 import {
@@ -8,7 +8,7 @@ import {
   Value
 } from './Subtotal.style'
 
-const Subtotal = (state: any) => {
+const Subtotal: FunctionComponent = (state: any) => {
   return (
     <Wrapper>
       <Description>

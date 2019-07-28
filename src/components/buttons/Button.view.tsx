@@ -9,10 +9,12 @@ interface Props {
   icon: string
 }
 
-export const Button = (props: Props) => {
+const Button = (props: Props) => {
   return (
     <Btn type="button" onClick={ props.onClick } color={ props.color }>
       { props.label }
     </Btn>
   )
 }
+
+export default Button

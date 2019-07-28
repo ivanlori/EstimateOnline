@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { InputView } from '../input/Input.view'
+import InputView from '../input/Input.view'
 import { Label } from '../../styles/global.style'
 import { Wrapper, Percentage } from './VAT.style'
 import { changeVat, totalAmount } from '../../store/actions'

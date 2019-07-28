@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { FunctionComponent, useState } from 'react'
 
 import { Select } from './Select.style'
 
-export const SelectView = (props: any) => {
+const SelectView: FunctionComponent = () => {
 
-  const items = props.data.map((item: any, key: number) =>
+  const [state] = useState({
+    typology: [
+      { key: 0, value: '-- Select --' },
+      { key: 1, value: 'Service' },
+      { key: 2, value: 'Hours' },
+      { key: 3, value: 'Days', },
+      { key: 4, value: 'Product' }
+    ]
+  })
+
+  const items = state.typology.map((item: any, key: number) =>
     <option key={ item.key }>{ item.value }</option>
   )
 
   return (
-    <Select onChange={ props.onChange }>
+    <Select>
       { items }
     </Select>
   )
 }
+
+export default SelectView

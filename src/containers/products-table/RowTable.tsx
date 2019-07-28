@@ -1,9 +1,9 @@
 import React, { Component, CSSProperties, Fragment, ChangeEvent } from 'react'
 import { connect } from 'react-redux'
 
-import { SelectView } from '../../components/select/Select.view'
-import { InputView } from '../../components/input/Input.view'
-import { TextareaView } from '../../components/textarea/Textarea.view'
+import SelectView from '../../components/select/Select.view'
+import InputView from '../../components/input/Input.view'
+import TextareaView from '../../components/textarea/Textarea.view'
 import { amountWithoutTaxes } from '../../store/actions'
 
 const textareaStyle: CSSProperties = {
@@ -21,7 +21,6 @@ interface State {
   quantityPlaceholder: string,
   pricePlaceholder: string,
   notesPlaceholder: string,
-  typology: Array<Object>,
   amount: string,
   [key: string]: any
 }
@@ -35,13 +34,6 @@ class RowTable extends Component<Props, State> {
       quantityPlaceholder: '0',
       pricePlaceholder: '0.00',
       notesPlaceholder: 'Product details',
-      typology: [
-        { key: 0, value: '-- Select --' },
-        { key: 1, value: 'Service' },
-        { key: 2, value: 'Hours' },
-        { key: 3, value: 'Days', },
-        { key: 4, value: 'Product' }
-      ],
       amount: '',
       price: '',
       quantity: ''
@@ -93,7 +85,6 @@ class RowTable extends Component<Props, State> {
       quantityPlaceholder,
       pricePlaceholder,
       notesPlaceholder,
-      typology,
       amount
     } = this.state
 
@@ -101,9 +92,7 @@ class RowTable extends Component<Props, State> {
       <Fragment>
         <tr key={this.props.id}>
           <td className="small">
-            <SelectView
-              data={typology}
-            />
+            <SelectView />
           </td>
           <td className="large">
             <TextareaView

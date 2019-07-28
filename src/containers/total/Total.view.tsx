@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 
 import VatView from '../../components/vat/VAT.view'
@@ -9,7 +9,7 @@ import {
   Value
 } from './Total.style'
 
-const TotalView = (state: any) => {
+const TotalView: FunctionComponent = (state: any) => {
   return (
     <Wrapper>
       <Description>
