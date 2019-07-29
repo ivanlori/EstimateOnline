@@ -26,7 +26,7 @@ class VatContainer extends Component<Props> {
     let amountWithoutTaxesParsed = parseFloat(this.props.amountWithoutTaxes)
     let vatCalculated = this.calculateVat(amountWithoutTaxesParsed, vat)
     let total = amountWithoutTaxesParsed + vatCalculated
-    this.props.setAmountWithTaxes(total)
+    this.props.setAmountWithTaxes(total.toFixed(2))
   }
 
   calculateVat (amount: number, percentage: number): number {
