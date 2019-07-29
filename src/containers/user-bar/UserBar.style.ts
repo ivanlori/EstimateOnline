@@ -16,6 +16,8 @@ export const Bar = styled.div`
 `
 
 export const ButtonWrapper = styled.div`
+  text-align: left;
+
   button {
     margin: 0 8px;
     position: relative;
@@ -24,7 +26,7 @@ export const ButtonWrapper = styled.div`
 `
 
 export const Wrapper = styled.div`
-  width: 1000px;
+  width: 1120px;
   display: grid;
   grid-template-columns: 37% 35% 30%;
   grid-template-rows: 65px;

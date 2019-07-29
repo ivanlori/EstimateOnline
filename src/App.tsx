@@ -7,7 +7,7 @@ import TextareaView from './components/textarea/Textarea.view'
 import InputView from './components/input/Input.view'
 import Subtotal from './containers/subtotal/Subtotal.view'
 import ProductsContainer from './containers/products-table/ProductsContainer'
-import LogoUploadContainer from './containers/logo/LogoContainer'
+import LogoContainer from './containers/logo/LogoContainer'
 import UserBarContainer from './containers/user-bar/UserBarContainer'
 import Datepicker from './components/Datepicker/Datepicker.container'
 import DiscountContainer from './components/discount/Discount.container'
@@ -37,7 +37,7 @@ export default class App extends Component {
             <h2>Job Estimate</h2>
           </Title>
           <CompanyData>
-            <LogoUploadContainer />
+            <LogoContainer />
             <CompanyReferences>
               <label>Information about your Company</label>
               <InputView

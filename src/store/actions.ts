@@ -10,11 +10,6 @@ export const changeDiscount = (value: number) => ({
   payload: value
 })
 
-export const logoUpload = (value: string) => ({
-  type: constants.UPLOAD_LOGO,
-  payload: value
-})
-
 export const totalAmount = (value: string) => ({
   type: constants.TOTAL_AMOUNT,
   payload: value

@@ -1,5 +1,4 @@
 import React, { CSSProperties, Component } from 'react'
-import { connect } from 'react-redux'
 
 import InputView from '../../components/input/Input.view'
 import {
@@ -8,11 +7,6 @@ import {
   Image
 } from './LogoContainer.style';
 import { ErrorLabel } from '../../components/Error.view'
-import { logoUpload } from '../../store/actions'
-
-interface Props {
-  logoUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
 
 interface State {
   isErrorVisible: boolean,
@@ -20,24 +14,12 @@ interface State {
   isImageDisplayed: boolean
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    logoUpload: (value: any) => {
-      dispatch(logoUpload(value))
-    }
-  }
-}
+export default class LogoContainer extends Component<{}, State> {
 
-class LogoUploadContainer extends Component<Props, State> {
-
-  constructor (props: Props) {
-    super(props)
-
-    this.state = {
-      isErrorVisible: false,
-      file: '',
-      isImageDisplayed: false
-    }
+  state = {
+    isErrorVisible: false,
+    file: '',
+    isImageDisplayed: false
   }
 
   logoUploadHandler = (e: any): void => {
@@ -100,5 +82,3 @@ const style: CSSProperties = {
   top: '40px',
   left: '50px'
 }
-
-export default connect(null, mapDispatchToProps)(LogoUploadContainer)

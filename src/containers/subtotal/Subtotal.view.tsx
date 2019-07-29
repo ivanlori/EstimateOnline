@@ -8,18 +8,22 @@ import {
   Value
 } from './Subtotal.style'
 
-const Subtotal: FunctionComponent = (state: any) => {
+interface State {
+  amountWithoutTaxes: number
+}
+
+const Subtotal: FunctionComponent<State> = ({ amountWithoutTaxes }) => {
   return (
     <Wrapper>
       <Description>
         <Title>Subtotal</Title>
       </Description>
-      <Value>{ state.amountWithoutTaxes + '€' }</Value>
+      <Value>{ amountWithoutTaxes + '€' }</Value>
     </Wrapper>
   )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: State) => {
 	return {
     amountWithoutTaxes: state.amountWithoutTaxes
   }

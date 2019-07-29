@@ -9,19 +9,23 @@ import {
   Value
 } from './Total.style'
 
-const TotalView: FunctionComponent = (state: any) => {
+interface State {
+  totalAmount: number
+}
+
+const TotalView: FunctionComponent<State> = ({ totalAmount }) => {
   return (
     <Wrapper>
       <Description>
         <Title>{ 'Total/Payments Terms' }</Title>
         <VatView />
       </Description>
-      <Value>{ state.totalAmount + '€' }</Value>
+      <Value>{ totalAmount + '€' }</Value>
     </Wrapper>
   )
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: State) => {
 	return {
     totalAmount: state.totalAmount
   }
