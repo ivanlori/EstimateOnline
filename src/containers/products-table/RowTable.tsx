@@ -27,22 +27,16 @@ interface State {
 
 class RowTable extends Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props)
-
-    this.state = {
-      quantityPlaceholder: '0',
-      pricePlaceholder: '0.00',
-      notesPlaceholder: 'Product details',
-      amount: '',
-      price: '',
-      quantity: ''
-    }
-
-    this.dataChange = this.dataChange.bind(this)
+  state = {
+    quantityPlaceholder: '0',
+    pricePlaceholder: '0.00',
+    notesPlaceholder: 'Product details',
+    amount: '',
+    price: '',
+    quantity: ''
   }
 
-  dataChange (e: ChangeEvent<HTMLInputElement>): void {
+  dataChange = (e: ChangeEvent<HTMLInputElement>): void => {
     
     const {name, value} = e.target
 

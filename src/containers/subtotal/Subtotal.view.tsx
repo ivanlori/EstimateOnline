@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { connect } from 'react-redux'
 
 import {
@@ -12,13 +12,13 @@ interface State {
   amountWithoutTaxes: number
 }
 
-const Subtotal: FunctionComponent<State> = ({ amountWithoutTaxes }) => {
+const Subtotal: FC<State> = props => {
   return (
     <Wrapper>
       <Description>
         <Title>Subtotal</Title>
       </Description>
-      <Value>{ amountWithoutTaxes + '€' }</Value>
+      <Value>{ props.amountWithoutTaxes + '€' }</Value>
     </Wrapper>
   )
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { FC } from 'react'
 
 import Button from '../../components/buttons/Button.view'
 import {
@@ -8,25 +8,23 @@ import {
   Version
 } from './UserBar.style'
 
-class UserBarContainer extends Component {
+const UserBarContainer: FC = () => {
 
-  printHandler = () => window.print()
+  const printHandler = () => window.print()
 
-  previewHandler = () => console.log('preview')
+  const previewHandler = () => console.log('preview')
 
-  render () {
-    return (
-      <Bar>
-        <Wrapper>
-          <ButtonWrapper>
-            <Button onClick={ this.printHandler } label="Print" icon="icon-printer" color="#f3bf5f" />
-            <Button onClick={ this.previewHandler } label="Preview" icon="icon-printer" color="#6ed37b" />
-          </ButtonWrapper>
-          <Version>Version: 1.0</Version>
-        </Wrapper>
-      </Bar>
-    )
-  }
+  return (
+    <Bar>
+      <Wrapper>
+        <ButtonWrapper>
+          <Button onClick={printHandler} label="Print" icon="icon-printer" color="#f3bf5f" />
+          <Button onClick={previewHandler} label="Preview" icon="icon-printer" color="#6ed37b" />
+        </ButtonWrapper>
+        <Version>Version: 1.0</Version>
+      </Wrapper>
+    </Bar>
+  )
 }
 
 export default UserBarContainer

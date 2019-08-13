@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { connect } from 'react-redux'
 
 import { Wrapper } from './VAT.style'
 
-const VatView = (state: any) => {
+interface State {
+  vat: number
+}
+
+const VatView: FC<State> = state => {
   return (
     <Wrapper>
       The price is subject to <span>{ state.vat }</span>% VAT
@@ -13,7 +17,7 @@ const VatView = (state: any) => {
 
 // Which part of the state I want to use in this component
 // and which local property access from the props I want to map
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: State) => {
 	return {
     vat: state.vat
   }

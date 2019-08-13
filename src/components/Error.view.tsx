@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
-export const ErrorLabel: FunctionComponent = () => {
+const ErrorLabel: FC = () => {
   return (
     <Label>
       Logo Required!
@@ -16,3 +16,5 @@ const Label = styled.span`
   top: 35px;
   left: 153px;
 `
+
+export default ErrorLabel

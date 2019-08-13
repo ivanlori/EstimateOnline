@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
-export const GithubButton = () => {
+const GithubButton: FC = () => {
   return (
     <Wrapper>
       <Label>Do you like this project?<br />Support on Github!</Label>
@@ -23,3 +23,5 @@ const Label = styled.span`
   @include rem(font-size, 13px);
   @include rem(line-height, 20px);
 `
+
+export default GithubButton

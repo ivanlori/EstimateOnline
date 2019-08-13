@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Select } from './Select.style'
 
-const SelectView: FunctionComponent = () => {
+const SelectView: FC = () => {
 
   const [state] = useState({
     typology: [

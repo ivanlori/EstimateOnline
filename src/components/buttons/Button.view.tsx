@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Btn } from './Button.style'
 
@@ -9,7 +9,7 @@ interface Props {
   icon: string
 }
 
-const Button = (props: Props) => {
+const Button: FC<Props> = props => {
   return (
     <Btn type="button" onClick={ props.onClick } color={ props.color }>
       { props.label }

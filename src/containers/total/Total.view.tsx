@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import { connect } from 'react-redux'
 
 import VatView from '../../components/vat/VAT.view'
@@ -13,14 +13,14 @@ interface State {
   totalAmount: number
 }
 
-const TotalView: FunctionComponent<State> = ({ totalAmount }) => {
+const TotalView: FC<State> = state => {
   return (
     <Wrapper>
       <Description>
         <Title>{ 'Total/Payments Terms' }</Title>
         <VatView />
       </Description>
-      <Value>{ totalAmount + '€' }</Value>
+      <Value>{ state.totalAmount + '€' }</Value>
     </Wrapper>
   )
 }

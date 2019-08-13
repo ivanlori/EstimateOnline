@@ -6,7 +6,7 @@ import {
   Tip,
   Image
 } from './LogoContainer.style';
-import { ErrorLabel } from '../../components/Error.view'
+import ErrorLabel from '../../components/Error.view'
 
 interface State {
   isErrorVisible: boolean,

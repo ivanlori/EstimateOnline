@@ -1,4 +1,4 @@
-import React, { FunctionComponent, CSSProperties, ChangeEvent } from 'react'
+import React, { FC, CSSProperties, ChangeEvent } from 'react'
 
 interface Props {
   placeholder?: string,
@@ -13,19 +13,19 @@ interface Props {
   className?: string
 }
 
-const InputView: FunctionComponent<Props> = ({ placeholder, type, onChange, style, defaultValue, value, name, readOnly, id, className }) => {
+const InputView: FC<Props> = props => {
   return (
     <input
-      type={ type }
-      placeholder={ placeholder }
-      onChange={ onChange }
-      style={ style }
-      className={ `input ${className}` }
-      defaultValue={ defaultValue }
-      value={ value }
-      name={ name }
-      readOnly={ readOnly }
-      id={ id }
+      type={ props.type }
+      placeholder={ props.placeholder }
+      onChange={ props.onChange }
+      style={ props.style }
+      className={ `input ${props.className}` }
+      defaultValue={ props.defaultValue }
+      value={ props.value }
+      name={ props.name }
+      readOnly={ props.readOnly }
+      id={ props.id }
     />
   )
 }
