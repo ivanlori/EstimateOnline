@@ -1,0 +1,63 @@
+.estimate {
+  min-width: unset;
+  padding: 0 0 12px 0;
+  margin: 0 0 110px 0;
+
+  &__title {
+    padding: 0 20px;
+  }
+  &__company {
+     grid-template-columns: 50% 45%;
+     grid-template-rows: auto;
+
+     &__logo {
+         margin: 0 50px 55px 25px;
+
+         input {
+             left: -3px;
+             top: 62px;
+         }
+     }
+  }
+  &__data {
+    text-align: center;
+    margin-top: 20px;
+
+    &__date,
+    &__discount,
+    &__vat,
+    &__notes {
+      text-align: left;
+    }
+    &__notes {
+      width: 55%;
+      float: none;
+      margin: 0 auto;
+      margin-top: 20px;
+
+      textarea {
+          width: 93%;
+      }
+    }
+  }
+  &__table {
+    .col.large {
+      width: 245px;
+    }
+    .col.small {
+      width: 115px;
+    }
+  }
+  &__footer {
+    margin: 10px 10px 0 0;
+  }
+}
+
+.actions {
+  height: 75px;
+
+  .wrapper {
+      width: 100%;
+      grid-template-columns: 47% 25% 25%;
+  }
+}

@@ -1,44 +1,25 @@
 {
-  "name": "online-estimate-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "@types/react": "^16.8.19",
-    "@types/react-datepicker": "^2.3.0",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-redux": "^7.0.9",
-    "@types/redux": "^3.6.0",
-    "@types/styled-components": "^4.1.16",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
-    "react-scripts": "3.0.0",
-    "redux": "^4.0.1",
-    "styled-components": "^4.3.0",
-    "styled-normalize": "^8.0.6",
-    "typescript": "^3.5.1"
-  },
+  "name": "EstimateOnline",
+  "version": "0.5",
+  "description": "A simply estimate online of costs",
+  "main": "index.js",
+  "repository": "https://github.com/ivanlori/EstimateOnline.git",
+  "author": "Ivan Lori <ivan.lori@protonmail.com>",
+  "license": "MIT",
+  "private": false,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "serve": "parcel -p 8000 watch index.html"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.7.0",
+    "typescript": "^3.7.5"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "assemble": "~0.3.11",
+    "grunt": "~0.4.0",
+    "sass": "^1.25.0",
+    "styles": "^0.2.1"
   }
 }
