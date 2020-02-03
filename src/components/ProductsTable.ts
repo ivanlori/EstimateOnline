@@ -6,10 +6,11 @@ import {
 } from "../libs/utils";
 
 class ProductsTable {
-	$selectBox = getElement(".js-select");
-	$quantityEl = getElement(".js-input-quantity");
-	$unityEl = getElement(".js-input-unity");
-	$amountEl = getElement(".js-input-amount");
+	private $selectBox = getElement(".js-select");
+	private $quantityEl = getElement(".js-input-quantity");
+	private $unityEl = getElement(".js-input-unity");
+	private $amountEl = getElement(".js-input-amount");
+	private id: number = 0;
 
 	constructor() {
 		this.$quantityEl.addEventListener("keyup", () => {
@@ -53,124 +54,38 @@ class ProductsTable {
 		amountField.value = String(amountPerRow);
 	};
 
-	/**
-	 * @param elementChildType
-	 * @param colClassAttr
-	 * @param nameAttr
-	 * @param placeholderAttr
-	 * @returns Col table with element in it
-	 */
-	createColTable(
-		elementChildType,
-		colClassAttr,
-		elemClassAttr,
-		idAttr,
-		placeholderAttr
-	) {
-		let $td = document.createElement("td"),
-			$elem = document.createElement(elementChildType),
-			$euroSymbol = document.createElement("span");
-
-		if (elementChildType === "select") {
-			let items = {
-				"0": "-- Select --",
-				"1": "Service",
-				"2": "Hours",
-				"3": "Days",
-				"4": "Product"
-			};
-
-			for (let key in items) {
-				if (items.hasOwnProperty(key)) {
-					let $option = document.createElement("option");
-
-					$option.setAttribute("value", key);
-					$option.innerHTML = items[key];
-					$elem.appendChild($option);
-				}
-			}
-		}
-
-		$td.setAttribute("class", colClassAttr);
-
-		$elem.setAttribute("class", elemClassAttr);
-		$elem.setAttribute("id", idAttr);
-		$elem.setAttribute("placeholder", placeholderAttr);
-
-		if ($elem.classList.contains("js-input-amount")) {
-			$euroSymbol.setAttribute("class", "amount-euro");
-			$td.appendChild($euroSymbol);
-		}
-
-		$td.appendChild($elem);
-
-		return $td;
-	}
-
-	createRowTable(id) {
-		let $row = document.createElement("tr"),
-			$deleteRowBtn = document.createElement("i");
-
-		$deleteRowBtn.setAttribute("class", "icon-minus");
-		$deleteRowBtn.setAttribute("id", id);
-
-		$row.classList.add("row");
-
-		$row.appendChild(
-			this.createColTable(
-				"select",
-				"js-select-wrapper col small",
-				"js-select",
-				`js-select-product-${id}`,
-				`js-select-product-${id}`
-				//"-- Select --"
-			)
-		);
-		$row.appendChild(
-			this.createColTable(
-				"textarea",
-				"col large",
-				"js-input-description table-field",
-				`js-description-product-${id}`,
-				""
-			)
-		);
-		$row.appendChild(
-			this.createColTable(
-				"input",
-				"col small",
-				"js-input-unity table-field",
-				`js-unity-product-${id}`,
-				"0.00"
-			)
-		);
-		$row.appendChild(
-			this.createColTable(
-				"input",
-				"col small",
-				"js-input-quantity table-field",
-				`js-quantity-product-${id}`,
-				"0"
-			)
-		);
-		$row.appendChild(
-			this.createColTable(
-				"input",
-				"amount-col col small",
-				"js-input-amount table-field",
-				`js-amount-product-${id}`,
-				"0.00"
-			)
-		);
-
-		$row.appendChild($deleteRowBtn);
-		$row.setAttribute("id", id);
-
-		return $row;
-	}
+	createRow = (id: number) => {
+		return `<tr class="row">
+			<td class="js-select-wrapper col small">
+				<select id="js-select-product-${id}" class="js-select">
+					<option value="0">-- Select --</option>
+					<option value="1">Service</option>
+					<option value="2">Hours</option>
+					<option value="3">Days</option>
+					<option value="4">Product</option>
+				</select>
+			</td>
+			<td class="col large">
+				<textarea id="js-description-product-${id}" class="js-input-description table-field"></textarea>
+			</td>
+			<td class="col small">
+				<input id="js-unity-product-${id}" class="js-input-unity table-field" type="text" placeholder="0.00">
+			</td>
+			<td class="col small">
+				<input id="js-quantity-product-${id}" class="js-input-quantity table-field" type="text" placeholder="0">
+			</td>
+			<td class="amount-col col small">
+				<span class="amount-euro"></span>
+				<input id="js-amount-product-${id}" class="js-input-amount table-field" type="text" placeholder="0.00">
+			</td>
+		</tr>`;
+	};
 
 	addProduct() {
-		console.log("product added");
+		if (this.isDataTableValid(this.id)) {
+			this.id += 1;
+			this.createRow(this.id);
+		}
 	}
 }
 
