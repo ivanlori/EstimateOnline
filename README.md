@@ -9,19 +9,19 @@ An online estimate of costs written in React.js and Typescript
 git clone https://github.com/ivanlori/EstimateOnline.git
 
 # install dependencies
-npm install
+yarn install
 
-# serve with hot reload at localhost:3000
-npm start
+# serve with hot reload at localhost:8000
+yarn serve
 
 # build for production
-npm run build
+yarn build
 
 ```
 
 ## Authors
 
-* **Ivan Lori** - *Initial work* - [ivanlori](https://github.com/ivanlori)
+- **Ivan Lori** - _Initial work_ - [ivanlori](https://github.com/ivanlori)
 
 ## License
 
