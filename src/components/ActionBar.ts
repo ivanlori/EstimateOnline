@@ -1,11 +1,11 @@
-import { getElement } from "../libs/utils";
+import { $ } from "../libs/utils";
 import ProductsTable from "./ProductsTable";
 import ImageUploader from "./Image";
 
 class ActionBar {
-	$addProductBtn = getElement("#js-add-btn");
-	$printBtn = getElement("#js-print-btn");
-	$previewBtn = getElement("#js-preview-btn");
+	private $addProductBtn: HTMLButtonElement = $("#js-add-btn");
+	private $printBtn: HTMLButtonElement = $("#js-print-btn");
+	private $previewBtn: HTMLButtonElement = $("#js-preview-btn");
 
 	constructor() {
 		const table = new ProductsTable();
@@ -24,9 +24,9 @@ class ActionBar {
 
 	previewHandler(instance: any) {
 		if (instance.isImageUploaded()) {
-			getElement("body").classList.toggle("x-preview");
+			$("body").classList.toggle("x-preview");
 		} else {
-			getElement(".x-logo-error").classList.remove("hidden");
+			$(".x-logo-error").classList.remove("hidden");
 			this.scrollToError();
 		}
 	}
@@ -35,7 +35,7 @@ class ActionBar {
 		if (instance.isImageUploaded()) {
 			window.print();
 		} else {
-			getElement(".x-logo-error").classList.remove("hidden");
+			$(".x-logo-error").classList.remove("hidden");
 			this.scrollToError();
 		}
 	}

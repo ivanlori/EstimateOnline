@@ -1,4 +1,4 @@
-export const getElement = (selectorString: any): any => {
+export const $ = (selectorString: any): any => {
 	return document.querySelector(selectorString);
 };
 

@@ -1,12 +1,12 @@
-import { getElement } from "../libs/utils";
+import { $ } from "../libs/utils";
 
 class ImageUploader {
-	private $imgBlank = getElement("#js-image-blank");
-	private $logoImageField = getElement("#js-logo-image");
+	private $imgBlank: HTMLInputElement = $("#js-image-blank");
+	private $logoImageField: HTMLInputElement = $("#js-logo-image");
 	private isLogoUploaded: boolean = false;
 
 	constructor() {
-		this.$logoImageField.addEventListener("change", (e: HTMLInputElement) => {
+		this.$logoImageField.addEventListener("change", (e: any) => {
 			this.changeImageHandler(e);
 		});
 
