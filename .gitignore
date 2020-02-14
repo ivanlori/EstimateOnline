@@ -1,13 +1,13 @@
 ## System and generated files
 .idea
 .DS_Store
-.sass-cache
 
 ## Directories
 log/
 node_modules/
+dist
+.cache
 
 ## Files
 result.xml
 npm-debug.log
-CNAME

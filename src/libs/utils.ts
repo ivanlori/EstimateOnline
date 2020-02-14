@@ -14,7 +14,7 @@ export const calculateVat = (vat: number, subtotal: number): number => {
 };
 
 export const setVat = (element: HTMLElement, vat: string): void => {
-	element.innerText = vat;
+	element.innerText = vat ? vat : "0";
 };
 
 export const calculateDiscount = (
@@ -39,11 +39,11 @@ export const calculateTotalAmount = (
 	return `${sum + vat - discount}€`;
 };
 
-export const validateField = (
+export const isFieldValid = (
 	value: number,
 	elemContainer: HTMLElement
 ): boolean => {
-	if (isNaN(value) || value === 0) {
+	if (!value || value == 0) {
 		elemContainer.classList.add("error");
 		return false;
 	} else {

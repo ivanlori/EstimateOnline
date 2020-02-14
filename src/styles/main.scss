@@ -67,8 +67,8 @@ select {
 }
 
 .error {
-	border: 1px solid red;
-	background: #ff9185;
+	border: 1px solid red !important;
+	background-color: #ff9185 !important;
 }
 
 .bold {
@@ -268,7 +268,7 @@ button {
 			width: 100%;
 			margin-bottom: 20px;
 		}
-		thead {
+		th {
 			background: $blue;
 			color: $white;
 			font-weight: 600;

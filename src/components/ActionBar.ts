@@ -12,7 +12,7 @@ class ActionBar {
 		const image = new ImageUploader();
 
 		this.$addProductBtn.addEventListener("click", () => {
-			table.addProduct();
+			table.addRowHandler();
 		});
 		this.$printBtn.addEventListener("click", () => {
 			this.printHandler(image);

@@ -65,7 +65,7 @@
 				<div class="estimate__data__discount">
 					<label>Discount</label>
 					<input
-						type="text"
+						type="number"
 						class="js-discount"
 						name="discount"
 						placeholder="0"
@@ -74,7 +74,7 @@
 				</div>
 				<div class="estimate__data__vat">
 					<label>VAT</label>
-					<input type="text" class="js-vat" name="vat" placeholder="0" />
+					<input type="number" class="js-vat" name="vat" placeholder="0" />
 					<span>%</span>
 				</div>
 				<div class="estimate__data__notes">
@@ -87,14 +87,14 @@
 			</div>
 			<div class="estimate__table">
 				<table>
-					<thead>
-						<td>Item</td>
-						<td>Description</td>
-						<td>Unity price</td>
-						<td>Quantity</td>
-						<td>Amount</td>
-					</thead>
-					<tbody class="js-tbody"></tbody>
+					<tr>
+						<th>Item</th>
+						<th>Description</th>
+						<th>Unity price</th>
+						<th>Quantity</th>
+						<th>Amount</th>
+					</tr>
+					<tbody id="js-tbody"></tbody>
 				</table>
 			</div>
 			<footer class="estimate__footer">
