@@ -1,4 +1,19 @@
-import { $, calculateAmountPerRow, isFieldValid } from "../libs/utils";
+import {
+	$,
+	calculateAmountPerRow,
+	isFieldValid,
+	displayValue,
+	calculateTotalAmount,
+	isSetValue,
+	calculateSubtotal
+} from "../libs/utils";
+
+import {
+	$vatField,
+	$subtotal,
+	$total,
+	$discountField
+} from "../components/Selectors";
 
 class ProductsTable {
 	private $tableBody: any = $("#js-tbody");
@@ -25,15 +40,17 @@ class ProductsTable {
 		});
 	}
 
-	onQuantityHandler = (e: any, unityEl: HTMLInputElement) => {
+	onQuantityHandler = (e: any, unityEl: HTMLInputElement): void => {
 		if (unityEl.value === "") return;
-		const $amountEl = $(`#js-amount-${e.target.attributes[0].value}`);
 
 		const amountPerRow = calculateAmountPerRow(
 			parseInt(e.target.value),
 			parseInt(unityEl.value)
 		);
-		$amountEl.value = String(amountPerRow);
+		$(`#js-amount-${e.target.attributes[0].value}`).setAttribute(
+			"value",
+			`${String(amountPerRow)}€`
+		);
 	};
 
 	isRowFilled = (): boolean => {
@@ -67,27 +84,40 @@ class ProductsTable {
 				</select>
 			</td>
 			<td class="col large">
-				<textarea class="js-description"></textarea>
+				<textarea class="js-description" value=""></textarea>
 			</td>
 			<td class="col small">
-				<input id="js-unity-${id}" class="js-unity" type="number" placeholder="0.00">
+				<input id="js-unity-${id}" class="js-unity" type="number" placeholder="0.00" value="">
 			</td>
 			<td class="col small">
-				<input data-id="${id}" id="js-quantity-${id}" class="js-quantity" type="number" placeholder="0">
+				<input data-id="${id}" id="js-quantity-${id}" class="js-quantity" type="number" placeholder="0" value="">
 			</td>
 			<td class="amount-col col small">
-				<span class="amount-euro"></span>
-				<input id="js-amount-${id}" class="js-amount" placeholder="0.00" readonly>
+				<input id="js-amount-${id}" class="js-amount" placeholder="0.00" readonly value="">
 			</td>
 		</tr>`;
 	};
 
-	addRowHandler() {
+	addRowHandler = (): void => {
 		if (this.isRowFilled()) {
 			this.id += 1;
 			this.$tableBody.insertAdjacentHTML("beforeend", this.createRow(this.id));
+
+			displayValue(
+				$subtotal,
+				`${calculateSubtotal(document.querySelectorAll(".js-amount"))}€`
+			);
+
+			displayValue(
+				$total,
+				`${calculateTotalAmount(
+					document.querySelectorAll(".js-amount"),
+					parseFloat($vatField.value),
+					parseFloat($discountField.value)
+				)}€`
+			);
 		}
-	}
+	};
 }
 
 export default ProductsTable;
