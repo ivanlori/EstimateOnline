@@ -47,10 +47,12 @@ class ProductsTable {
 			parseInt(e.target.value),
 			parseInt(unityEl.value)
 		);
-		$(`#js-amount-${e.target.attributes[0].value}`).setAttribute(
-			"value",
-			`${String(amountPerRow)}€`
-		);
+		if (!isNaN(amountPerRow)) {
+			$(`#js-amount-${e.target.attributes[0].value}`).setAttribute(
+				"value",
+				`${String(amountPerRow)}€`
+			);
+		}
 	};
 
 	isRowFilled = (): boolean => {
@@ -98,24 +100,33 @@ class ProductsTable {
 		</tr>`;
 	};
 
+	calculateSubtotal = (): any => {
+		return displayValue(
+			$subtotal,
+			`${calculateSubtotal(document.querySelectorAll(".js-amount")).toFixed(
+				2
+			)}€`
+		);
+	};
+
+	calculateTotal = (): any => {
+		return displayValue(
+			$total,
+			`${calculateTotalAmount(
+				document.querySelectorAll(".js-amount"),
+				parseFloat($vatField.value),
+				parseFloat($discountField.value)
+			).toFixed(2)}€`
+		);
+	};
+
 	addRowHandler = (): void => {
 		if (this.isRowFilled()) {
 			this.id += 1;
 			this.$tableBody.insertAdjacentHTML("beforeend", this.createRow(this.id));
 
-			displayValue(
-				$subtotal,
-				`${calculateSubtotal(document.querySelectorAll(".js-amount"))}€`
-			);
-
-			displayValue(
-				$total,
-				`${calculateTotalAmount(
-					document.querySelectorAll(".js-amount"),
-					parseFloat($vatField.value),
-					parseFloat($discountField.value)
-				)}€`
-			);
+			this.calculateSubtotal();
+			this.calculateTotal();
 		}
 	};
 }

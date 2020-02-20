@@ -8,25 +8,27 @@ import ProductsTable from "./components/ProductsTable";
 import ActionBar from "./components/ActionBar";
 import Image from "./components/Image";
 
-(function() {
+(() => {
+	new Image();
+	const productsTable = new ProductsTable();
+	new ActionBar();
+
 	el.$addressInputField.addEventListener("focusin", (e: any) => {
 		e.target.classList.add("expand");
 	});
 
 	el.$discountField.addEventListener("keyup", (e: any) => {
-		calculateDiscount(e.target.value, 1300);
+		calculateDiscount(productsTable.calculateSubtotal(), e.target.value);
+		productsTable.calculateTotal();
 	});
 
 	el.$vatField.addEventListener("keyup", (e: any) => {
 		displayValue(el.$displayVatEl, e.target.value);
+		productsTable.calculateTotal();
 	});
 
 	// Thanks to -> https://github.com/chmln/flatpickr
 	/*flatpickr($datepicker, {
 		dateFormat: "d-m-Y"
 	});*/
-
-	new Image();
-	new ProductsTable();
-	new ActionBar();
 })();
