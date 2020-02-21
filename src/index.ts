@@ -28,7 +28,8 @@ import Image from "./components/Image";
 	});
 
 	// Thanks to -> https://github.com/chmln/flatpickr
-	/*flatpickr($datepicker, {
+	//@ts-ignore
+	flatpickr(el.$datepicker, {
 		dateFormat: "d-m-Y"
-	});*/
+	});
 })();
