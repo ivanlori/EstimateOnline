@@ -1,287 +1,218 @@
-@import 'common_style';
+@import "common_style";
 
 h3 {
-  margin: 0;
+	margin: 0;
 }
 
-input:not(.table-field),
-textarea:not(.table-field) {
-  display: block;
-  width: auto;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  background: $white;
-  background-clip: padding-box;
+input,
+textarea {
+	display: block;
+	width: auto;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background: $white;
+	background-clip: padding-box;
 }
 
 label {
-  display: inline-block;
+	display: inline-block;
 }
 
 textarea,
 input,
 select {
-  border: 0;
+	border: 0;
 }
 
 textarea {
-  resize: none;
+	resize: none;
 }
 
 select {
-  padding: 10px;
+	padding: 10px;
 }
 
 ul {
-  list-style-type: none;
+	list-style-type: none;
 }
 
 .estimate {
-  background: $white;
-  font-family: $font-family;
-  color: $font-color;
-  max-width: 1000px;
-  min-width: 940px;
-  border: 0;
-  margin: 20px auto;
-  padding: 0;
-  min-height: 800px;
-  box-shadow: none;
+	background: $white;
+	font-family: $font-family;
+	color: $font-color;
+	max-width: 1000px;
+	min-width: 940px;
+	border: 0;
+	margin: 20px auto;
+	padding: 0;
+	min-height: 800px;
+	box-shadow: none;
 
-  &__title {
-    display: none;
-  }
-  &__company {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 240px;
+	&__title {
+		display: none;
+	}
+	&__company {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 240px;
 
-    &__logo {
-      &.x-logo-visible {
-        outline: none;
+		&__logo {
+			outline: none;
+			input,
+			label,
+			span {
+				display: none;
+			}
+		}
+		&__references {
+			text-align: right;
 
-        input,
-        label,
-        span {
-          display: none;
-        }
-        canvas {
-          position: relative;
-          top: 50px;
-          left: 10px;
-        }
-      }
-    }
-    &__references {
-      text-align: right;
+			&:nth-child(2) {
+				margin-top: 20px;
+			}
+			label {
+				display: none;
+			}
+			textarea {
+				margin-top: 0;
+				height: 30px;
+			}
+			input,
+			textarea {
+				width: 60%;
+				float: right;
+				margin: 5px 10px;
+				font-size: 13px;
+				text-align: right;
+				border: 0;
+			}
+		}
+	}
+	&__data {
+		display: inline-block;
+		width: 100%;
 
-      &:nth-child(2) {
-        margin-top: 20px;
-      }
-      label {
-        display: none;
-      }
-      textarea {
-        margin-top: 0;
-        height: 30px;
-      }
-      input,
-      textarea {
-        width: 60%;
-        float: right;
-        margin: 5px 10px;
-        font-size: 13px;
-        text-align: right;
-        border: 0;
-      }
-    }
-  }
-  &__data {
-    display: inline-block;
-    width: 100%;
+		&__date,
+		&__discount,
+		&__vat {
+			display: inline-block;
 
-    &__date,
-    &__discount,
-    &__vat {
-      display: inline-block;
+			label {
+				color: $grey-medium;
+				margin: {
+					top: 6px;
+					right: 6px;
+				}
+			}
+			input {
+				line-height: 0;
+				border: 0;
+			}
+		}
+		&__date {
+			label {
+				margin-right: 10px;
+			}
+			.datepicker {
+				width: 120px;
+				margin-right: 15px;
+			}
+		}
+		&__discount,
+		&__vat {
+			position: relative;
 
-      label {
-        color: $grey-medium;
-        margin: { top: 6px; right: 6px; }
-      }
-      input {
-        line-height: 0;
-        border: 0;
-      }
-    }
-    &__date {
-      label {
-        margin-right: 10px;
-      }
-      .datepicker {
-        width: 120px;
-        margin-right: 15px;
-      }
-    }
-    &__discount,
-    &__vat {
-      position: relative;
+			input {
+				text-align: right;
+				width: 70px;
+				padding-right: 30px;
+				margin-right: 15px;
+			}
+			span {
+				position: absolute;
+				top: 40px;
+				right: 25px;
+			}
+		}
+		&__notes {
+			width: 500px;
 
-      input {
-        text-align: right;
-        width: 70px;
-        padding-right: 30px;
-        margin-right: 15px;
-      }
-      span {
-        position: absolute;
-        top: 40px;
-        right: 25px;
-      }
-    }
-    &__notes {
-      width: 500px;
+			label {
+				color: $grey-medium;
+			}
+			textarea {
+				width: 500px;
+				height: 65px;
+				padding: 0;
+				border: 0;
+			}
+		}
+	}
+	table {
+		input,
+		textarea {
+			border: 0;
+		}
+		select {
+			width: 100%;
+			height: 37px;
+			padding: 0 10px;
+			-webkit-appearance: none;
+		}
+		.icon {
+			display: none;
+		}
+	}
+	&__footer {
+		text-align: right;
+		margin-top: 20px;
 
-      label {
-        color: $grey-medium;
-      }
-      textarea {
-        width: 500px;
-        height: 65px;
-        padding: 0;
-        border: 0;
-      }
-    }
-  }
-  &__main {
-    min-height: 380px;
-    position: relative;
-    margin-top: 30px;
-    border: 1px solid $grey;
+		&__total,
+		&__subtotal {
+			&__description {
+				display: inline-block;
+				border: 0;
+				padding: 10px;
+				width: 257px;
+				border-right: 0;
+				height: 32px;
 
-    .estimate__wrapper__table {
-      min-height: 345px;
-      max-height: 345px;
-      border-bottom: 0;
-    }
-    &__table {
-      width: 100%;
+				h4 {
+					margin: 0;
+				}
+				span {
+					font-size: 13px;
+				}
+			}
+			&__value {
+				float: right;
+				border: 0;
+				text-align: right;
+				padding: 10px;
+				width: 150px;
+				font-size: 28px;
+				background: $white;
+			}
+		}
+		&__subtotal {
+			margin-bottom: 10px;
 
-      thead {
-        background: $blue;
-        color: $white;
+			&__description {
+				height: 23px;
+				width: 120px;
 
-        td {
-          padding: 10px 0px 10px 10px;
-        }
-      }
-      &__row {
-        height: 0;
-
-        &__cell {
-          vertical-align: top;
-
-          input,
-          select {
-            position: relative;
-            margin: 0;
-          }
-          textarea {
-            width: 95%;
-            margin: 0;
-            resize: none;
-            min-height: 23px;
-            max-height: 60px;
-            height: 5px;
-            padding: 6px;
-          }
-          input {
-            min-width: 0;
-            height: 23px;
-            width: 89%;
-            text-align: left;
-            padding: 6px;
-          }
-          select {
-            width: 100%;
-            height: 37px;
-            padding: 0 10px;
-            -webkit-appearance: none;
-          }
-          &.small {
-            width: 150px;
-            position: relative;
-
-            .select-icon {
-              display: none;
-            }
-            &.amount-cell {
-              .amount-euro {
-                position: absolute;
-                top: 10px;
-                right: 5px;
-                z-index: 1;
-
-                &::after {
-                  content: "€";
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  &__footer {
-    text-align: right;
-    margin-top: 20px;
-
-    &__total,
-    &__subtotal {
-      &__description {
-        display: inline-block;
-        border: 0;
-        padding: 10px;
-        width: 257px;
-        border-right: 0;
-        height: 32px;
-
-        h4 {
-          margin: 0;
-        }
-        span {
-          font-size: 13px;
-        }
-      }
-      &__value {
-        float: right;
-        border: 0;
-        text-align: right;
-        padding: 10px;
-        width: 150px;
-        font-size: 28px;
-        background: $white;
-      }
-    }
-    &__subtotal {
-      margin-bottom: 10px;
-
-      &__description {
-        height: 23px;
-        width: 120px;
-
-        h5 {
-          margin: 0;
-        }
-      }
-      &__value {
-        font-size: 20px;
-      }
-    }
-  }
+				h5 {
+					margin: 0;
+				}
+			}
+			&__value {
+				font-size: 20px;
+			}
+		}
+	}
 }
 
 .actions {
-  display: none;
+	display: none !important;
 }

@@ -146,18 +146,11 @@ button {
 			align-items: center;
 			justify-content: center;
 
-			&.x-logo-visible {
-				outline: none;
-
-				input,
-				label,
-				span {
-					display: none;
-				}
-				canvas {
-					position: relative;
-				}
+			canvas {
+				max-width: 200px;
+				max-height: 80px;
 			}
+
 			.x-logo-error {
 				color: red;
 				font-weight: 600;
