@@ -4,7 +4,6 @@ import {
 	isFieldValid,
 	displayValue,
 	calculateTotalAmount,
-	isSetValue,
 	calculateSubtotal
 } from "../libs/utils";
 
@@ -36,6 +35,12 @@ class ProductsTable {
 				$quantityEl = $(this.selectorStringQuantity + this.id);
 
 				this.onQuantityHandler(e, $unityEl);
+			}
+		});
+
+		document.body.addEventListener("click", (e: any) => {
+			if (e.target.id === `js-delete-${this.id}`) {
+				this.removeRowHandler();
 			}
 		});
 	}
@@ -75,7 +80,7 @@ class ProductsTable {
 
 	createRow = (id: number): string => {
 		return `
-		<tr>
+		<tr id="js-row-${id}">
 			<td class="col small">
 				<select class="js-select" id="js-select-${id}">
 					<option value="0">-- Select --</option>
@@ -97,6 +102,11 @@ class ProductsTable {
 			<td class="amount-col col small">
 				<input id="js-amount-${id}" class="js-amount" placeholder="0.00" readonly value="">
 			</td>
+			${
+				id !== 0
+					? `<td class="remove-wrapper"><i id="js-delete-${id}" class="js-delete icon icon-minus"></i></td>`
+					: ""
+			}
 		</tr>`;
 	};
 
@@ -128,6 +138,15 @@ class ProductsTable {
 			this.calculateSubtotal();
 			this.calculateTotal();
 		}
+	};
+
+	removeRowHandler = (): void => {
+		const $row = $(`#js-row-${this.id}`);
+		$row.parentNode.removeChild($row);
+		this.id -= 1;
+
+		this.calculateSubtotal();
+		this.calculateTotal();
 	};
 }
 
