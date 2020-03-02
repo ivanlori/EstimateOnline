@@ -33,7 +33,7 @@ export const calculateSubtotal = (selectorsArray: any): number => {
 
 	// Iterate over all amount and sum
 	selectorsArray.forEach(element => {
-		if (element.value) sum += parseFloat(element.value);
+		element.value ? sum += parseFloat(element.value) : null;
 	});
 
 	return sum;
@@ -52,15 +52,19 @@ export const calculateTotalAmount = (
 	);
 };
 
+const addError = el => {
+	el.classList.add("error");
+	return false;
+}
+
+const removeError = el => {
+	el.classList.remove("error");
+	return true;
+}
+
 export const isFieldValid = (
 	value: number,
 	elemContainer: HTMLElement
 ): boolean => {
-	if (!value || value == 0) {
-		elemContainer.classList.add("error");
-		return false;
-	} else {
-		elemContainer.classList.remove("error");
-		return true;
-	}
+	return value && value != 0 ? removeError(elemContainer) : addError(elemContainer);
 };

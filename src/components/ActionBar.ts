@@ -22,22 +22,17 @@ class ActionBar {
 		});
 	}
 
+	revealError = () => {
+		$(".x-logo-error").classList.remove("hidden");
+		this.scrollToError();
+	}
+
 	previewHandler(instance: any) {
-		if (instance.isImageUploaded()) {
-			$("body").classList.toggle("x-preview");
-		} else {
-			$(".x-logo-error").classList.remove("hidden");
-			this.scrollToError();
-		}
+		instance.isImageUploaded() ? $("body").classList.toggle("x-preview") : this.revealError();
 	}
 
 	printHandler(instance: any) {
-		if (instance.isImageUploaded()) {
-			window.print();
-		} else {
-			$(".x-logo-error").classList.remove("hidden");
-			this.scrollToError();
-		}
+		instance.isImageUploaded() ? window.print() : this.revealError();
 	}
 
 	scrollToError() {

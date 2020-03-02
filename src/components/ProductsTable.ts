@@ -39,25 +39,21 @@ class ProductsTable {
 		});
 
 		document.body.addEventListener("click", (e: any) => {
-			if (e.target.id === `js-delete-${this.id}`) {
-				this.removeRowHandler();
-			}
+			e.target.id === `js-delete-${this.id}` && this.removeRowHandler();
 		});
 	}
 
 	onQuantityHandler = (e: any, unityEl: HTMLInputElement): void => {
-		if (unityEl.value === "") return;
+		let value = unityEl.value || null;
+
+		let id = e.target.attributes[0].value;
 
 		const amountPerRow = calculateAmountPerRow(
 			parseInt(e.target.value),
-			parseInt(unityEl.value)
+			parseInt(value)
 		);
-		if (!isNaN(amountPerRow)) {
-			$(`#js-amount-${e.target.attributes[0].value}`).setAttribute(
-				"value",
-				`${String(amountPerRow)}€`
-			);
-		}
+
+		!isNaN(amountPerRow) && $(`#js-amount-${id}`).setAttribute("value", `${String(amountPerRow)}€`);
 	};
 
 	isRowFilled = (): boolean => {
@@ -103,9 +99,9 @@ class ProductsTable {
 				<input id="js-amount-${id}" class="js-amount" placeholder="0.00" readonly value="">
 			</td>
 			${
-				id !== 0
-					? `<td class="remove-wrapper"><i id="js-delete-${id}" class="js-delete icon icon-minus"></i></td>`
-					: ""
+			id !== 0
+				? `<td class="remove-wrapper"><i id="js-delete-${id}" class="js-delete icon icon-minus"></i></td>`
+				: ""
 			}
 		</tr>`;
 	};
