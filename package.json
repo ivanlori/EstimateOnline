@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "assemble": "~0.3.11",
-    "grunt": "~0.4.0",
+    "grunt": "~1.3.0",
     "sass": "^1.25.0",
     "styles": "^0.2.1"
   }
