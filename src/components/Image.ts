@@ -1,60 +1,60 @@
-import { $ } from "../libs/utils";
+import { imgBlank, logoImageField } from "./Selectors";
 
-class ImageUploader {
-	private $imgBlank: HTMLInputElement = $("#js-image-blank");
-	private $logoImageField: HTMLInputElement = $("#js-logo-image");
-	private isLogoUploaded: boolean = false;
+let isLogoUploaded = false;
 
-	constructor() {
-		this.$logoImageField.addEventListener("change", (e: any) => {
-			this.changeImageHandler(e);
-		});
+const changeImageHandler = (e: HTMLInputElement) => {
+	let imgData = getBase64Image(e);
+	localStorage.setItem("imgData", String(imgData));
+	isLogoUploaded = true;
+};
 
-		this.setImage();
+const getBase64Image = (e: HTMLInputElement) => {
+	/**
+	 * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
+	 *
+	 * This converts an image into base 64 format
+	 * and then is possible to retrieve via local storage
+	 */
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext("2d");
+	const img = new Image();
+
+	img.onload = () => {
+		canvas.height = img.height > 150 ? 80 : img.height;
+		canvas.width = img.width;
+
+		if (ctx) {
+			ctx.drawImage(img, 0, 0);
+		}
+
+		imgBlank.src = canvas.toDataURL();
+		imgBlank.classList.remove("hidden");
+	};
+
+	if (e.files && e.files[0]) {
+		img.src = URL.createObjectURL(e.files[0]);
 	}
 
-	changeImageHandler = (e: HTMLInputElement) => {
-		let imgData = this.getBase64Image(e);
-		localStorage.setItem("imgData", String(imgData));
-		this.isLogoUploaded = true;
-	};
+	return img;
+};
 
-	getBase64Image = (e: any) => {
-		/**
-		 * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
-		 *
-		 * This converts an image into base 64 format
-		 * and then is possible to retrieve via local storage
-		 */
-		const logo = this.$imgBlank;
+const getImageFromStorage = () => {
+	return localStorage.getItem("imgData");
+};
 
-		let ctx = logo.getContext("2d"),
-			img = new Image();
+const setImage = () => {
+	imgBlank.src = "data:image/png;base64," + getImageFromStorage();
+};
 
-		img.onload = () => {
-			logo.height = img.height > 150 ? 80 : img.height;
+export const isImageUploaded = (): boolean => {
+	return isLogoUploaded;
+};
 
-			logo.width = img.width;
-			ctx.drawImage(img, 0, 0);
-		};
+export const initImageUploader = () => {
 
-		img.src = URL.createObjectURL(e.target.files[0]);
-		logo.classList.remove("hidden");
+	logoImageField.addEventListener("change", (e: Event) => {
+		changeImageHandler(e.currentTarget as HTMLInputElement);
+	});
 
-		return img;
-	};
-
-	getImageFromStorage = () => {
-		return localStorage.getItem("imgData");
-	};
-
-	setImage = () => {
-		this.$imgBlank.src = "data:image/png;base64," + this.getImageFromStorage();
-	};
-
-	isImageUploaded = (): boolean => {
-		return this.isLogoUploaded;
-	};
+	setImage();
 }
-
-export default ImageUploader;

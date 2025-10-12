@@ -1,0 +1,580 @@
+@use "vendor/normalize";
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+:root {
+	--blue: #0b97c4;
+	--blue-hover: #037297;
+	--font-color: #333;
+	--page-background: #f6f7f7;
+	--grey: #ced4da;
+	--grey-medium: #a6aaaf;
+	--white: #fff;
+	--black: #000;
+
+	---font-family: "Roboto", sans-serif;
+}
+
+@font-face {
+	font-family: "icomoon";
+	src: url("../../assets/fonts/icomoon.eot?w17k9d");
+	src: url("../../assets/fonts/icomoon.eot?w17k9d#iefix") format("embedded-opentype"),
+		url("../../assets/fonts/icomoon.ttf?w17k9d") format("truetype"),
+		url("../../assets/fonts/icomoon.woff?w17k9d") format("woff"),
+		url("../../assets/fonts/icomoon.svg?w17k9d#icomoon") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: "icomoon" !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-printer:before {
+	content: "\e954";
+}
+.icon-plus:before {
+	content: "\ea0a";
+}
+.icon-minus:before {
+	content: "\ea0b";
+}
+.icon-cross:before {
+	content: "\ea0f";
+}
+.icon-checkmark:before {
+	content: "\ea10";
+}
+.icon-circle-up:before {
+	content: "\ea41";
+}
+.icon-circle-down:before {
+	content: "\ea43";
+}
+
+
+body {
+	font-size: 16px;
+}
+
+h3 {
+	margin: 0;
+}
+
+input:not(.table-field),
+textarea:not(.table-field) {
+	display: block;
+	width: auto;
+	padding: 0.375rem 0.75rem;
+	line-height: 1.5;
+	color: #495057;
+	background: var(--white);
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	border-radius: 5px;
+}
+
+input:not(.table-field):focus,
+textarea:not(.table-field):focus {
+	color: #495057;
+	background: var(--white);
+	border-color: #80bdff;
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.remove-wrapper {
+	cursor: pointer;
+	padding-left: 10px;
+}
+
+label {
+	display: inline-block;
+	margin-bottom: 0.5rem;
+}
+
+textarea {
+	resize: none;
+}
+
+select {
+	border-radius: 0;
+	border: 1px solid var(--grey);
+	padding: 10px;
+	background: var(--white);
+	cursor: pointer;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.visible {
+	display: block;
+}
+
+.error {
+	border: 1px solid red !important;
+	background-color: #ff9185 !important;
+}
+
+.bold {
+	font-weight: 600;
+}
+
+.wrapper-fluid {
+	width: 100%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+button {
+	display: inline-block;
+	font-weight: 400;
+	color: var(--white);
+	cursor: pointer;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+	border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+button:focus {
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.estimate {
+	background: var(--page-background);
+	font-family: var(--font-family);
+	color: var(--font-color);
+	max-width: 1050px;
+	min-width: 940px;
+	border: 1px solid #cec6c6;
+	margin: 20px auto;
+	margin-bottom: 110px;
+	padding: 20px;
+	padding-top: 0;
+	min-height: 800px;
+	box-shadow: 0 0 3px var(--grey);
+
+	}
+.estimate__title {
+	margin-bottom: 25px;
+}
+
+.estimate__title h2 {
+	border-bottom: 1px solid var(--grey);
+}
+
+.estimate__company {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 240px;
+}
+
+.estimate__company__logo {
+	outline: 2px dashed #92b0b3;
+	outline-offset: -10px;
+	-webkit-transition: outline-offset 0.15s ease-in-out,
+		background-color 0.15s linear;
+	transition: outline-offset 0.15s ease-in-out,
+		background-color 0.15s linear;
+	margin: 25px 90px 60px 45px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.estimate__company__logo canvas {
+	max-width: 200px;
+	max-height: 80px;
+}
+
+.estimate__company__logo .x-logo-error {
+	color: red;
+	font-weight: 600;
+	position: absolute;
+	bottom: 20px;
+}
+
+.estimate__company__logo input {
+	display: block;
+	position: absolute;
+	top: 40px;
+	z-index: -5;
+}
+
+.estimate__company__logo label {
+	display: block;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.estimate__company__logo label:hover {
+	text-decoration: underline;
+}
+
+.estimate__company__logo span {
+	font-size: 14px;
+}
+
+.estimate__company__references {
+	text-align: right;
+}
+
+.estimate__company__references label {
+	display: block;
+}
+
+.estimate__company__references textarea {
+	margin-top: 0;
+	height: 19px;
+}
+
+.estimate__company__references textarea.expand {
+	height: 50px;
+}
+
+.estimate__company__references input,
+.estimate__company__references textarea {
+	width: 60%;
+	float: right;
+	margin: 5px 0;
+}
+
+.estimate__data {
+	display: inline-block;
+	width: 100%;
+}
+
+.estimate__data__date,
+.estimate__data__discount,
+.estimate__data__vat {
+	display: inline-block;
+}
+
+.estimate__data .datepicker {
+	width: 120px;
+	margin-right: 15px;
+}
+
+.estimate__data__discount,
+.estimate__data__vat {
+	position: relative;
+}
+
+.estimate__data__discount input,
+.estimate__data__vat input {
+	text-align: right;
+	width: 70px;
+	padding-right: 30px;
+	margin-right: 15px;
+}
+
+.estimate__data__discount span,
+.estimate__data__vat span {
+	position: absolute;
+	top: 37px;
+	right: 25px;
+}
+
+.estimate__data__notes {
+	float: right;
+	width: 500px;
+}
+
+.estimate__data__notes textarea {
+	width: 478px;
+	height: 65px;
+}
+
+.estimate__table {
+	min-height: 380px;
+	position: relative;
+	margin-top: 30px;
+	border-bottom: 1px solid var(--grey);
+}
+
+.estimate__table table {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.estimate__table th {
+	background: var(--blue);
+	color: var(--white);
+	font-weight: 600;
+}
+
+.estimate__table th td {
+	padding: 10px 0px 10px 10px;
+}
+
+.estimate__table .row {
+	height: 0;
+}
+
+.estimate__table .row .icon-minus {
+	position: relative;
+	top: 13px;
+	left: 8px;
+	border-radius: 50%;
+	border: 1px solid;
+	padding: 5px;
+	color: red;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+.estimate__table .col {
+	vertical-align: top;
+}
+
+.estimate__table .col input,
+.estimate__table .col select {
+	position: relative;
+	margin: 0;
+}
+
+.estimate__table .col textarea {
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	resize: vertical;
+	min-height: 45px;
+	max-height: 60px;
+	height: 45px;
+	padding: 6px;
+	border: 1px solid var(--grey);
+}
+
+.estimate__table .col input {
+	height: 45px;
+	width: 100%;
+	box-sizing: border-box;
+	text-align: right;
+	padding: 6px;
+	border: 1px solid var(--grey);
+	border-radius: 0;
+}
+
+.estimate__table .col select {
+	width: 100%;
+	height: 45px;
+	padding: 0 0 0 10px;
+}
+
+.estimate__table .col.small {
+	width: 150px;
+	position: relative;
+}
+
+.estimate__table .col.small .select-icon {
+	position: absolute;
+	right: 7px;
+	top: 15px;
+	z-index: 1;
+}
+
+.estimate__table .col.small.amount-col .amount-euro {
+	position: absolute;
+	right: 12px;
+	top: 13px;
+	z-index: 1;
+	display: none;
+}
+
+.estimate__table .col.small.amount-col .amount-euro::after {
+	content: "€";
+}
+
+.estimate__table .col.small.amount-col.x-value input {
+	width: 100%;
+	padding-right: 25px;
+}
+
+.estimate__table .col.small.amount-col.x-value .amount-euro {
+	display: block;
+}
+
+.estimate__footer {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.estimate__footer__total__description,
+.estimate__footer__subtotal__description {
+	display: inline-block;
+	border: 1px solid var(--grey);
+	padding: 10px;
+	width: 257px;
+	border-right: 0;
+	height: 36px;
+}
+
+.estimate__footer__total__description h4 {
+	margin: 0;
+}
+
+.estimate__footer__total__description span {
+	font-size: 14px;
+}
+
+.estimate__footer__total__value,
+.estimate__footer__subtotal__value {
+	float: right;
+	border: 1px solid var(--grey);
+	text-align: right;
+	padding: 10px;
+	width: 150px;
+	background: var(--white);
+	font-size: 28px;
+}
+
+.estimate__footer__subtotal {
+	margin-bottom: 10px;
+}
+
+.estimate__footer__subtotal__description {
+	height: 26px;
+	width: 120px;
+}
+
+.estimate__footer__subtotal__description h5 {
+	margin: 0;
+}
+
+.estimate__footer__subtotal__value {
+	font-size: 20px;
+}
+
+.actions {
+	font-family: var(--font-family);
+	padding: 10px 0;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	height: 65px;
+	background: var(--page-background);
+	border-top: 1px solid var(--grey);
+	z-index: 2;
+}
+
+.actions .wrapper {
+	width: 1000px;
+	display: grid;
+	grid-template-columns: 37% 35% 30%;
+	grid-template-rows: 65px;
+	margin: 0 auto;
+}
+
+.actions__estimate button {
+	margin: 0 8px;
+	position: relative;
+	top: 7px;
+}
+
+.actions__estimate__print {
+	background: #f3bf5f;
+}
+
+.actions__estimate__print:hover {
+	background: #eca115;
+}
+
+.actions__estimate__add {
+	background: var(--blue);
+}
+
+.actions__estimate__add:hover {
+	background: var(--blue-hover);
+}
+
+.actions__estimate__preview {
+	background: #6ed37b;
+}
+
+.actions__estimate__tooltip {
+	position: relative;
+	display: none;
+}
+
+.actions__estimate__tooltip.visible {
+	display: block;
+}
+
+.actions__estimate__tooltip__en,
+.actions__estimate__tooltip__it {
+	width: 120px;
+	background-color: black;
+	color: var(--white);
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+}
+
+.actions__estimate__tooltip__en {
+	top: -80px;
+}
+
+.actions__estimate__tooltip__it {
+	top: -50px;
+}
+
+.actions__version {
+	float: right;
+	margin-top: 20px;
+}
+
+.actions__github {
+	display: inline-block;
+}
+
+.actions__github span {
+	margin-right: 10px;
+	display: inline-block;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.x-preview {
+	.estimate {
+		margin-bottom: 110px !important;
+	}
+	.actions {
+		display: block !important;
+	}
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+@media print {
+
+}

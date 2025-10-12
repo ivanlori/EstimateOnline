@@ -2,26 +2,25 @@
   "name": "estimate-online",
   "version": "0.5",
   "description": "A simply estimate online of costs",
-  "main": "index.js",
+  "source": "index.html",
   "repository": "https://github.com/ivanlori/EstimateOnline.git",
   "author": "Ivan Lori <ivan.lori@protonmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "serve": "parcel -p 8000 watch index.html --open",
+    "serve": "parcel serve index.html --port 8000",
     "build": "parcel build index.html --no-source-maps --out-dir docs/ --public-url ./"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.7.0",
-    "cssnano": "^4.1.10",
-    "typescript": "^3.7.5"
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@parcel/transformer-babel": "^2.16.0",
+    "@parcel/transformer-sass": "2.16.0",
+    "parcel": "^2.16.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "assemble": "~0.3.11",
-    "grunt": "~0.4.0",
-    "sass": "^1.25.0",
-    "styles": "^0.2.1"
+    "sass": "^1.93.0"
   }
 }

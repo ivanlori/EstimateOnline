@@ -1,35 +1,45 @@
 "use strict";
 
-import "./styles/main.scss";
+import { calculateDiscount, calculateSubtotal } from "./libs/utils";
+import {
+	addressField,
+	discountField,
+	vat,
+	datepicker,
+	vatField,
+} from "./components/Selectors";
+import { calculateTotal, initTable } from "./components/ProductsTable";
+import { initActionBar } from "./components/ActionBar";
+import { initImageUploader } from "./components/Image";
 
-import { displayValue, calculateDiscount } from "./libs/utils";
-import * as el from "./components/Selectors";
-import ProductsTable from "./components/ProductsTable";
-import ActionBar from "./components/ActionBar";
-import Image from "./components/Image";
+import "./styles/normalize.css";
+import "./styles/main.css";
 
 (() => {
-	new Image();
-	const productsTable = new ProductsTable();
-	new ActionBar();
+	initActionBar();
+	initImageUploader();
+	initTable()
 
-	el.$addressInputField.addEventListener("focusin", (e: any) => {
-		e.target.classList.add("expand");
+	addressField.addEventListener("focusin", (e: FocusEvent) => {
+		const target = e.target as HTMLElement;
+		target.classList.add("expand");
 	});
 
-	el.$discountField.addEventListener("keyup", (e: any) => {
-		calculateDiscount(productsTable.calculateSubtotal(), e.target.value);
-		productsTable.calculateTotal();
+	discountField.addEventListener("keyup", (e: KeyboardEvent) => {
+		const target = e.target as HTMLInputElement;
+		const sub = calculateSubtotal()
+		calculateDiscount(sub, parseFloat(target.value));
+		calculateTotal();
 	});
 
-	el.$vatField.addEventListener("keyup", (e: any) => {
-		displayValue(el.$displayVatEl, e.target.value);
-		productsTable.calculateTotal();
+	vatField.addEventListener("keyup", (e: KeyboardEvent) => {
+		const target = e.target as HTMLInputElement;
+		vat.innerHTML = target.value;
+		calculateTotal();
 	});
 
-	// Thanks to -> https://github.com/chmln/flatpickr
 	//@ts-ignore
-	flatpickr(el.$datepicker, {
+	flatpickr(datepicker, {
 		dateFormat: "d-m-Y"
 	});
 })();

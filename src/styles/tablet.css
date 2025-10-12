@@ -1,0 +1,67 @@
+.estimate {
+  min-width: unset;
+  padding: 0 0 12px 0;
+  margin: 0 0 110px 0;
+}
+
+.estimate__title {
+  padding: 0 20px;
+}
+
+.estimate__company {
+  grid-template-columns: 50% 45%;
+  grid-template-rows: auto;
+}
+
+.estimate__company__logo {
+  margin: 0 50px 55px 25px;
+}
+
+.estimate__company__logo input {
+  left: -3px;
+  top: 62px;
+}
+
+.estimate__data {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.estimate__data__date,
+.estimate__data__discount,
+.estimate__data__vat,
+.estimate__data__notes {
+  text-align: left;
+}
+
+.estimate__data__notes {
+  width: 55%;
+  float: none;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.estimate__data__notes textarea {
+  width: 93%;
+}
+
+.estimate__table .col.large {
+  width: 245px;
+}
+
+.estimate__table .col.small {
+  width: 115px;
+}
+
+.estimate__footer {
+  margin: 10px 10px 0 0;
+}
+
+.actions {
+  height: 75px;
+}
+
+.actions .wrapper {
+  width: 100%;
+  grid-template-columns: 47% 25% 25%;
+}

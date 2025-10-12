@@ -1,4 +1,6 @@
-export const $ = (selectorString: any): any => {
+type selectorTypes = HTMLButtonElement | HTMLInputElement |  HTMLElement | HTMLInputElement | HTMLSelectElement| null
+
+export const $ = (selectorString: string): selectorTypes => {
 	return document.querySelector(selectorString);
 };
 
@@ -13,14 +15,6 @@ export const calculateVat = (subtotal: number, vat: number): number => {
 	return (subtotal * vat) / 100;
 };
 
-export const displayValue = (element: HTMLElement, value: string): void => {
-	element.innerText = value ? value : "0";
-};
-
-export const isSetValue = (element: HTMLInputElement): boolean => {
-	return Boolean(element.value);
-};
-
 export const calculateDiscount = (
 	subtotal: number,
 	discount: number
@@ -28,23 +22,24 @@ export const calculateDiscount = (
 	return (discount / 100) * subtotal;
 };
 
-export const calculateSubtotal = (selectorsArray: any): number => {
+export const calculateSubtotal = (): number => {
+	const amountList = document.querySelectorAll(".js-amount");
 	let sum = 0;
 
-	// Iterate over all amount and sum
-	selectorsArray.forEach(element => {
-		element.value ? sum += parseFloat(element.value) : null;
+	amountList.forEach((element) => {
+		const inputElement = element as HTMLInputElement;
+		inputElement.value ? sum += parseFloat(inputElement.value) : null;
 	});
 
 	return sum;
 };
 
 export const calculateTotalAmount = (
-	selectorsArray: any,
+	selectorsArray: NodeListOf<Element>,
 	vat: number,
 	discount: number
 ): number => {
-	let subtotal = calculateSubtotal(selectorsArray);
+	let subtotal = calculateSubtotal();
 	return (
 		subtotal +
 		((vat ? calculateVat(subtotal, vat) : 0) -
@@ -52,12 +47,12 @@ export const calculateTotalAmount = (
 	);
 };
 
-const addError = el => {
+const addError = (el: HTMLElement): boolean => {
 	el.classList.add("error");
 	return false;
 }
 
-const removeError = el => {
+const removeError = (el: HTMLElement): boolean => {
 	el.classList.remove("error");
 	return true;
 }
@@ -66,5 +61,5 @@ export const isFieldValid = (
 	value: number,
 	elemContainer: HTMLElement
 ): boolean => {
-	return value && value != 0 ? removeError(elemContainer) : addError(elemContainer);
+	return value && value !== 0 ? removeError(elemContainer) : addError(elemContainer);
 };

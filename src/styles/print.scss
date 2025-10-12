@@ -1,4 +1,4 @@
-@import "common_style";
+@use "_common_style.scss";
 
 h3 {
 	margin: 0;
@@ -11,7 +11,7 @@ textarea {
 	font-size: 1rem;
 	line-height: 1.5;
 	color: #495057;
-	background: $white;
+	background: var(--white);
 	background-clip: padding-box;
 }
 
@@ -38,9 +38,9 @@ ul {
 }
 
 .estimate {
-	background: $white;
+	background: var(--white);
 	font-family: $font-family;
-	color: $font-color;
+	color: var(--font-color);
 	max-width: 1000px;
 	min-width: 940px;
 	border: 0;
@@ -99,7 +99,7 @@ ul {
 			display: inline-block;
 
 			label {
-				color: $grey-medium;
+				color: var(--grey-medium);
 				margin: {
 					top: 6px;
 					right: 6px;
@@ -139,7 +139,7 @@ ul {
 			width: 500px;
 
 			label {
-				color: $grey-medium;
+				color: var(--grey-medium);
 			}
 			textarea {
 				width: 500px;
@@ -192,7 +192,7 @@ ul {
 				padding: 10px;
 				width: 150px;
 				font-size: 28px;
-				background: $white;
+				background: var(--white);
 			}
 		}
 		&__subtotal {
