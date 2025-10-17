@@ -14,73 +14,90 @@
 	</head>
 	<body>
 		<div class="estimate">
-			<div class="estimate__title">
+			<div class="title-wrapper">
 				<h2>Job Estimate</h2>
 			</div>
 			<div class="estimate__company">
-				<div class="estimate__company__logo js-logo-wrapper">
+				<div id="js-logo-wrapper" class="logo-wrapper">
 					<canvas id="js-image-blank" class="hidden"></canvas>
 					<input type="file" id="js-logo-image" class="logo-image-input" />
-					<label for="js-logo-image">Choose a logo</label>
+					<label for="js-logo">Choose a logo</label>
 					<span>(The ideally format is 200 x 80 px)</span>
-					<span class="x-logo-error hidden">! Add a logo</span>
+					<span id="js-logo" class="x-logo-error hidden">! Add a logo</span>
 				</div>
-				<div class="estimate__company__references">
-					<label>Information about your Company</label>
-					<input
-						type="text"
-						class="js-company-email email"
-						name="companyEmail"
-						placeholder="info@company.com"
-					/>
-					<input
-						type="text"
-						class="js-company-website website"
-						name="companyWebsite"
-						placeholder="www.companywebsite.com"
-					/>
-					<input
-						type="text"
-						class="js-company-telephone telephone"
-						name="companyTelephone"
-						placeholder="Telephone"
-					/>
-					<textarea
-						class="js-company-address address"
-						name="companyAddress"
-						placeholder="Company address"
-					></textarea>
+				<div class="references-wrapper">
+					<div>
+						<label for="js-email">Company Email</label>
+						<input
+							type="text"
+							id="js-email"
+							class="email"
+							name="companyEmail"
+							placeholder="info@company.com"
+						/>
+					</div>
+					<div>
+						<label for="js-website">Company website url</label>
+						<input
+							type="text"
+							id="js-website"
+							class="website"
+							name="companyWebsite"
+							placeholder="www.companywebsite.com"
+						/>
+					</div>
+					<div>
+						<label for="js-telephone">Company Phone Number</label>
+						<input
+							type="text"
+							id="js-telephone"
+							class="telephone"
+							name="companyTelephone"
+							placeholder="Telephone"
+						/>
+					</div>
+					<div>
+						<label for="js-address">Company Address</label>
+						<textarea
+							id="js-address"
+							class="address"
+							name="companyAddress"
+							placeholder="Company address"
+						></textarea>
+					</div>
 				</div>
 			</div>
-			<div class="estimate__data clearfix">
-				<div class="estimate__data__date">
-					<label>Date</label>
+			<div class="data-wrapper">
+				<div class="date-wrapper">
+					<label for="js-datepicker">Date</label>
 					<input
+						id="js-datepicker"
 						type="text"
-						class="js-datepicker datepicker"
+						class=" datepicker"
 						name="estimateDate"
 						placeholder="dd-mm-yyyy"
 					/>
 				</div>
-				<div class="estimate__data__discount">
-					<label>Discount</label>
+				<div class="discount-wrapper">
+					<label for="js-discount">Discount</label>
 					<input
 						type="number"
-						class="js-discount"
+						id="js-discount"
 						name="discount"
 						placeholder="0"
 					/>
 					<span>%</span>
 				</div>
-				<div class="estimate__data__vat">
-					<label>VAT</label>
+				<div class="vat-wrapper">
+					<label for="js-vat">VAT</label>
 					<input type="number" id="js-vat" name="vat" placeholder="0" />
 					<span>%</span>
 				</div>
-				<div class="estimate__data__notes">
-					<label>Notes</label>
+				<div class="notes-wrapper">
+					<label for="js-notes">Notes</label>
 					<textarea
-						class="js-note-input"
+						id="js-notes"
+						class="notes"
 						placeholder="Add some notes..."
 					></textarea>
 				</div>
@@ -97,40 +114,39 @@
 					<tbody id="js-tbody"></tbody>
 				</table>
 			</div>
-			<footer class="estimate__footer">
-				<div class="estimate__footer__subtotal">
-					<div class="estimate__footer__subtotal__description">
-						<h5>Subtotal</h5>
+			<footer>
+				<div class="subtotal-wrapper">
+					<div class="subtotal-description">
+						<span>Subtotal</span>
 					</div>
-					<div class="estimate__footer__subtotal__value">
+					<div class="subtotal-value">
 						<span id="js-subtotal" class="value">0</span>
 					</div>
 				</div>
-				<div class="estimate__footer__total">
-					<div class="estimate__footer__total__description">
+				<div class="total-wrapper">
+					<div class="total-description">
 						<h4>Total/Payments Terms</h4>
-						<span
-							>The price is subject to <span id="js-vat-display">0</span>%
-							VAT</span
-						>
+						<span>
+							The price is subject to <span id="js-vat-display">0</span>% VAT
+						</span>
 					</div>
-					<div class="estimate__footer__total__value">
+					<div class="total-value">
 						<span id="js-total" class="value">0</span>
 					</div>
 				</div>
 			</footer>
 		</div>
-		<div class="actions wrapper-fluid">
+		<div class="actions">
 			<div class="wrapper">
 				<div class="actions__estimate">
-					<button type="button" id="js-add-btn" class="actions__estimate__add">
+					<button type="button" id="js-add-btn" class="add-btn">
 						<span class="icon-plus"></span>
 						<span class="btn-label">Add item</span>
 					</button>
 					<button
 						type="button"
 						id="js-print-btn"
-						class="actions__estimate__print"
+						class="print-btn"
 					>
 						<span class="icon-printer"></span>
 						<span class="btn-label">Print</span>
@@ -138,7 +154,7 @@
 					<button
 						type="button"
 						id="js-preview-btn"
-						class="actions__estimate__preview"
+						class="preview-btn"
 					>
 						<span class="btn-label">Preview</span>
 					</button>

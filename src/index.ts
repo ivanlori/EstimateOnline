@@ -2,7 +2,6 @@
 
 import { calculateDiscount, calculateSubtotal } from "./libs/utils";
 import {
-	addressField,
 	discountField,
 	vat,
 	datepicker,
@@ -15,31 +14,35 @@ import { initImageUploader } from "./components/Image";
 import "./styles/normalize.css";
 import "./styles/main.css";
 
-(() => {
-	initActionBar();
-	initImageUploader();
-	initTable()
-
-	addressField.addEventListener("focusin", (e: FocusEvent) => {
-		const target = e.target as HTMLElement;
-		target.classList.add("expand");
-	});
-
+const recalculateTotalOnDiscountChange = () => {
 	discountField.addEventListener("keyup", (e: KeyboardEvent) => {
-		const target = e.target as HTMLInputElement;
-		const sub = calculateSubtotal()
-		calculateDiscount(sub, parseFloat(target.value));
-		calculateTotal();
-	});
+		if (e.target instanceof HTMLInputElement) {
+			const subtotal = calculateSubtotal();
+			calculateDiscount(subtotal, parseFloat(e.target.value));
+			calculateTotal();
+		}
+	})
+}
 
+const recalculateTotalOnVatChange = () => {
 	vatField.addEventListener("keyup", (e: KeyboardEvent) => {
-		const target = e.target as HTMLInputElement;
-		vat.innerHTML = target.value;
-		calculateTotal();
-	});
+		if (e.target instanceof HTMLInputElement) {
+			vat.innerHTML = e.target.value;
+			calculateTotal();
+		}
+	})
+}
+
+(() => {
+	initActionBar()
+	initImageUploader()
+	initTable()
+	recalculateTotalOnDiscountChange()
+	recalculateTotalOnVatChange()
 
 	//@ts-ignore
 	flatpickr(datepicker, {
 		dateFormat: "d-m-Y"
-	});
-})();
+	})
+
+})()

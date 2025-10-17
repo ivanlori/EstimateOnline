@@ -6,15 +6,9 @@ const changeImageHandler = (e: HTMLInputElement) => {
 	let imgData = getBase64Image(e);
 	localStorage.setItem("imgData", String(imgData));
 	isLogoUploaded = true;
-};
+}
 
 const getBase64Image = (e: HTMLInputElement) => {
-	/**
-	 * Thanks to: https://stackoverflow.com/questions/33024630/html5-canvas-conversion-of-image-file-to-dataurl-throws-uncaught-typeerror
-	 *
-	 * This converts an image into base 64 format
-	 * and then is possible to retrieve via local storage
-	 */
 	const canvas = document.createElement('canvas');
 	const ctx = canvas.getContext("2d");
 	const img = new Image();
@@ -29,26 +23,26 @@ const getBase64Image = (e: HTMLInputElement) => {
 
 		imgBlank.src = canvas.toDataURL();
 		imgBlank.classList.remove("hidden");
-	};
+	}
 
 	if (e.files && e.files[0]) {
 		img.src = URL.createObjectURL(e.files[0]);
 	}
 
 	return img;
-};
+}
 
-const getImageFromStorage = () => {
+const getImageFromLocalStorage = () => {
 	return localStorage.getItem("imgData");
-};
+}
 
-const setImage = () => {
-	imgBlank.src = "data:image/png;base64," + getImageFromStorage();
-};
+const setImageAsBase64 = () => {
+	imgBlank.src = "data:image/png;base64," + getImageFromLocalStorage();
+}
 
 export const isImageUploaded = (): boolean => {
 	return isLogoUploaded;
-};
+}
 
 export const initImageUploader = () => {
 
@@ -56,5 +50,5 @@ export const initImageUploader = () => {
 		changeImageHandler(e.currentTarget as HTMLInputElement);
 	});
 
-	setImage();
+	setImageAsBase64();
 }

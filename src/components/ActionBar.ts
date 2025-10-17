@@ -1,17 +1,29 @@
 import { addRowHandler } from "./ProductsTable";
 import { isImageUploaded } from "./Image";
-import { addProductBtn, errorMessage, previewBtn, printBtn } from "./Selectors";
+import { errorMessage } from "./Selectors";
 
-const previewHandler = () => {
-	isImageUploaded() ? document.body.classList.toggle("x-preview") : revealError();
+const onPreviewClick = () => {
+	const previewBtn = document.getElementById("js-preview-btn") as HTMLButtonElement;
+
+	previewBtn.addEventListener("click", () => {
+		isImageUploaded() ? document.body.classList.toggle("x-preview") : revealError();
+	})
 }
 
-const printHandler = () => {
-	isImageUploaded() ? window.print() : revealError();
+const onAddProductClick = () => {
+	const addBtn = document.getElementById("js-add-btn") as HTMLButtonElement;
+
+	addBtn.addEventListener("click", () => {
+		addRowHandler();
+	});
 }
 
-const scrollToError = () => {
-	return window.scroll(0, errorMessage.offsetTop - 100);
+const onPrintClick = () => {
+	const printBtn = document.getElementById("js-print-btn") as HTMLButtonElement;
+
+	printBtn.addEventListener("click", () => {
+		isImageUploaded() ? window.print() : revealError();
+	})
 }
 
 const revealError = () => {
@@ -19,14 +31,12 @@ const revealError = () => {
 	scrollToError();
 }
 
+const scrollToError = () => {
+	return window.scroll(0, errorMessage.offsetTop - 100);
+}
+
 export const initActionBar = () => {
-	addProductBtn.addEventListener("click", () => {
-		addRowHandler();
-	});
-	printBtn.addEventListener("click", () => {
-		printHandler();
-	});
-	previewBtn.addEventListener("click", () => {
-		previewHandler();
-	});
+	onAddProductClick()
+	onPrintClick()
+	onPreviewClick()
 }
