@@ -17,7 +17,7 @@
 			<div class="title-wrapper">
 				<h2>Job Estimate</h2>
 			</div>
-			<div class="estimate__company">
+			<div class="company-wrapper">
 				<div id="js-logo-wrapper" class="logo-wrapper">
 					<canvas id="js-image-blank" class="hidden"></canvas>
 					<input type="file" id="js-logo-image" class="logo-image-input" />
@@ -98,11 +98,12 @@
 					<textarea
 						id="js-notes"
 						class="notes"
+						name="notes"
 						placeholder="Add some notes..."
 					></textarea>
 				</div>
 			</div>
-			<div class="estimate__table">
+			<div class="table-wrapper">
 				<table>
 					<tr>
 						<th>Item</th>
@@ -111,7 +112,31 @@
 						<th>Quantity</th>
 						<th>Amount</th>
 					</tr>
-					<tbody id="js-tbody"></tbody>
+					<tbody id="js-tbody">
+						<tr data-testid="row" id="js-row-0">
+							<td class="col small">
+								<select name="products" class="js-select" id="js-select-0" aria-label="product type">
+									<option value="0">-- Select --</option>
+									<option value="1">Service</option>
+									<option value="2">Hours</option>
+									<option value="3">Days</option>
+									<option value="4">Product</option>
+								</select>
+							</td>
+							<td class="col large">
+								<textarea class="product-description" name="description" aria-label="description"></textarea>
+							</td>
+							<td class="col small">
+								<input id="js-unity-0" class="js-unity" name="unity" type="number" placeholder="0.00" data-testid="unity" value="" aria-label="unity">
+							</td>
+							<td class="col small">
+								<input id="js-quantity-0" class="js-quantity" name="quantity" type="number" data-testid="quantity" placeholder="0" value="" aria-label="quantity">
+							</td>
+							<td class="amount-col col small">
+								<input id="js-amount-0" class="js-amount" name="amount" data-testid="amount" placeholder="0.00" readonly value="" aria-label="amount">
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<footer>
@@ -120,46 +145,42 @@
 						<span>Subtotal</span>
 					</div>
 					<div class="subtotal-value">
-						<span id="js-subtotal" class="value">0</span>
+						<input data-testid="subtotal" id="js-subtotal" class="value" value="0" readonly aria-label="subtotal"></input>
 					</div>
 				</div>
 				<div class="total-wrapper">
 					<div class="total-description">
 						<h4>Total/Payments Terms</h4>
 						<span>
-							The price is subject to <span id="js-vat-display">0</span>% VAT
+							The price is subject to <span data-testid="vat-display" id="js-vat-display">0</span>% VAT
 						</span>
 					</div>
 					<div class="total-value">
-						<span id="js-total" class="value">0</span>
+						<input data-testid="total" id="js-total" class="value" value="0" readonly aria-label="total"></input>
 					</div>
 				</div>
 			</footer>
 		</div>
-		<div class="actions">
-			<div class="wrapper">
-				<div class="actions__estimate">
-					<button type="button" id="js-add-btn" class="add-btn">
-						<span class="icon-plus"></span>
-						<span class="btn-label">Add item</span>
-					</button>
-					<button
-						type="button"
-						id="js-print-btn"
-						class="print-btn"
-					>
-						<span class="icon-printer"></span>
-						<span class="btn-label">Print</span>
-					</button>
-					<button
-						type="button"
-						id="js-preview-btn"
-						class="preview-btn"
-					>
-						<span class="btn-label">Preview</span>
-					</button>
-				</div>
-			</div>
+		<div class="actions-wrapper">
+			<button type="button" id="js-add-btn" class="add-btn">
+				<span class="icon-plus"></span>
+				<span class="btn-label">Add item</span>
+			</button>
+			<button
+				type="button"
+				id="js-print-btn"
+				class="print-btn"
+			>
+				<span class="icon-printer"></span>
+				<span class="btn-label">Print</span>
+			</button>
+			<button
+				type="button"
+				id="js-preview-btn"
+				class="preview-btn"
+			>
+				<span class="btn-label">Preview</span>
+			</button>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 		<script type="module" src="./src/index.ts"></script>

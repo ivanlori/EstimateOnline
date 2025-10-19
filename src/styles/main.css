@@ -74,7 +74,7 @@ h3 {
 }
 
 input:not(.table-field),
-textarea:not(.table-field) {
+textarea:not(.product-description) {
 	display: block;
 	width: auto;
 	padding: 0.375rem 0.75rem;
@@ -82,7 +82,7 @@ textarea:not(.table-field) {
 	color: #495057;
 	background-color: var(--white);
 	background-clip: padding-box;
-	border: 1px solid #ced4da;
+	border: 1px solid var(--grey);
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	border-radius: 5px;
 }
@@ -90,7 +90,7 @@ textarea:not(.table-field) {
 input:not(.table-field):focus {
 	color: #495057;
 	background-color: var(--white);
-	border-color: #80bdff;
+	border-color: var(--grey);
 	outline: 0;
 	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -111,6 +111,7 @@ select {
 	padding: 10px;
 	background-color: var(--white);
 	cursor: pointer;
+	width: 100%;
 }
 
 .hidden {
@@ -121,8 +122,9 @@ select {
 	display: block;
 }
 
-.error {
-	border: 1px solid red !important;
+.error input,
+.error select,
+.error textarea{
 	background-color: #ff9185 !important;
 }
 
@@ -166,15 +168,15 @@ button:focus {
 	color: var(--font-color);
 	max-width: 1050px;
 	min-width: 940px;
-	border: 1px solid #cec6c6;
+	border: 1px solid var(--grey);
 	margin: 20px auto;
 	margin-bottom: 110px;
 	padding: 20px;
 	padding-top: 0;
 	min-height: 800px;
 	box-shadow: 0 0 3px var(--grey);
+}
 
-	}
 .title-wrapper {
 	margin-bottom: 25px;
 }
@@ -183,7 +185,7 @@ button:focus {
 	border-bottom: 1px solid var(--grey);
 }
 
-.estimate__company {
+.company-wrapper {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
@@ -278,7 +280,7 @@ button:focus {
 .vat-wrapper span {
 	position: absolute;
 	top: 37px;
-	right: 25px;
+	right: 10px;
 }
 
 .notes-wrapper {
@@ -287,37 +289,36 @@ button:focus {
 	width: 100%;
 }
 
-.estimate__table {
+.table-wrapper {
 	min-height: 380px;
 	position: relative;
 	margin-top: 30px;
-	border-bottom: 1px solid var(--grey);
+	margin-bottom: 20px;
 }
 
-.estimate__table table {
+.table-wrapper table {
 	width: 100%;
-	margin-bottom: 20px;
 }
 
 .address {
 	height: auto;
 }
 
-.estimate__table th {
+.table-wrapper th {
 	background-color: var(--blue);
 	color: var(--white);
 	font-weight: 600;
 }
 
-.estimate__table th td {
+.table-wrapper th td {
 	padding: 10px 0px 10px 10px;
 }
 
-.estimate__table .row {
+.table-wrapper .row {
 	height: 0;
 }
 
-.estimate__table .row .icon-minus {
+.table-wrapper .row .icon-minus {
 	position: relative;
 	top: 13px;
 	left: 8px;
@@ -329,17 +330,7 @@ button:focus {
 	cursor: pointer;
 }
 
-.estimate__table .col {
-	vertical-align: top;
-}
-
-.estimate__table .col input,
-.estimate__table .col select {
-	position: relative;
-	margin: 0;
-}
-
-.estimate__table .col input {
+.table-wrapper .col input {
 	height: 45px;
 	width: 100%;
 	box-sizing: border-box;
@@ -349,25 +340,14 @@ button:focus {
 	border-radius: 0;
 }
 
-.estimate__table .col select {
-	width: 100%;
-	height: 45px;
-	padding: 0 0 0 10px;
-}
-
-.estimate__table .col.small {
-	width: 150px;
-	position: relative;
-}
-
-.estimate__table .col.small .select-icon {
+.table-wrapper .col.small .select-icon {
 	position: absolute;
 	right: 7px;
 	top: 15px;
 	z-index: 1;
 }
 
-.estimate__table .col.small.amount-col .amount-euro {
+.table-wrapper .col.small.amount-col .amount-euro {
 	position: absolute;
 	right: 12px;
 	top: 13px;
@@ -375,16 +355,16 @@ button:focus {
 	display: none;
 }
 
-.estimate__table .col.small.amount-col .amount-euro::after {
+.table-wrapper .col.small.amount-col .amount-euro::after {
 	content: "€";
 }
 
-.estimate__table .col.small.amount-col.x-value input {
+.table-wrapper .col.small.amount-col.x-value input {
 	width: 100%;
 	padding-right: 25px;
 }
 
-.estimate__table .col.small.amount-col.x-value .amount-euro {
+.table-wrapper .col.small.amount-col.x-value .amount-euro {
 	display: block;
 }
 
@@ -415,10 +395,10 @@ footer {
 	float: right;
 	border: 1px solid var(--grey);
 	text-align: right;
-	padding: 10px;
-	width: 150px;
 	background-color: var(--white);
 	font-size: 32px;
+	padding: 0;
+	border: 0;
 }
 
 .subtotal-wrapper {
@@ -434,8 +414,7 @@ footer {
 	font-size: 20px;
 }
 
-.actions {
-	font-family: var(--font-family);
+.actions-wrapper {
 	padding: 20px;
 	background-color: var(--page-background);
 	border-top: 1px solid var(--grey);
@@ -444,9 +423,6 @@ footer {
 	justify-content: center;
 	align-items: center;
 	background-color: var(--white);
-}
-
-.actions__estimate {
 	display: flex;
 	gap: 10px;
 	align-items: center;
@@ -472,58 +448,17 @@ footer {
 	background-color: #6ed37b;
 }
 
-.actions__estimate__tooltip {
-	position: relative;
-	display: none;
-}
-
-.actions__estimate__tooltip.visible {
-	display: block;
-}
-
-.actions__estimate__tooltip__en,
-.actions__estimate__tooltip__it {
-	width: 120px;
-	background-color: black;
-	color: var(--white);
-	text-align: center;
-	padding: 5px 0;
-	border-radius: 6px;
-	position: absolute;
-	z-index: 1;
-}
-
-.actions__estimate__tooltip__en {
-	top: -80px;
-}
-
-.actions__estimate__tooltip__it {
-	top: -50px;
-}
-
-.actions__version {
-	float: right;
-	margin-top: 20px;
-}
-
-.actions__github {
-	display: inline-block;
-}
-
-.actions__github span {
-	margin-right: 10px;
-	display: inline-block;
-	font-size: 14px;
-	line-height: 20px;
-}
-
 .x-preview {
 	.estimate {
 		margin-bottom: 110px !important;
 	}
-	.actions {
-		display: block !important;
-	}
+}
+
+.product-description {
+	resize: none;
+	width: 100%;
+	box-sizing: border-box;
+	border-color: var(--grey);
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
@@ -537,7 +472,7 @@ footer {
 		padding: 0 20px;
 	}
 
-	.estimate__company {
+	.company-wrapper {
 		grid-template-columns: 50% 45%;
 		grid-template-rows: auto;
 	}
@@ -570,19 +505,11 @@ footer {
 		margin-top: 20px;
 	}
 
-	.estimate__table .col.large {
-		width: 245px;
-	}
-
-	.estimate__table .col.small {
-		width: 115px;
-	}
-
 	footer {
 		margin: 10px 10px 0 0;
 	}
 
-	.actions .wrapper {
+	.actions-wrapper {
 		width: 100%;
 	}
 }
@@ -636,7 +563,7 @@ footer {
 		display: none;
 	}
 
-	.estimate__company {
+	.company-wrapper {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: 240px;
@@ -708,7 +635,7 @@ footer {
 	.vat-wrapper span {
 		position: absolute;
 		top: 40px;
-		right: 25px;
+		right: 10px;
 	}
 
 	.notes-wrapper {
@@ -788,8 +715,7 @@ footer {
 		font-size: 20px;
 	}
 
-	.actions {
+	.actions-wrapper {
 		display: none !important;
 	}
-
 }

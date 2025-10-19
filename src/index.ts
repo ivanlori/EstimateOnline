@@ -1,13 +1,8 @@
 "use strict";
 
-import { calculateDiscount, calculateSubtotal } from "./libs/utils";
-import {
-	discountField,
-	vat,
-	datepicker,
-	vatField,
-} from "./components/Selectors";
-import { calculateTotal, initTable } from "./components/ProductsTable";
+import { calculateTotalWithDiscount, recalculateTotalOnVatChange } from "./utils";
+import { discountField, datepicker } from "./components/Selectors";
+import { initTable } from "./components/ProductsTable";
 import { initActionBar } from "./components/ActionBar";
 import { initImageUploader } from "./components/Image";
 
@@ -17,18 +12,7 @@ import "./styles/main.css";
 const recalculateTotalOnDiscountChange = () => {
 	discountField.addEventListener("keyup", (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) {
-			const subtotal = calculateSubtotal();
-			calculateDiscount(subtotal, parseFloat(e.target.value));
-			calculateTotal();
-		}
-	})
-}
-
-const recalculateTotalOnVatChange = () => {
-	vatField.addEventListener("keyup", (e: KeyboardEvent) => {
-		if (e.target instanceof HTMLInputElement) {
-			vat.innerHTML = e.target.value;
-			calculateTotal();
+			calculateTotalWithDiscount();
 		}
 	})
 }

@@ -6,7 +6,7 @@ const onPreviewClick = () => {
 	const previewBtn = document.getElementById("js-preview-btn") as HTMLButtonElement;
 
 	previewBtn.addEventListener("click", () => {
-		isImageUploaded() ? document.body.classList.toggle("x-preview") : revealError();
+		isImageUploaded() ? document.body.classList.toggle("x-preview") : showError();
 	})
 }
 
@@ -22,17 +22,13 @@ const onPrintClick = () => {
 	const printBtn = document.getElementById("js-print-btn") as HTMLButtonElement;
 
 	printBtn.addEventListener("click", () => {
-		isImageUploaded() ? window.print() : revealError();
+		isImageUploaded() ? window.print() : showError();
 	})
 }
 
-const revealError = () => {
+const showError = () => {
 	errorMessage.classList.remove("hidden");
-	scrollToError();
-}
-
-const scrollToError = () => {
-	return window.scroll(0, errorMessage.offsetTop - 100);
+	window.scroll(0, errorMessage.offsetTop - 100);
 }
 
 export const initActionBar = () => {

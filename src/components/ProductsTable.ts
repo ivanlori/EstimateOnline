@@ -1,17 +1,10 @@
 import {
 	$,
 	calculateAmountPerRow,
-	calculateTotalAmount,
-	calculateSubtotal
-} from "../libs/utils";
-
-import {
-	vat,
-	subtotal,
-	total,
-	discountField,
-	tBodySelector,
-} from "../components/Selectors";
+	addErrorClass,
+	calculateAndSetSubtotal,
+	removeErrorClass
+} from "../utils";
 
 let rowId = 0;
 
@@ -20,8 +13,6 @@ const getQuantitySelector = () => $(`#js-quantity-${getRowId()}`) as HTMLInputEl
 const getUnitySelector = () => $(`#js-unity-${getRowId()}`) as HTMLInputElement | null;
 const getRowSelector = () => $(`#js-row-${rowId}`) as HTMLElement | null;
 const getAmountSelector = () => $(`#js-amount-${getRowId()}`) as HTMLElement | null;
-const setSubtotal = (value: number) => subtotal.innerText = `${value}€`;
-const setTotal = (value: number) => total.innerText = `${value}€`;
 const setRowId = (value: number) => rowId = value;
 const getRowId = (): number => rowId;
 
@@ -30,20 +21,14 @@ const removeRowHandler = () => {
 	row?.parentNode?.removeChild(row);
 	setRowId(getRowId() - 1);
 
-	calculateSubtotal();
-	calculateTotal();
+	calculateAndSetSubtotal();
 }
 
 const isRowFilled = (): boolean => {
-	const selectValue = getSelectSelector()?.value
 	const unityValue = getUnitySelector()?.value
 	const quantityValue = getQuantitySelector()?.value
 
-	if (selectValue && unityValue && quantityValue) {
-		return true
-	}
-
-	return false
+	return !!unityValue && !!quantityValue
 }
 
 const handleOnBodyClickEvent = () => {
@@ -54,40 +39,32 @@ const handleOnBodyClickEvent = () => {
 }
 
 const handleOnBodyKeyUpEvent = () => {
-	let select = getSelectSelector();
-	let unity = getUnitySelector();
-	let quantity = getQuantitySelector();
-
 	document.body.addEventListener("keyup", (e: KeyboardEvent) => {
 		const target = e.target as HTMLInputElement;
-		if (target.id === `js-quantity-${getRowId()}`) {
-			select = getSelectSelector();
-			unity = getUnitySelector();
-			quantity = getQuantitySelector();
 
-			onQuantityHandler(e, unity as HTMLInputElement);
+		if (target.id === `js-quantity-${getRowId()}`) {
+			onQuantityHandler(target.value);
 		}
-	});
+	})
 }
 
-const onQuantityHandler = (e: KeyboardEvent, unityEl: HTMLInputElement): void => {
-	let value = unityEl.value || null;
+const onQuantityHandler = (quantityValue: string): void => {
+	const unityEl = getUnitySelector();
 
-	const target = e.target as HTMLInputElement;
-	let id = target.attributes[0].value;
+	const value = unityEl?.value || null;
 
 	const amountPerRow = calculateAmountPerRow(
-		Number(target.value),
+		Number(quantityValue),
 		Number(value)
-	);
+	)
 
-	!isNaN(amountPerRow) && getAmountSelector()?.setAttribute("value", `${String(amountPerRow)}€`);
+	getAmountSelector()?.setAttribute("value", `${String(amountPerRow)}€`);
 }
 
 const createRow = (): string => (
-	`<tr id="js-row-${getRowId()}">
+	`<tr data-testid="row" id="js-row-${getRowId()}">
 		<td class="col small">
-			<select class="js-select" id="js-select-${getRowId()}">
+			<select name="products" class="js-select" id="js-select-${getRowId()}" aria-label="product type">
 				<option value="0">-- Select --</option>
 				<option value="1">Service</option>
 				<option value="2">Hours</option>
@@ -96,16 +73,16 @@ const createRow = (): string => (
 			</select>
 		</td>
 		<td class="col large">
-			<textarea class="js-description" value=""></textarea>
+			<textarea class="product-description" name="description" aria-label="description"></textarea>
 		</td>
 		<td class="col small">
-			<input id="js-unity-${getRowId()}" class="js-unity" type="number" placeholder="0.00" value="">
+			<input data-testid="unity-${getRowId()}" id="js-unity-${getRowId()}" class="js-unity" name="unity" type="number" placeholder="0.00" value="" aria-label="unity">
 		</td>
 		<td class="col small">
-			<input data-id="${getRowId()}" id="js-quantity-${getRowId()}" class="js-quantity" type="number" placeholder="0" value="">
+			<input data-testid="quantity-${getRowId()}" id="js-quantity-${getRowId()}" class="js-quantity" name="quantity" type="number" placeholder="0" value="" aria-label="quantity">
 		</td>
 		<td class="amount-col col small">
-			<input id="js-amount-${getRowId()}" class="js-amount" placeholder="0.00" readonly value="">
+			<input data-testid="amount-${getRowId()}" id="js-amount-${getRowId()}" class="js-amount" name="amount" placeholder="0.00" readonly value="" aria-label="amount">
 		</td>
 		${handleRenderDelete()}
 	</tr>
@@ -121,33 +98,23 @@ const handleRenderDelete = (): string => (
 )
 
 export const initTable = () => {
-	if (tBodySelector) {
-		tBodySelector.innerHTML = createRow();
-	}
-
 	handleOnBodyKeyUpEvent()
 	handleOnBodyClickEvent()
 }
 
-export const calculateTotal = (): void => {
-	const value = calculateTotalAmount(
-		document.querySelectorAll(".js-amount"),
-		parseFloat(vat.value),
-		parseFloat(discountField.value)
-	).toFixed(2)
-
-	setTotal(Number(value))
-};
-
 export const addRowHandler = () => {
 	if (isRowFilled()) {
+		removeErrorClass(getRowId())
+
 		setRowId(getRowId() + 1);
 
-		tBodySelector?.insertAdjacentHTML("beforeend", createRow());
-
-		calculateSubtotal();
-		calculateTotal();
+		(document.getElementById("js-tbody") as HTMLBodyElement).insertAdjacentHTML("beforeend", createRow());
+		calculateAndSetSubtotal();
 	} else {
-		// addError()
+		addErrorClass(getRowId())
 	}
+}
+
+export const resetRowId = () => {
+	rowId = 0;
 }
