@@ -28,21 +28,14 @@ export const calculateAmountPerRow = (
 	return unity * quantity;
 }
 
-export const calculateTotalWithVat = (): number => {
-	const subtotal = getSubtotalValue();
-	const vat = getVatValue();
-
-	return (subtotal * vat) / 100;
-}
-
-export const calculateTotalWithDiscount = (): number => {
+export const getDiscountAmount = (): number => {
 	const discount = getDiscountValue();
 	const subtotal = getSubtotalValue();
 
 	return (discount / 100) * subtotal;
 }
 
-export const calculateAndSetSubtotal = () => {
+export const setSubtotal = () => {
 	const amountList = document.querySelectorAll(".js-amount");
 	let sum = 0;
 
@@ -54,9 +47,9 @@ export const calculateAndSetSubtotal = () => {
 	(document.getElementById('js-subtotal') as HTMLInputElement).value = sum.toFixed(2);
 }
 
-export const calculateTotalWithVatAndDiscount = (): number => {
+export const getTotalWithVatAndDiscount = (): number => {
 	const subtotal = getSubtotalValue();
-	const discountAmount = calculateTotalWithDiscount();
+	const discountAmount = getDiscountAmount();
 	const subtotalAfterDiscount = subtotal - discountAmount;
 	const vat = getVatValue();
 	const vatAmount = (subtotalAfterDiscount * vat) / 100;
@@ -72,11 +65,17 @@ export const removeErrorClass = (id: number) => {
 	document.getElementById(`js-row-${id}`)?.classList.remove("error");
 }
 
-export const recalculateTotalOnVatChange = () => {
+export const setTotalOnVatOrDiscountChange = () => {
 	const vatField = document.getElementById("js-vat") as HTMLInputElement;
+	const discountField = document.getElementById("js-discount") as HTMLInputElement;
+	const totalDisplay = document.getElementById("js-total") as HTMLInputElement;
 
-	vatField.addEventListener("keyup", (e: KeyboardEvent) => {
+	const updateTotal = () => {
 		setVatValue();
-		calculateTotalWithVat();
-	})
+		const total = getTotalWithVatAndDiscount();
+		totalDisplay.value = total.toFixed(2);
+	};
+
+	vatField.addEventListener("keyup", updateTotal);
+	discountField.addEventListener("keyup", updateTotal);
 }

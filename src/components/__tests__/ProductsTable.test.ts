@@ -5,7 +5,7 @@ import { initTable, resetRowId } from '../ProductsTable';
 import * as fs from 'fs';
 import * as path from 'path';
 import { initActionBar } from '../ActionBar';
-import { recalculateTotalOnVatChange } from '../../utils';
+import { setTotalOnVatOrDiscountChange } from '../../utils';
 
 describe('ProductsTable component', () => {
 	beforeEach(() => {
@@ -20,7 +20,7 @@ describe('ProductsTable component', () => {
 
 		initTable();
 		initActionBar();
-		recalculateTotalOnVatChange();
+		setTotalOnVatOrDiscountChange();
 		resetRowId();
 	})
 
@@ -116,5 +116,63 @@ describe('ProductsTable component', () => {
 		await user.click(addBtn);
 
 		expect(subtotalInput.value).toBe('56.00');
+	})
+
+	test('display the total with VAT set', async () => {
+		const user = userEvent.setup();
+
+		const firstRowUnityInput = screen.getByTestId('unity');
+		const firstRowQuantityInput = screen.getByTestId('quantity');
+		const totalInput = screen.getByTestId('total') as HTMLInputElement;
+		const vat = screen.getByLabelText('VAT')
+		const addBtn = screen.getByRole('button', { name: /add item/i })
+
+		await user.clear(firstRowUnityInput);
+		await user.type(firstRowUnityInput, '10');
+
+		await user.clear(firstRowQuantityInput);
+		await user.type(firstRowQuantityInput, '5');
+
+		await user.click(addBtn);
+
+		await user.clear(vat);
+		await user.type(vat, '22');
+
+		const vatAmount = (50 * 22) / 100;
+
+		expect(totalInput.value).toBe(`${vatAmount + 50}.00`);
+	})
+
+	test('display the total with discount and VAT set', async () => {
+		const user = userEvent.setup();
+
+		const firstRowUnityInput = screen.getByTestId('unity');
+		const firstRowQuantityInput = screen.getByTestId('quantity');
+		const totalInput = screen.getByTestId('total') as HTMLInputElement;
+		const vat = screen.getByLabelText('VAT')
+		const discount = screen.getByLabelText('Discount')
+		const addBtn = screen.getByRole('button', { name: /add item/i })
+
+		await user.clear(firstRowUnityInput);
+		await user.type(firstRowUnityInput, '10');
+
+		await user.clear(firstRowQuantityInput);
+		await user.type(firstRowQuantityInput, '5');
+
+		await user.click(addBtn);
+
+		await user.clear(vat);
+		await user.type(vat, '22');
+
+		await user.clear(discount);
+		await user.type(discount, '1');
+
+		const subtotal = 50;
+		const discountAmount = (1 / 100) * subtotal;
+		const subtotalAfterDiscount = subtotal - discountAmount;
+		const vatAmount = (subtotalAfterDiscount * 22) / 100;
+		const total = subtotalAfterDiscount + vatAmount;
+
+		expect(totalInput.value).toBe(total.toFixed(2));
 	})
 })

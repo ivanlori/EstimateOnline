@@ -2,13 +2,12 @@ import {
 	$,
 	calculateAmountPerRow,
 	addErrorClass,
-	calculateAndSetSubtotal,
+	setSubtotal,
 	removeErrorClass
 } from "../utils";
 
 let rowId = 0;
 
-const getSelectSelector = () => $(`#js-select-${getRowId()}`) as HTMLSelectElement | null;
 const getQuantitySelector = () => $(`#js-quantity-${getRowId()}`) as HTMLInputElement | null;
 const getUnitySelector = () => $(`#js-unity-${getRowId()}`) as HTMLInputElement | null;
 const getRowSelector = () => $(`#js-row-${rowId}`) as HTMLElement | null;
@@ -21,7 +20,7 @@ const removeRowHandler = () => {
 	row?.parentNode?.removeChild(row);
 	setRowId(getRowId() - 1);
 
-	calculateAndSetSubtotal();
+	setSubtotal();
 }
 
 const isRowFilled = (): boolean => {
@@ -109,7 +108,7 @@ export const addRowHandler = () => {
 		setRowId(getRowId() + 1);
 
 		(document.getElementById("js-tbody") as HTMLBodyElement).insertAdjacentHTML("beforeend", createRow());
-		calculateAndSetSubtotal();
+		setSubtotal();
 	} else {
 		addErrorClass(getRowId())
 	}

@@ -1,7 +1,7 @@
 import { describe, test, expect } from '@jest/globals';
 import {
-	calculateAmountPerRow, calculateAndSetSubtotal, calculateTotalWithVatAndDiscount,
-	getDiscountValue, getSubtotalValue, calculateTotalWithVat, getVatValue
+	calculateAmountPerRow, setSubtotal, getTotalWithVatAndDiscount,
+	getDiscountValue, getSubtotalValue, getVatValue
 } from './utils';
 
 describe('utils', () => {
@@ -34,15 +34,6 @@ describe('utils', () => {
 		expect(getDiscountValue()).toBe(3);
 	});
 
-	test('should calculate total with VAT', () => {
-		document.body.innerHTML = `
-			<input id="js-subtotal" value="100" />
-			<input id="js-vat" value="22" />
-		`;
-
-		expect(calculateTotalWithVat()).toBe((100 * 22) / 100);
-	});
-
 	test('should calculate total with VAT and Discount', () => {
 		document.body.innerHTML = `
 			<input id="js-subtotal" value="100" />
@@ -56,7 +47,7 @@ describe('utils', () => {
 		const vatAmount = (subtotalAfterDiscount * 22) / 100;
 		const expectedTotal = subtotalAfterDiscount + vatAmount;
 
-		expect(calculateTotalWithVatAndDiscount()).toBe(expectedTotal);
+		expect(getTotalWithVatAndDiscount()).toBe(expectedTotal);
 	});
 
 	test('should calculate subtotal', () => {
@@ -67,7 +58,7 @@ describe('utils', () => {
 			<input id="js-subtotal" value="0" />
 		`;
 
-		calculateAndSetSubtotal()
+		setSubtotal()
 
 		expect(document.getElementById('js-subtotal')).toHaveProperty('value', '35.00');
 	});
