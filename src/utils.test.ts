@@ -1,7 +1,10 @@
 import { describe, test, expect } from '@jest/globals';
 import {
 	calculateAmountPerRow, setSubtotal, getTotalWithVatAndDiscount,
-	getDiscountValue, getSubtotalValue, getVatValue
+	getDiscountValue, getSubtotalValue, getVatValue,
+	showError,
+	resetError,
+	getErrorMessage
 } from './utils';
 
 describe('utils', () => {
@@ -61,6 +64,28 @@ describe('utils', () => {
 		setSubtotal()
 
 		expect(document.getElementById('js-subtotal')).toHaveProperty('value', '35.00');
+	});
+
+	test('show logo error', () => {
+		document.body.innerHTML = `
+			<div id="js-logo-error" class="hidden"></div>
+		`;
+		const errorElement = getErrorMessage();
+
+		showError()
+
+		expect(errorElement?.classList.contains('hidden')).toBe(false);
+	});
+
+	test('hide logo error', () => {
+		document.body.innerHTML = `
+			<div id="js-logo-error"></div>
+		`;
+		const errorElement = getErrorMessage();
+
+		resetError()
+
+		expect(errorElement?.classList.contains('hidden')).toBe(true);
 	});
 
 });
