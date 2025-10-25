@@ -1,3 +1,5 @@
+import { errorMessage } from "./components/Selectors";
+
 type selectorTypes = HTMLButtonElement | HTMLInputElement |  HTMLElement | HTMLInputElement | HTMLSelectElement| null
 
 export const $ = (selectorString: string): selectorTypes => {
@@ -78,4 +80,13 @@ export const setTotalOnVatOrDiscountChange = () => {
 
 	vatField.addEventListener("keyup", updateTotal);
 	discountField.addEventListener("keyup", updateTotal);
+}
+
+export const showError = () => {
+	errorMessage.classList.remove("hidden");
+	window.scroll(0, errorMessage.offsetTop - 100);
+}
+
+export const resetError = () => {
+	errorMessage.classList.add("hidden");
 }

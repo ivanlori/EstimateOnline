@@ -8,6 +8,7 @@ node_modules/
 dist
 .cache
 .parcel-cache
+coverage
 
 ## Files
 result.xml

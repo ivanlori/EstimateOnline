@@ -91,7 +91,7 @@ const createRow = (): string => (
 const handleRenderDelete = (): string => (
 	getRowId() !== 0
 	? (`<td class="remove-wrapper">
-				<i id="js-delete-${getRowId()}" class="js-delete icon icon-minus"></i>
+				<i data-testid="js-delete-${getRowId()}" id="js-delete-${getRowId()}" class="js-delete icon icon-minus"></i>
 			</td>`)
 	: ''
 )

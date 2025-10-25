@@ -175,4 +175,31 @@ describe('ProductsTable component', () => {
 
 		expect(totalInput.value).toBe(total.toFixed(2));
 	})
+
+	test('remove product row when delete row is clicked', async () => {
+		const user = userEvent.setup();
+
+		const firstRowUnityInput = screen.getByTestId('unity');
+		const firstRowQuantityInput = screen.getByTestId('quantity');
+		const addBtn = screen.getByRole('button', { name: /add item/i })
+
+		await user.clear(firstRowUnityInput);
+		await user.type(firstRowUnityInput, '10');
+
+		await user.clear(firstRowQuantityInput);
+		await user.type(firstRowQuantityInput, '5');
+
+		await user.click(addBtn);
+
+		const deleteBtn = screen.getByTestId('js-delete-1')
+		const secondRowQuantityInput = screen.getByTestId('quantity-1');
+
+		expect(deleteBtn).toBeInTheDocument();
+		expect(secondRowQuantityInput).toBeInTheDocument()
+
+		await user.click(deleteBtn)
+
+		expect(deleteBtn).not.toBeInTheDocument();
+		expect(secondRowQuantityInput).not.toBeInTheDocument()
+	})
 })
