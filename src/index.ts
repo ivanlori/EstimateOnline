@@ -1,7 +1,6 @@
 "use strict";
 
 import { setTotalOnVatOrDiscountChange } from "./utils";
-import { datepicker } from "./components/Selectors";
 import { initTable } from "./components/ProductsTable";
 import { initActionBar } from "./components/ActionBar";
 import { initImageUploader } from "./components/Image";
@@ -16,7 +15,7 @@ import "./styles/main.css";
 	setTotalOnVatOrDiscountChange()
 
 	//@ts-ignore
-	flatpickr(datepicker, {
+	flatpickr(document.getElementById('js-datepicker'), {
 		dateFormat: "d-m-Y"
 	})
 

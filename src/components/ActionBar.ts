@@ -1,12 +1,13 @@
+import { resetError, showError } from "../utils";
+import { getLogoFromLocalStorage } from "./Image";
 import { addRowHandler } from "./ProductsTable";
-import { isImageUploaded } from "./Image";
-import { errorMessage } from "./Selectors";
 
 const onPreviewClick = () => {
 	const previewBtn = document.getElementById("js-preview-btn") as HTMLButtonElement;
 
 	previewBtn.addEventListener("click", () => {
-		isImageUploaded() ? document.body.classList.toggle("x-preview") : showError();
+		resetError();
+		getLogoFromLocalStorage() ? document.body.classList.toggle("x-preview") : showError();
 	})
 }
 
@@ -22,13 +23,9 @@ const onPrintClick = () => {
 	const printBtn = document.getElementById("js-print-btn") as HTMLButtonElement;
 
 	printBtn.addEventListener("click", () => {
-		isImageUploaded() ? window.print() : showError();
+		resetError();
+		getLogoFromLocalStorage() ? window.print() : showError();
 	})
-}
-
-const showError = () => {
-	errorMessage.classList.remove("hidden");
-	window.scroll(0, errorMessage.offsetTop - 100);
 }
 
 export const initActionBar = () => {

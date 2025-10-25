@@ -1,5 +1,3 @@
-import { errorMessage } from "./components/Selectors";
-
 type selectorTypes = HTMLButtonElement | HTMLInputElement |  HTMLElement | HTMLInputElement | HTMLSelectElement| null
 
 export const $ = (selectorString: string): selectorTypes => {
@@ -82,11 +80,19 @@ export const setTotalOnVatOrDiscountChange = () => {
 	discountField.addEventListener("keyup", updateTotal);
 }
 
+export const getErrorMessage = () => document.getElementById("js-logo-error");
+
 export const showError = () => {
-	errorMessage.classList.remove("hidden");
-	window.scroll(0, errorMessage.offsetTop - 100);
+	const errorMessage = getErrorMessage();
+
+	if (errorMessage) {
+		errorMessage.classList.remove("hidden");
+		window.scroll(0, errorMessage.offsetTop - 100);
+	}
 }
 
 export const resetError = () => {
-	errorMessage.classList.add("hidden");
+	const errorMessage = getErrorMessage();
+
+	errorMessage?.classList.add("hidden");
 }
